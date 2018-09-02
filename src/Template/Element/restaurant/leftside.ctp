@@ -44,9 +44,9 @@
             <li class="">
                 <a href="<?php echo REST_BASE_URL; ?>orders/collectionorder"><i class="fa fa-truck"></i> <span>Pickup Order</span></a>
             </li>
-            <li class="">
-                <a href="<?php echo REST_BASE_URL; ?>invoices/index"><i class="fa fa-list-alt"></i> <span>Invoice</span></a>
-            </li>
+          <!-- <li class="">
+                <a href="<?php /* echo REST_BASE_URL;*/ ?>invoices/index"><i class="fa fa-list-alt"></i> <span>Invoice</span></a>
+            </li> -->
             <li class="">
                 <a href="<?php echo REST_BASE_URL; ?>reports/index"><i class="fa fa-file-text-o"></i> <span>Report</span></a>
             </li>
@@ -61,10 +61,10 @@
                 <a href="<?php echo REST_BASE_URL; ?>offers/index"><i class="fa fa-money"></i> <span>Offers</span></a>
             </li>
 
-            <li class="">
-                <a href="<?php echo REST_BASE_URL; ?>bookaTables/index"><i class="fa  fa-wheelchair"></i> <span>Book aTable</span></a>
+            <!-- <li class="">
+                <a href="<?php /* echo REST_BASE_URL; */ ?>bookaTables/index"><i class="fa  fa-wheelchair"></i> <span>Book aTable</span></a>
                 
-            </li>
+            </li> -->
             <?php if($restaurantDetails['restaurant_dispatch'] == 'Yes') { ?>
                 <li class="">
                     <a href="<?php echo REST_BASE_URL; ?>drivers/index"><i class="fa fa-car"></i> <span>Driver</span></a>
