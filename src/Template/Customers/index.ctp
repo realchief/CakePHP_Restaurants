@@ -19,7 +19,7 @@
                <ul class="myaccount-tabs">
                   <li class="active" data-content="orderhistory_content"><a href="javascript:void(0);"><i class="fa fa-bars visible-xs"></i><span class="hidden-xs"><?php echo __('My Orders',true);?></span></a>
                   </li>
-                   <li data-content="reward_content"><a href="javascript:void(0);"><i class="fa fa-credit-card visible-xs"></i><span class="hidden-xs"><?php echo __('Reward Points',true);?></span></a></li>
+                  <!-- <li data-content="reward_content"><a href="javascript:void(0);"><i class="fa fa-credit-card visible-xs"></i><span class="hidden-xs"><?php /* echo __('Reward Points',true); */ ?></span></a></li> -->
                   <li data-content="wallet_content"><a href="javascript:void(0);"><i class="fa fa-google-wallet visible-xs"></i><span class="hidden-xs"><?php echo __('My Wallet',true);?></span></a></li>
                   <li data-content="profile_content"><a href="javascript:void(0);"><i class="fa fa-user visible-xs"></i><span class="hidden-xs"><?php echo __('Profile',true);?></span></a></li>
                   <li data-content="setting_content"><a href="javascript:void(0);"><i class="fa fa-cog visible-xs"></i><span class="hidden-xs"><?php echo __('Settings',true);?></span></a></li>

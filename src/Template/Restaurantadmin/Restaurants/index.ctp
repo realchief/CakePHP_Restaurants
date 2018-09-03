@@ -22,13 +22,13 @@
                                 <?php } ?>
                             </li>
                             <li><a href="#tab_4" data-toggle="tab" id="orderInfo" onclick="return getContactmail()">Order Info</a></li>
-                            <li><a href="#tab_5" data-toggle="tab" id="commissionInfo">Commission</a></li>
+                           <!-- <li><a href="#tab_5" data-toggle="tab" id="commissionInfo">Commission</a></li> -->
                             <li><a href="#tab_6" data-toggle="tab" id="paymentInfo">PaymentMethods</a></li>
-                            <li><a href="#tab_7" data-toggle="tab" id="invoiceInfo">Invoice Period</a></li>
+                           <!-- <li><a href="#tab_7" data-toggle="tab" id="invoiceInfo">Invoice Period</a></li> -->
                             <li><a href="#tab_8" data-toggle="tab">Meta Tag</a></li>
                             <li><a href="#tab_9" data-toggle="tab">Promotion</a></li>
                             <li><a href="#tab_10" data-toggle="tab">Facebook Ordering</a></li>
-                            <li><a href="#tab_11" data-toggle="tab">Reward Point</a></li>
+                            <!-- <li><a href="#tab_11" data-toggle="tab">Reward Point</a></li> -->
                         </ul>
                         
                         <?php
