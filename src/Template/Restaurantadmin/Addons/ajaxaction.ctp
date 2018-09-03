@@ -22,8 +22,8 @@
             </tr>
         </thead>
         <tbody>
-        <?php if(!empty($allAddons)) {
-            foreach($allAddons as $key => $value) { ?>
+        <?php if(!empty($addonsList)) {
+            foreach($addonsList as $key => $value) { ?>
                 <tr>
                     <td><?php echo $key+1 ;?></td>
                     <td><?php echo $value['mainaddons_name'] ;?></td>
