@@ -31,20 +31,19 @@ class AddonsController extends AppController
             'login'
         ]);
     }
+
 #--------------------------------------------------------------------------------------------
     //Restaurantadmin Addons index
     public function index() {
-        $addonsList = $this->Mainaddons->find('all', [
+         $addonsList = $this->Mainaddons->find('all', [
             'fields' => [
                 'Mainaddons.id',
                 'Mainaddons.mainaddons_name',
                 'Mainaddons.status',
-                'Mainaddons.delete_status'
+                'Mainaddons.created'
             ],
             'conditions' => [
-                'Mainaddons.id IS NOT NULL',
                 'Mainaddons.delete_status' => 'N',
-
             ],
             'contain' => [
                 'Subaddons' => [
@@ -58,7 +57,7 @@ class AddonsController extends AppController
                         'Categories.category_name'
                     ],
                     'conditions' => [
-                        'Categories.delete_status' => 'N'
+                        'Categories.delete_status' => 'N',
                     ]
                 ]
             ],
@@ -67,6 +66,11 @@ class AddonsController extends AppController
             ]
         ])->hydrate(false)->toArray();
         $this->set(compact('addonsList'));
+        if($process == 'Addon' ){
+            $value = array($addonsList);
+            return $value;
+        }
+
     }#index function end...
 
 #-------------------------------------------------------------------------------------------
@@ -107,7 +111,7 @@ class AddonsController extends AppController
                         }
                     }
                     $this->Flash->success(__("Mainaddon details inserted successfully"));
-                    return $this->redirect(ADMIN_BASE_URL.'addons/index'); 
+                    return $this->redirect('https://www.hangrymenu.com/restaurantadmin/addons/index'); 
                   }
               } else {
                    $this->Flash->error(__("Mainaddon name already exist"));
@@ -144,7 +148,7 @@ class AddonsController extends AppController
        ])->hydrate(false)->toArray();
 
        //Edit Details
-       $allAddons = $this->Mainaddons->find('all', [
+       $addonsList = $this->Mainaddons->find('all', [
           'conditions' => [
               'Mainaddons.id' => $id
           ],
@@ -197,19 +201,19 @@ class AddonsController extends AppController
                            }
                        }
                        $this->Flash->success(__("Mainaddon details inserted successfully"));
-                       return $this->redirect(ADMIN_BASE_URL.'addons/index');
+                       return $this->redirect('https://www.hangrymenu.com/restaurantadmin/addons/index');
                    }
                } else {
-                   $this->set(compact('allAddons','categorylist','id'));
+                   $this->set(compact('addonsList','categorylist','id'));
                    $this->Flash->error(__("Mainaddon name already exist"));
                }
            } else {
-               $this->set(compact('allAddons','categorylist','id'));
+               $this->set(compact('addonsList','categorylist','id'));
                $this->Flash->error(__("Please enter mainaddon name"));
            }
        }
 
-        $this->set(compact(['allAddons','categorylist','id']));
+        $this->set(compact(['addonsList','categorylist','id']));
    }
  #------------------------------------------------------------------------------------------
     /*Addon Status Change*/
@@ -248,10 +252,10 @@ class AddonsController extends AppController
                 $dbConn = ConnectionManager::get('default');
                 $dbConn->update('subaddons', ['delete_status' => 'Y'], ['mainaddons_id' => $id]);
 
-                list($allAddons) = $this->index('Addon');
+                list($addonsList) = $this->index('Addon');
                 if($this->request->is('ajax')) {
                     $action    = 'Addon';
-                    $this->set(compact('action', 'allAddons'));
+                    $this->set(compact('action', 'addonsList'));
                     $this->render('ajaxaction');
                 }
             }
