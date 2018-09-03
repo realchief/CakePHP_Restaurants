@@ -9,8 +9,9 @@
         </ol>
 	</section>
 	<section class="content clearfix">
+            <div class="col-xs-12">
 		<div class="row">
-			<div class="row">
+
                 <div class="box my-box">
                     <div class="box-header with-border">
                         <h3 class="box-title"><!-- Addons --></h3>
@@ -102,8 +103,8 @@
                         </div>
                     <?= $this->Form->end();?>
                 </div>
+                </div>
             </div>
-		</div>
 	</section>
 </div>
 
