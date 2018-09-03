@@ -74,6 +74,38 @@ class AddonsController extends AppController
     }#index function end...
 
 #-------------------------------------------------------------------------------------------
+    /*Check Addons Name ALready exists or Not*/
+    public function  addonCheck(){
+
+        if($this->request->getData('mainaddons_name') != '' && $this->request->getData('category_id') != '') {
+            if($this->request->getData('id') != '') {
+                $conditions = [
+                    'id !=' => $this->request->getData('id'),
+                    'category_id' => $this->request->getData('category_id'),
+                    'mainaddons_name' => $this->request->getData('mainaddons_name'),
+                ];
+            }else {
+                $conditions = [
+                    'category_id' => $this->request->getData('category_id'),
+                    'mainaddons_name' => $this->request->getData('mainaddons_name'),
+                ];
+            }
+            $addonCount = $this->Mainaddons->find('all', [
+                'conditions' => $conditions
+            ])->count();
+
+            if($addonCount == 0) {
+                echo '0';
+            }else {
+                echo '1';
+            }
+            die();
+        }
+    }
+
+
+
+#-------------------------------------------------------------------------------------------
     /*Addons Add Section*/
   public function add(){
 
