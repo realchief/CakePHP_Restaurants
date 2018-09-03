@@ -17,8 +17,8 @@
                     </div>
 
                     <?php
-                        if(!empty($allAddons)) {
-                            echo $this->Form->create($allAddons, [
+                        if(!empty($addonsList)) {
+                            echo $this->Form->create($addonsList, [
                                 'id' => 'addonEditForm'
                             ]);
                         }
@@ -40,7 +40,7 @@
                                     'id'   => 'category_id',
                                     'class' => 'form-control',
                                     'options'=> $categorylist,
-                                    'value' => isset($allAddons['category_id']) ? $allAddons['category_id'] :  '',
+                                    'value' => isset($addonsList['category_id']) ? $addonsList['category_id'] :  '',
                                     'empty'  => 'Select Category Name',
                                     'label' => false
                                 ]); ?>
@@ -54,7 +54,7 @@
                                 <?= $this->Form->input('mainaddons_name',[
                                     'type' => 'text',
                                     'id'   => 'mainaddons_name',
-                                    'value' => isset($allAddons['mainaddons_name']) ? $allAddons['mainaddons_name'] :  '',
+                                    'value' => isset($addonsList['mainaddons_name']) ? $addonsList['mainaddons_name'] :  '',
                                     'class' => 'form-control',
                                     'placeholder'  => 'Mainaddon Name',
                                     'label' => false
@@ -64,7 +64,7 @@
                                 <?= $this->Form->input('mainaddons_mini_count',[
                                     'type' => 'text',
                                     'id'   => 'mainaddons_mini_count',
-                                    'value' => isset($allAddons['mainaddons_mini_count']) ? $allAddons['mainaddons_mini_count'] :  '',
+                                    'value' => isset($addonsList['mainaddons_mini_count']) ? $addonsList['mainaddons_mini_count'] :  '',
                                     'class' => 'form-control mini_count',
                                     'placeholder'  => 'Mini Count',
                                     'label' => false
@@ -74,7 +74,7 @@
                                 <?= $this->Form->input('mainaddons_count',[
                                     'type' => 'text',
                                     'id'   => 'mainaddons_count',
-                                    'value' => isset($allAddons['mainaddons_count']) ? $allAddons['mainaddons_count'] :  '',
+                                    'value' => isset($addonsList['mainaddons_count']) ? $addonsList['mainaddons_count'] :  '',
                                     'class' => 'form-control mix_count',
                                     'placeholder'  => 'Count',
                                     'label' => false
@@ -87,8 +87,8 @@
                         </div>
 
                         <div class="col-xs-12" id="subAddonsList">
-                           <?php if(!empty($allAddons)) {
-                            foreach ($allAddons['subaddons'] as $key => $value) { ?>
+                           <?php if(!empty($addonsList)) {
+                            foreach ($addonsList['subaddons'] as $key => $value) { ?>
                                <div class="form-group clearfix" id="removeSubaddon_<?php echo $value['id'];?>">
                                     <div class="col-md-6 col-lg-3 col-md-offset-2">
                                         <?= $this->Form->input('Main[subaddons]['.$key.'][subaddons_name]',[
