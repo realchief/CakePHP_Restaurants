@@ -16,7 +16,7 @@
 						<h3 class="box-title">Manage Addons</h3>
 						<a class="btn btn-primary pull-right" href="<?php echo "https://www.hangrymenu.com/restaurantadmin/";?>addons/add"><i class="fa fa-plus"></i> Add New</a>							
 					</div>
-					<div class="box-body">
+					<div class="box-body" id="ajaxReplace">
 						<table id="addonTable" class="table table-bordered table-hover">
 							<thead>
 								<tr>
@@ -29,8 +29,8 @@
 								</tr>
 							</thead>
 							<tbody>
-			                                <?php if(!empty($allAddons)) {
-                            				    foreach($allAddons as $key => $value) { ?>
+			                                <?php if(!empty($addonsList)) {
+                            				    foreach($addonsList as $key => $value) { ?>
                                     				<tr>
                                        				    <td><?php echo $key+1 ;?></td>
                                         			    <td><?php echo $value['mainaddons_name'] ;?></td>
@@ -47,7 +47,7 @@
                                                                         <?php } ?>
                                                                     </td>
                                                                     <td>
-                                                                        <a href="<?php echo ADMIN_BASE_URL ?>addons/edit/<?php echo $value['id'] ?>">
+                                                                        <a href="<?php echo "https://www.hangrymenu.com/restaurantadmin/" ;?>addons/edit/<?php echo $value['id'] ?>">
                                                                         <i class="fa fa-pencil"></i></a>
                                                                         <a id="<?php echo $value['id']; ?>" onclick="return deleteRecord(<?php echo $value['id']; ?>, 'addons/deleteAddon', 'Addon', '', 'addonTable')" href="javascript:;">
                                                                         <i class="fa fa-trash-o"></i></a>
