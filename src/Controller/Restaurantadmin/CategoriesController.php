@@ -15,6 +15,7 @@ class CategoriesController extends AppController
         $this->viewBuilder()->setLayout('restaurant');
         $this->loadComponent('Flash');
         $this->loadModel('Categories');
+	$this->loadComponent('Common');
     }
 
     public function beforeFilter(Event $event)
@@ -60,7 +61,7 @@ class CategoriesController extends AppController
 
             $category  = $this->Categories->newEntity();
             $category  = $this->Categories->patchEntity($category,$this->request->getData());
-
+            
             if(!empty($this->request->getData('editid'))) {
                 $category->id       = $this->request->getData('editid');
             }else {
@@ -70,11 +71,11 @@ class CategoriesController extends AppController
             $category->category_name  = $categoryName;
             $category->category_seo   = $this->Common->seoUrl($categoryName);
 
-            //echo "<pre>"; print_r($category); die();
-            
+          
+           
             if ($this->Categories->save($category)) {
                 $this->Flash->success(_('Category details updated successfully'));
-                return $this->redirect(ADMIN_BASE_URL.'categories/index');
+                return $this->redirect('https://www.hangrymenu.com/restaurantadmin/categories/index');
             }
 
         }else {
@@ -85,7 +86,7 @@ class CategoriesController extends AppController
                 if(!empty($catList)) {
                     $this->set(compact('catList','id'));
                 } else {
-                    return $this->redirect(ADMIN_BASE_URL.'categories/index');
+                    return $this->redirect('https://www.hangrymenu.com/restaurantadmin/categories/index');
                 }
             } else {
                 $this->set(compact('catList','id'));
