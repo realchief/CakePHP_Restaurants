@@ -29,19 +29,19 @@ class CategoriesController extends AppController
     public function index () {
         $catList = $this->Categories->find('all', [
             'fields' => [
-                'id',
-                'category_name',
-                'sortorder',
-                'status',
-                'delete_status',
-                'created'
+                'Categories.id',
+                'Categories.category_name',
+                'Categories.category_seo',
+                'Categories.sortorder',
+                'Categories.status',
+                'Categories.created'
             ],
             'conditions' => [
-                'id IS NOT NULL',
-                'delete_status' => 'N'
+                'Categories.id IS NOT NULL',
+                'Categories.delete_status' => 'N'
             ],
             'order' =>[
-                'category_name' => 'ASC'
+                'Categories.sortorder' => 'ASC'
             ]
         ])->hydrate(false)->toArray();
         $this->set(compact('catList'));
@@ -52,6 +52,7 @@ class CategoriesController extends AppController
         }
     }#index function end...
 
+  #-------------------------------------------------------------------------------------------
       /*Category Add Edit Functionality*/
     public function addedit($id = null){  
 
