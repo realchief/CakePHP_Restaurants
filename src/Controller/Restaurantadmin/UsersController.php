@@ -26,6 +26,7 @@ class UsersController extends AppController
         $this->loadModel('Users');
         $this->loadModel('Restaurants');  
         $this->loadModel('Orders');
+        $this->loadModel('Drivers');
         $this->loadModel('Notifications');
     }
 //-----------------------------------------------------------------------------------
@@ -116,6 +117,79 @@ class UsersController extends AppController
     //Restaurantadmin dashboard 
     public function dashboard() {
 
+        $totalUsers = $this->Users->find('all',[
+            'conditions' => [
+                'Users.id IS NOT NULL',
+                'Users.role_id' => '3',
+                'Users.deleted_status' => 'N'
+            ]
+        ])->count();
+
+        $deactiveUsers = $this->Users->find('all',[
+            'conditions' => [
+                'Users.id IS NOT NULL',
+                'Users.status' => '0',
+                'Users.role_id' => '3',
+                'Users.deleted_status' => 'N'
+            ]
+        ])->count();
+
+        $activeUsers = $this->Users->find('all',[
+            'conditions' => [
+                'Users.id IS NOT NULL',
+                'Users.status' => 1,
+                'Users.role_id' => '3',
+                'Users.deleted_status' => 'N'
+            ]
+        ])->count();
+
+        $deactiveRestaurants = $this->Restaurants->find('all',[
+            'conditions' => [
+                'Restaurants.id IS NOT NULL',
+                'Restaurants.status' => 0,
+                'Restaurants.delete_status' => 'N'
+            ]
+        ])->count();
+
+        $activeRestaurants = $this->Restaurants->find('all',[
+            'conditions' => [
+                'Restaurants.id IS NOT NULL',
+                'Restaurants.status' => 1,
+                'Restaurants.delete_status' => 'N'
+            ]
+        ])->count();
+
+        $totalDrivers = $this->Drivers->find('all',[
+            'conditions' => [
+                'Drivers.id IS NOT NULL',
+                'Drivers.delete_status' => 'N'
+            ]
+        ])->count();
+
+        $deactiveDrivers = $this->Drivers->find('all',[
+            'conditions' => [
+                'Drivers.id IS NOT NULL',
+                'Drivers.status' => '0',
+                'Drivers.delete_status' => 'N'
+            ]
+        ])->count();
+
+
+        $activeDrivers = $this->Drivers->find('all',[
+            'conditions' => [
+                'Drivers.id IS NOT NULL',
+                'Drivers.status' => '1',
+                'Drivers.delete_status' => 'N'
+            ]
+        ])->count();
+
+        $totalRestaurants = $this->Restaurants->find('all',[
+            'conditions' => [
+                'Restaurants.id IS NOT NULL',
+                'Restaurants.delete_status' => 'N'
+            ]
+        ])->count();
+
         $user = $this->Auth->user();     
         $restDetails = $this->Restaurants->find('all', [
                'fields' =>[
@@ -138,6 +212,7 @@ class UsersController extends AppController
         ])->hydrate(false)->toArray();
 
         $deliveredCount = count($orderList); 
+
         $salesPrice = 0;
         foreach ($orderList as $key => $value) {
             $salesPrice = $salesPrice + $value['order_grand_total'];
@@ -161,7 +236,8 @@ class UsersController extends AppController
             ]
         ])->count();  
 
-        $this->set(compact('deliveredCount', 'salesPrice', 'no_orders', 'no_customers'));        
+        $this->set(compact('deliveredCount', 'salesPrice', 'no_orders', 'no_customers', 'totalUsers', 'activeUsers', 'deactiveUsers', 'totalRestaurants', 'deactiveRestaurants', 'activeRestaurants', 'totalDrivers',
+            'deactiveDrivers', 'activeDrivers'));        
     }
 //-----------------------------------------------------------------------------------
     /*Change Password */
