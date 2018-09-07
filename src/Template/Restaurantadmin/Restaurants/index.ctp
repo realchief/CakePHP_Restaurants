@@ -28,6 +28,7 @@
                             <li><a href="#tab_8" data-toggle="tab">Meta Tag</a></li>
                             <li><a href="#tab_9" data-toggle="tab">Promotion</a></li>
                             <li><a href="#tab_10" data-toggle="tab">Facebook Ordering</a></li>
+                            <li><a href="#tab_12" data-toggle="tab">Pickup</a></li>
                             <!-- <li><a href="#tab_11" data-toggle="tab">Reward Point</a></li> -->
                         </ul>
                         
@@ -1428,6 +1429,32 @@
                                             <input type="radio" name="reward_option" class="minimal" value="No" <?= ($restDetails['reward_option'] == 'No') ? 'checked' : '' ?>>
                                             No
                                         </label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab_12">
+                                <div id="promo_image" class="form-group">
+                                    <label class="col-md-3 control-label">Pick up<span class="star">*</span></label>
+                                    <div class="col-md-9 col-lg-9">
+                                        <div class="clearfix"></div>
+                                        <?php
+                                        $appId = $siteSettings['facebook_api_id'];
+                                        $secretKey = $siteSettings['facebook_secret_key'];
+                                        $resId = $id;
+                                        ?>
+
+                                        <a target="_blank" class="add_to_fb" href="https://www.facebook.com/dialog/pagetab?app_id=<?php echo $appId; ?>&display=popup&next=<?php echo ADMIN_BASE_URL.'restaurants/faceBookAdd/'.$resId; ?>"><span class="icon"><i class="fa fa-facebook"></i></span> Add to facebook</a>
+
+                                        <?php
+                                        if($restDetails['fb_page_id'] != '') { ?>
+                                            <a class="btn btn-link margin-t-25" target="_blank" href="<?php echo $restDetails['fb_page_url']; ?>"> <?php echo $restDetails['fb_page_url']; ?>
+                                            </a>
+                                            <?php
+
+                                        }
+                                        ?>
 
                                     </div>
                                 </div>
