@@ -1443,7 +1443,7 @@
                                                 'type' => 'text',
                                                 'id'   => 'minimum_pickup_time',
                                                 'class' => 'form-control',
-                                                'placeholder' => 'Minimum Pickup Time',
+                                                'placeholder' => '25',
                                                 'value' => $restDetails['minimum_pickup_time'],
                                                 'label' => false
                                             ]) ?>
