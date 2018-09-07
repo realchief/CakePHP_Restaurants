@@ -1435,27 +1435,22 @@
                             </div>
 
                             <div class="tab-pane" id="tab_12">
-                                <div id="promo_image" class="form-group">
-                                    <label class="col-md-3 control-label">Pick up<span class="star">*</span></label>
-                                    <div class="col-md-9 col-lg-9">
-                                        <div class="clearfix"></div>
-                                        <?php
-                                        $appId = $siteSettings['facebook_api_id'];
-                                        $secretKey = $siteSettings['facebook_secret_key'];
-                                        $resId = $id;
-                                        ?>
-
-                                        <a target="_blank" class="add_to_fb" href="https://www.facebook.com/dialog/pagetab?app_id=<?php echo $appId; ?>&display=popup&next=<?php echo ADMIN_BASE_URL.'restaurants/faceBookAdd/'.$resId; ?>"><span class="icon"><i class="fa fa-facebook"></i></span> Add to facebook</a>
-
-                                        <?php
-                                        if($restDetails['fb_page_id'] != '') { ?>
-                                            <a class="btn btn-link margin-t-25" target="_blank" href="<?php echo $restDetails['fb_page_url']; ?>"> <?php echo $restDetails['fb_page_url']; ?>
-                                            </a>
-                                            <?php
-
-                                        }
-                                        ?>
-
+                                <div class="box-body">                               
+                                    <div class="form-group clearfix">
+                                        <label for="" class="col-md-2 col-sm-3 control-label">Minimum Pickup Time</label>
+                                        <div class="col-md-4 col-sm-5">
+                                            <?= $this->Form->input('contact_name',[
+                                                'type' => 'text',
+                                                'id'   => 'minimum_pickup_time',
+                                                'class' => 'form-control',
+                                                'placeholder' => 'Minimum Pickup Time',
+                                                'value' => $restDetails['minimum_pickup_time'],
+                                                'label' => false
+                                            ]) ?>
+                                            <span class="MinimumPickupTimeErr"></span>
+                                        </div>
+                                        <label for="" class="col-md-2 col-sm-3 control-label" style="
+                                                                    text-align: left;">mins</label>
                                     </div>
                                 </div>
                             </div>
