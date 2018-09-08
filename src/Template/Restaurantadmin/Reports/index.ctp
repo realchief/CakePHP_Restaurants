@@ -118,3 +118,34 @@
         e.preventDefault();
     });
 </script>
+
+<script>
+    $("#btnExport_csv").click(function (e) {
+    
+        //getting values of current time for generating the file name
+        var dt = new Date();
+        var day = dt.getDate();
+        var month = dt.getMonth() + 1;
+        var year = dt.getFullYear();
+        var hour = dt.getHours();
+        var mins = dt.getMinutes();
+        var postfix = day + "." + month + "." + year + "_" + hour + "." + mins;
+        //creating a temporary HTML link element (they support setting file names)
+        var a = document.createElement('a');
+        //getting data from our div that contains the HTML table
+        var data_type = 'data:application/vnd.ms-excel;charset=utf-8';
+        
+        var table_html = $('#orderpage')[0].outerHTML;
+      
+        table_html = table_html.replace(/<tfoot[\s\S.]*tfoot>/gmi, '');
+        
+        var css_html = '<style>td {border: 0.5pt solid #c0c0c0} .tRight { text-align:right} .tLeft { text-align:left} </style>';       
+        
+        a.href = data_type + ',' + encodeURIComponent('<html><head>' + css_html + '</' + 'head><body>' + table_html + '</body></html>');        
+     
+        a.download = 'exported_table_' + postfix + '.csv';      
+     
+        a.click();        
+        e.preventDefault();
+    });
+</script>
