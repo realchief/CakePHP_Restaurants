@@ -4,6 +4,8 @@
 			ORDER ID: <?php echo $orderDetails['order_number']; ?>
 		</span>
         <span class="pull-right">
+        <a id="btnExport_xls" class="btn btn-primary pull-right">Export via .xls</a>
+        <a id="btnExport_csv" class="btn btn-danger pull-right" style="margin-right: 5px;" onclick="exportTableToCSV('exported_table.csv')">Export via csv</a>
 			<button class="order-back" onclick="window.history.go(-1);">Back</button>
 		</span>
 
@@ -13,7 +15,7 @@
             <div class="col-xs-12">
                 <div class="common-header">Restaurant and Customer Details</div>
                 <div class="col-sm-6">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" id="restaurant_details_table">
                         <tr>
                             <td>Restaurant Name & Address</td>
                             <td><?php echo $orderDetails['restaurant']['restaurant_name']; ?> /
@@ -44,7 +46,7 @@
                     </table>
                 </div>
                 <div class="col-sm-6">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" id="customer_details_table">
                         <tr>
                             <td>Phone Number</td>
                             <td><?php echo $orderDetails['customer_phone']; ?></td>
@@ -89,7 +91,7 @@
             </div>
             <div class="col-xs-12">
                 <div class="common-header">Order Details</div>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" id="order_details_table">
                     <tr>
                         <thead>
                         <th>S.No</th>
@@ -212,3 +214,85 @@
         </div>
     </section>
 </div>
+
+
+<script>
+    $("#btnExport_xls").click(function (e) {
+    
+        //getting values of current time for generating the file name
+        var dt = new Date();
+        var day = dt.getDate();
+        var month = dt.getMonth() + 1;
+        var year = dt.getFullYear();
+        var hour = dt.getHours();
+        var mins = dt.getMinutes();
+        var postfix = day + "." + month + "." + year + "_" + hour + "." + mins;
+        //creating a temporary HTML link element (they support setting file names)
+        var a_restaurant = document.createElement('a');
+        var a_customer = document.createElement('a');
+        var a_order = document.createElement('a');
+        //getting data from our div that contains the HTML table
+        var data_type = 'data:application/vnd.ms-excel;charset=utf-8';
+        
+        var table_html_restaurant = $('#restaurant_details_table')[0].outerHTML;
+        var table_html_customer = $('#customer_details_table')[0].outerHTML;
+        var table_html_order = $('#order_details_table')[0].outerHTML;        
+      
+        table_html_restaurant = table_html_restaurant.replace(/<tfoot[\s\S.]*tfoot>/gmi, '');
+        table_html_customer = table_html_customer.replace(/<tfoot[\s\S.]*tfoot>/gmi, '');
+        table_html_order = table_html_order.replace(/<tfoot[\s\S.]*tfoot>/gmi, '');
+        
+        var css_html = '<style>td {border: 0.5pt solid #c0c0c0} .tRight { text-align:right} .tLeft { text-align:left} </style>';       
+        
+        a_restaurant.href = data_type + ',' + encodeURIComponent('<html><head>' + css_html + '</' + 'head><body>' + table_html_restaurant + '</body></html>');       
+        a_customer.href = data_type + ',' + encodeURIComponent('<html><head>' + css_html + '</' + 'head><body>' + table_html_customer + '</body></html>');     
+        a_order.href = data_type + ',' + encodeURIComponent('<html><head>' + css_html + '</' + 'head><body>' + table_html_order + '</body></html>');      
+     
+        a_restaurant.download = 'restaurant_details_table_' + postfix + '.xls';   
+        a_customer.download = 'customer_details_table_' + postfix + '.xls';  
+        a_order.download = 'order_details_table' + postfix + '.xls';     
+     
+        a_restaurant.click();  
+        a_customer.click(); 
+        a_order.click(); 
+
+        e.preventDefault();
+    });
+
+    function downloadCSV(csv, filename) {
+        var csvFile;
+        var downloadLink;
+        // CSV file
+        csvFile = new Blob([csv], {type: "text/csv"});
+        // Download link
+        downloadLink = document.createElement("a");
+        // File name
+        downloadLink.download = filename;
+        // Create a link to the file
+        downloadLink.href = window.URL.createObjectURL(csvFile);
+        // Hide download link
+        downloadLink.style.display = "none";
+        // Add the link to DOM
+        document.body.appendChild(downloadLink);
+        // Click download link
+        downloadLink.click();
+    }
+
+    function exportTableToCSV(filename) {
+        var csv = [];
+        var rows = document.querySelectorAll("table tr");
+        
+        for (var i = 0; i < rows.length; i++) {
+            var row = [], cols = rows[i].querySelectorAll("td, th");
+            
+            for (var j = 0; j < cols.length; j++) 
+                row.push(cols[j].innerText);
+            
+            csv.push(row.join(","));        
+        }
+
+        // Download CSV file
+        downloadCSV(csv.join("\n"), filename);
+    }
+
+</script>
