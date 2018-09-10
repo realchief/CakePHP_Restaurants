@@ -15,7 +15,7 @@
 					<div class="box-header">
 						<h3 class="box-title">Report </h3>
                         <a id="btnExport_xls" class="btn btn-primary pull-right">Export via .xls</a>
-                        <a id="btnExport_csv" class="btn btn-danger pull-right" style="margin-right: 5px;" onclick="exportTableToCSV('exported_table.csv')">Export via csv</a>
+                        <a id="btnExport_csv" class="btn btn-success pull-right" style="margin-right: 5px;" onclick="exportTableToCSV('exported_table.csv')">Export via csv</a>
 					</div>
                     <div class="box-body">
                         <table id="orderpage" class="table table-bordered table-hover">
