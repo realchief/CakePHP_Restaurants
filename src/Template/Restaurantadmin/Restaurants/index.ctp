@@ -1439,7 +1439,7 @@
                                     <div class="form-group clearfix">
                                         <label for="" class="col-md-2 col-sm-3 control-label">Minimum Pickup Time</label>
                                         <div class="col-md-4 col-sm-5">
-                                            <?= $this->Form->input('contact_name',[
+                                            <?= $this->Form->input('minimum_pickup_time',[
                                                 'type' => 'text',
                                                 'id'   => 'minimum_pickup_time',
                                                 'class' => 'form-control',
@@ -1550,6 +1550,9 @@
 
         //Commission Info
         var restaurant_commission = $.trim($("#restaurant_commission").val());
+
+        // Minimum Pickup Time
+        var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
 
         if(contact_name == '') {
             $("#contactInfo").click();
