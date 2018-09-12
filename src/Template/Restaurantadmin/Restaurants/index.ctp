@@ -28,7 +28,8 @@
                             <li><a href="#tab_8" data-toggle="tab">Meta Tag</a></li>
                             <li><a href="#tab_9" data-toggle="tab">Promotion</a></li>
                             <li><a href="#tab_10" data-toggle="tab">Facebook Ordering</a></li>
-                            <li><a href="#tab_12" data-toggle="tab">Pickup</a></li>
+                            <li><a href="#tab_12" data-toggle="tab" id="pickupTimeInfo">Pickup</a></li>
+                            <li><a href="#tab_14" data-toggle="tab" id="timeZone">Time Zone</a></li>
                             <!-- <li><a href="#tab_11" data-toggle="tab">Reward Point</a></li> -->
                         </ul>
                         
@@ -776,6 +777,7 @@
                                                 No
                                             </label>
                                         </div>
+
                                     </div>
                                     <div class="form-group clearfix">
                                         <label for="" class="col-md-2 col-sm-4 control-label">Book a table</label>
@@ -1447,10 +1449,29 @@
                                                 'value' => $restDetails['minimum_pickup_time'],
                                                 'label' => false
                                             ]) ?>
-                                            <span class="MinimumPickupTimeErr"></span>
+                                            <span class="minimumPickupTimeErr"></span>
                                         </div>
                                         <label for="" class="col-md-2 col-sm-3 control-label" style="
                                                                     text-align: left;">mins</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab_14">
+                                <div class="box-body">                               
+                                    <div class="form-group clearfix">
+                                        <label for="" class="col-md-2 col-sm-3 control-label">Time Zone</label>
+                                        <div class="col-md-4 col-sm-5">
+                                            <?= $this->Form->input('timezone',[
+                                                'type' => 'text',
+                                                'id'   => 'timezone',
+                                                'class' => 'form-control',
+                                                'placeholder' => 'UTC',
+                                                'value' => $restDetails['timezone'],
+                                                'label' => false
+                                            ]) ?>
+                                            <span class="timezoneErr"></span>
+                                        </div>                                        
                                     </div>
                                 </div>
                             </div>
@@ -1638,6 +1659,11 @@
             $("#deliveryInfo").click();
             $(".estimateErr").addClass('error').html('Please enter estimate Time');
             $("#estimate_time").focus();
+            return false;
+        }else if(estimate_time == '') {
+            $("#pickupTimeInfo").click();
+            $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
+            $("#minimum_pickup_time").focus();
             return false;
         }else if(bySearch != '' && bySearch == 'Google' && minimum_order == '') {
             $("#deliveryInfo").click();
