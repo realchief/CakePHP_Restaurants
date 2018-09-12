@@ -534,7 +534,7 @@
                             <div class="pickup-time-hide-wrap cart-box">
                                 <div class="col-md-12 text-left warehouse_head"><?php echo __('Pickup Time');?>
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="pic-del text-center cart-hide-wrap">
                                 <?php if($restDetails['restaurant_pickup'] == 'Yes') { ?>
                                     <div class="pickup-time-div">                                        
