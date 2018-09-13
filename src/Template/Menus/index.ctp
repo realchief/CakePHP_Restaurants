@@ -540,6 +540,10 @@
                                     <div class="pickup-time-div">                                        
                                         <span><?php echo $restDetails['minimum_pickup_time'] ?></span>
                                     </div>
+                                    <span><?php echo $restDetails['restaurant_timezone'] ?></span>
+                                    <span><?= $restDetails['cuisineLists'] ?></span>
+                                    <span><?= $restDetails['contact_address'] ?></span>
+                                    
                                 <?php } ?>                              
                             </div>
 
