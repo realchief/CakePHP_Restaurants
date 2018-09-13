@@ -37,6 +37,7 @@ class RestaurantsController extends AppController
         $this->loadModel('Promotions');
         $this->loadModel('PaymentMethods');
         $this->loadModel('RestaurantPayments');
+        $this->loadModel('Timezones');
     }
 //-----------------------------------------------------------------------------------------
     /*Ajaxaction For Get Latitude and Draw Radius*/
@@ -332,6 +333,11 @@ class RestaurantsController extends AppController
             ]
         ])->hydrate(false)->toArray();
 
+        $timezoneList = $this->Timezones->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'timezone_name'            
+        ])->hydrate(false)->toArray();
+
 
         $EditPromoImgList = $this->Promotions->find('all', [
             'conditions' => [
@@ -615,7 +621,7 @@ class RestaurantsController extends AppController
             }
         }
 
-        $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod'));
+        $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod', 'timezoneList'));
     }
   //-----------------------------------------------------------------------------------------------------------
 
