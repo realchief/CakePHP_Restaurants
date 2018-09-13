@@ -1461,17 +1461,18 @@
                                 <div class="box-body">                               
                                     <div class="form-group clearfix">
                                         <label for="" class="col-md-2 col-sm-3 control-label">Time Zone</label>
-                                        <div class="col-md-4 col-sm-5">
-                                            <?= $this->Form->input('timezone',[
-                                                'type' => 'text',
-                                                'id'   => 'timezone',
+                                        <div class="col-md-4 col-sm-6 no-padding-right">
+                                            <?= $this->Form->input('pickup_timezone',[
+                                                'type' => 'select',
+                                                'multiple' => 'multiple',
+                                                'id'   => 'pickup_timezone',
                                                 'class' => 'form-control',
-                                                'placeholder' => 'UTC',
-                                                'value' => $restDetails['timezone'],
+                                                'options' => $timezoneList,
+                                                'value' => $selectedTimezone,
                                                 'label' => false
                                             ]) ?>
-                                            <span class="timezoneErr"></span>
-                                        </div>                                        
+                                        </div>
+                                    <span class="timezoneErr"></span>                                       
                                     </div>
                                 </div>
                             </div>
