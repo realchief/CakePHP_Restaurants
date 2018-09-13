@@ -5,8 +5,8 @@
 		</span>
         <span class="pull-right">
         <a id="btnExport_xls" class="btn btn-primary pull-right">Export via .xls</a>
-        <a id="btnExport_csv" class="btn btn-danger pull-right" style="margin-right: 5px;" onclick="exportTableToCSV('exported_table.csv')">Export via csv</a>
-			<button class="order-back" onclick="window.history.go(-1);">Back</button>
+        <a id="btnExport_csv" class="btn btn-success pull-right" style="margin-right: 5px;" onclick="exportTableToCSV('exported_table.csv')">Export via csv</a>
+			<button class="btn btn-danger pull-right" style="margin-right: 5px;" onclick="window.history.go(-1);">Back</button>
 		</span>
 
     </section>
