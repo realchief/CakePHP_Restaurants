@@ -323,6 +323,12 @@ class RestaurantsController extends AppController
             $selectedCuisine = '';
         }
 
+        if($restDetails['restaurant_cuisine'] != '') {
+            $selectedTimezone = explode(',',$restDetails['restaurant_timezone']);
+        }else {
+            $selectedTimezone = '';
+        }
+
         $cuisinesList = $this->Cuisines->find('list',[
             'keyField' => 'id',
             'valueField' => 'cuisine_name',
