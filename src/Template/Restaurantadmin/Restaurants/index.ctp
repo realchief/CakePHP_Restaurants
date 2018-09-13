@@ -1576,6 +1576,9 @@
         // Minimum Pickup Time
         var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
 
+        // Pickup Timezone
+        var pickup_timezone = $.trim($("#pickup_timezone").val());
+
         if(contact_name == '') {
             $("#contactInfo").click();
             $(".contactNameErr").addClass('error').html('Please enter your contact name');
@@ -1661,9 +1664,14 @@
             $(".estimateErr").addClass('error').html('Please enter estimate Time');
             $("#estimate_time").focus();
             return false;
-        }else if(estimate_time == '') {
+        }else if(minimum_pickup_time == '') {
             $("#pickupTimeInfo").click();
             $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
+            $("#minimum_pickup_time").focus();
+            return false;
+        }else if(pickup_timezone == '') {
+            $("#timeZone").click();
+            $(".timezoneErr").addClass('error').html('Please enter Pick up Timezone');
             $("#minimum_pickup_time").focus();
             return false;
         }else if(bySearch != '' && bySearch == 'Google' && minimum_order == '') {
