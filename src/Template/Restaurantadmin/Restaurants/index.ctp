@@ -1703,7 +1703,8 @@
                 {
                     'contact_email': username,
                     'restname': restaurant_name,
-                    'id' : resId
+                    'id' : resId,
+                    'minimum_pickup_time' : minimum_pickup_time
                 },
                 function (data) {
                     if($.trim(data) == 'rest') {
