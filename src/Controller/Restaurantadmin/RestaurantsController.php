@@ -323,7 +323,7 @@ class RestaurantsController extends AppController
             $selectedCuisine = '';
         }
 
-        if($restDetails['restaurant_cuisine'] != '') {
+        if($restDetails['restaurant_timezone'] != '') {
             $selectedTimezone = explode(',',$restDetails['restaurant_timezone']);
         }else {
             $selectedTimezone = '';
@@ -383,6 +383,8 @@ class RestaurantsController extends AppController
                 
             $restEntity->id = $this->request->getData('resId');
 
+            $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
+
             //Get Userid From Restaurant Table
             $userDetails = $this->Restaurants->find('all', [
                 'conditions' => [
@@ -394,6 +396,8 @@ class RestaurantsController extends AppController
                 !empty($this->request->getData('restaurant_logo')['name']) ){
 
                 $restEntity->seo_url = $this->Common->seoUrl($this->request->getData('restaurant_name'));
+
+
                 /*if(!file_exists(WWW_ROOT.'uploads'. DS.'storeImages'.DS.$this->request->getData('resId').DS.'storeLogo')) {
                     $this->Common->mkdir(WWW_ROOT.'uploads'. DS.'storeImages'.DS.$this->request->getData('resId').DS.'storeLogo');
                 }*/
@@ -440,6 +444,12 @@ class RestaurantsController extends AppController
                     $restaurantCuisine = '';
                 }
 
+                if(!empty($this->request->getData('restaurant_timezone'))) {
+                    $restaurantTimezone = implode(',',$this->request->getData('restaurant_timezone'));
+                }else {
+                    $restaurantTimezone = '';
+                }
+
                 //Insert into User Table
                 $userEntity = $this->Users->newEntity();
                 $patchEntity = $this->Users->patchEntity($userEntity,$this->request->getData());
@@ -454,6 +464,7 @@ class RestaurantsController extends AppController
                         $restEntity->sourcelongitude = $sourcelongitude;
                     }
                     $restEntity->restaurant_cuisine = $restaurantCuisine;
+                    $restEntity->restaurant_timezone = $restaurantTimezone;
                     $saveRest = $this->Restaurants->save($restEntity);
                 }
 
