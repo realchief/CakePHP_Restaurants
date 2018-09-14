@@ -535,21 +535,23 @@
                                 <div class="col-md-12 text-left warehouse_head"><?php echo __('Pickup Time');?>
                                 </div>
                             </div>                            
-                            <div class="pic-del text-center cart-hide-wrap">
+                            <div class="pic-del text-center cart-hide-wrap" id="pickup-div" style="background-color: rgb(0, 128, 0);">
                                 <?php if($restDetails['restaurant_pickup'] == 'Yes') { ?>
-                                    <div class="pickup-time-div" style="height: 25px;">                                        
-                                        <span><strong>
-                                        <?php 
-                                            date_default_timezone_set($restDetails['timezoneList']);
+                                    <div class="pickup-time-div" style="height: 40px;">                                        
+                                        <span style="font-weight: 700; color: white; font-size: 20px;">
+                                            <strong>
+                                            <?php 
+                                                date_default_timezone_set($restDetails['timezoneList']);
 
-                                            $date = date('H:i a');
-                                            $val_minimum_pickup_time = intval($restDetails['minimum_pickup_time']);
-                                            $val = '+'.$val_minimum_pickup_time.' minute';
-                                            $due_date = date('H:i a', strtotime($val, strtotime($date)));
-                                            echo $due_date;
-                                        ?>
-                                            
-                                        </strong> Pickup Time </span>
+                                                $date = date('H:i A');
+                                                $val_minimum_pickup_time = intval($restDetails['minimum_pickup_time']);
+                                                $val = '+'.$val_minimum_pickup_time.' minute';
+                                                $due_date = date('H:i A', strtotime($val, strtotime($date)));
+                                                echo $due_date;
+                                            ?>
+                                                
+                                            </strong> Pickup Time 
+                                        </span>
                                         
                                     </div>
                                 <?php } ?>                              
