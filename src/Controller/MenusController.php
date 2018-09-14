@@ -43,6 +43,7 @@ class MenusController extends AppController
         $this->loadModel('Orders');
         $this->loadModel('Rewards');
         $this->loadModel('CustomerPoints');
+        $this->loadModel('Timezones');
     }
 
     public function beforeFilter(Event $event)
@@ -394,6 +395,44 @@ class MenusController extends AppController
                         }
                     }
                     $restDetails['cuisineLists'] = implode(', ', $cuisineList);
+
+                    //Get Timezones List
+
+                    $allTimezonesList = [];
+
+                    $restaurantTimezone = explode(',', $restDetails['restaurant_timezone']);
+                    $timezoneList = '';
+                    if (!empty($restaurantTimezone)) {
+                        foreach ($restaurantTimezone as $tkey => $tvalue) {
+                            $timezones = $this->Timezones->find('all', [
+                                'conditions' => [
+                                    'id' => $tvalue
+                                ]
+                            ])->hydrate(false)->first();
+                            if (!empty($timezones)) {
+                                $timezoneList[] = $timezones['timezone_name'];
+                                if (!in_array($tvalue, $allTimezonesList)) {
+                                    $allTimezonesList[] = $tvalue;
+                                    if (empty($sideTimezones[$timezones['timezone_name']])) {
+                                        $sideTimezones[$timezones['timezone_name']] = 1;
+                                    } else {
+                                        $sideTimezones[$timezones['timezone_name']]++;
+                                    }
+
+                                    $allTimezonesList[$cvalue] = $timezones['timezone_name'];
+                                } else {
+                                    if (empty($sideTimezones[$timezones['timezone_name']])) {
+                                        $sideTimezones[$timezones['timezone_name']] = 1;
+                                    } else {
+                                        $sideTimezones[$timezones['timezone_name']]++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    $restDetails['timezoneList'] = implode(', ', $timezoneList);
+
+
                     //offers
                     $offerCount = 0;
                     $currentDate = strtotime(date('Y-m-d'));
@@ -839,7 +878,7 @@ class MenusController extends AppController
                     $restId = $this->request->session()->read('resid');
 
 
-                    $this->set(compact('restDetails', 'categoryList', 'menuDetails', 'restaurantDetails', 'cuisinesList', 'cartsDetails', 'cartCount', 'taxAmount', 'subTotal', 'totalAmount', 'deliveryCharge', 'final', 'minimumOrder', 'minimumOrderAmount', 'withOutDelivery','orderType','currentStatus','offersList','search','restName','cartRestaurantId','restId', 'rewardData'));
+                    $this->set(compact('restDetails', 'categoryList', 'menuDetails', 'restaurantDetails', 'cuisinesList', 'timezoneList', 'cartsDetails', 'cartCount', 'taxAmount', 'subTotal', 'totalAmount', 'deliveryCharge', 'final', 'minimumOrder', 'minimumOrderAmount', 'withOutDelivery','orderType','currentStatus','offersList','search','restName','cartRestaurantId','restId', 'rewardData'));
 
                 } else {
                     return $this->redirect(BASE_URL . 'searches');
