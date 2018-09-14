@@ -314,6 +314,20 @@ class CheckoutsController extends AppController
                 ]
             ])->hydrate(false)->first();
 
+            $restDetails = $this->Restaurants->find('all', [
+                   'conditions' => [
+                    'user_id' => $user['id']
+                ],
+                'contain' => [
+                    'DeliverySettings',
+                    'Areamaps',
+                    'RestaurantPayments' => [
+                        'PaymentMethods'
+                    ]
+                ]
+            ])->hydrate(false)->first();
+                
+
             $getRestaurantOption = $this->Restaurants->find('all', [
                 'fields' => [
                     'reward_option'
