@@ -540,14 +540,14 @@
                                     <div class="pickup-time-div" style="height: 25px;">                                        
                                         <span><strong>
                                         <?php 
-                                            date_default_timezone_set('UTC+8');
+                                            date_default_timezone_set($restDetails['timezoneList']);
 
-                                            $date = date('Y-m-d H:i:s');
-                                            $due_date = date('Y-m-d H:i:s', strtotime('+22 minute', strtotime($date)));
+                                            $date = date('H:i');
+                                            $due_date = date('H:i', strtotime('+22 minute', strtotime($date)));
                                             echo $due_date;
                                         ?>
                                             
-                                        </strong>  mins</span>
+                                        </strong></span>
                                         <span>  on <strong><?php echo $restDetails['timezoneList'] ?></strong> timezone</span>
 
                                     </div>
