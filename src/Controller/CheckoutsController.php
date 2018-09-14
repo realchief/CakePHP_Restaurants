@@ -52,6 +52,7 @@ class CheckoutsController extends AppController
         $this->loadComponent('PushNotification');
         $this->loadComponent('FcmNotification');
         $this->loadComponent('Twilio');
+        $this->loadModel('Timezones');
     }
 
     public function beforeFilter(Event $event)
@@ -97,6 +98,44 @@ class CheckoutsController extends AppController
 
         }else {
             return $this->redirect(BASE_URL);
+        }
+
+        if (!empty($restDetails)) {
+            //Get Timezones List
+
+            $allTimezonesList = [];
+
+            $restaurantTimezone = explode(',', $restDetails['restaurant_timezone']);
+            $timezoneList = '';
+            if (!empty($restaurantTimezone)) {
+                foreach ($restaurantTimezone as $tkey => $tvalue) {
+                    $timezones = $this->Timezones->find('all', [
+                        'conditions' => [
+                            'id' => $tvalue
+                        ]
+                    ])->hydrate(false)->first();
+                    if (!empty($timezones)) {
+                        $timezoneList[] = $timezones['timezone_name'];
+                        if (!in_array($tvalue, $allTimezonesList)) {
+                            $allTimezonesList[] = $tvalue;
+                            if (empty($sideTimezones[$timezones['timezone_name']])) {
+                                $sideTimezones[$timezones['timezone_name']] = 1;
+                            } else {
+                                $sideTimezones[$timezones['timezone_name']]++;
+                            }
+
+                            $allTimezonesList[$cvalue] = $timezones['timezone_name'];
+                        } else {
+                            if (empty($sideTimezones[$timezones['timezone_name']])) {
+                                $sideTimezones[$timezones['timezone_name']] = 1;
+                            } else {
+                                $sideTimezones[$timezones['timezone_name']]++;
+                            }
+                        }
+                    }
+                }
+            }
+            $restDetails['timezoneList'] = implode(', ', $timezoneList);
         }
 
         if($this->Auth->user('id') != '' && $sessionId != '') {
@@ -326,7 +365,7 @@ class CheckoutsController extends AppController
                     ]
                 ]
             ])->hydrate(false)->first();
-                
+
 
             $getRestaurantOption = $this->Restaurants->find('all', [
                 'fields' => [
@@ -729,7 +768,7 @@ class CheckoutsController extends AppController
 
             ])->hydrate(false)->first();*/
 
-            $this->set(compact('restaurantDetails','cuisinesList','cartsDetails','cartCount','taxAmount','subTotal','totalAmount','deliveryCharge','final','customerDetails','addressBooks','totalAddress','outOfDelivery','addressBookLists','saveCardDetails','withOutDelivery','array_of_time','deliveryCharge','orderType','userDetails','offerMode','offerValue','voucherAmount','normalTotal','paymentDetails','needOrderCount'));
+            $this->set(compact('restaurantDetails','cuisinesList','cartsDetails','cartCount','taxAmount','subTotal','totalAmount','deliveryCharge','final','customerDetails','addressBooks','totalAddress','outOfDelivery','addressBookLists','saveCardDetails','withOutDelivery','array_of_time','deliveryCharge','orderType','userDetails','offerMode','offerValue','voucherAmount','normalTotal','paymentDetails','needOrderCount', 'restDetails'));
 
         }else {
             return $this->redirect(BASE_URL);
