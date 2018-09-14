@@ -541,12 +541,12 @@
                                         <span style="font-weight: 700; color: white; font-size: 20px;">
                                             <strong>
                                             <?php 
-                                                date_default_timezone_set('UTC');
+                                                date_default_timezone_set($restDetails['timezoneList']);
 
                                                 $date = date('H:i');
                                                 $val_minimum_pickup_time = intval($restDetails['minimum_pickup_time']);
                                                 $val = '+'.$val_minimum_pickup_time.' minute';
-                                                $due_date = date('H:i A', strtotime($val, strtotime($date)));
+                                                $due_date = date('g:i A', strtotime($val, strtotime($date)));
                                                 echo $due_date;
                                             ?>
                                                 
