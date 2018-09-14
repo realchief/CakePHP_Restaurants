@@ -91,7 +91,26 @@ class CheckoutsController extends AppController
                 $this->Flash->success('Card added successfull');
                 return $this->redirect(BASE_URL.'checkouts');
             }
+
         }
+
+
+        if($this->request->is(['post','put'])) {
+            $restEntity = $this->Restaurants->newEntity();
+            $restEntity = $this->Restaurants->patchEntity($restEntity,$this->request->getData());
+
+            $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
+            $saveEntity = $this->Restaurants->save($restEntity);
+
+            if($saveEntity) {
+                if(!empty($this->request->getData('restaurant_timezone'))) {
+                    $restaurantTimezone = implode(',',$this->request->getData('restaurant_timezone'));
+                }else {
+                    $restaurantTimezone = '';
+                }
+            }
+        }
+
         //echo $this->request->session()->read('orderType');die();
         if($this->request->session()->read('sessionId') != '') {
             $sessionId =  $this->request->session()->read('sessionId');
@@ -99,6 +118,11 @@ class CheckoutsController extends AppController
         }else {
             return $this->redirect(BASE_URL);
         }
+
+        $timezoneList = $this->Timezones->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'timezone_name'            
+        ])->hydrate(false)->toArray();
 
         if (!empty($restDetails)) {
             //Get Timezones List
@@ -768,7 +792,7 @@ class CheckoutsController extends AppController
 
             ])->hydrate(false)->first();*/
 
-            $this->set(compact('restaurantDetails','cuisinesList','cartsDetails','cartCount','taxAmount','subTotal','totalAmount','deliveryCharge','final','customerDetails','addressBooks','totalAddress','outOfDelivery','addressBookLists','saveCardDetails','withOutDelivery','array_of_time','deliveryCharge','orderType','userDetails','offerMode','offerValue','voucherAmount','normalTotal','paymentDetails','needOrderCount', 'restDetails'));
+            $this->set(compact('restaurantDetails','cuisinesList','cartsDetails','cartCount','taxAmount','subTotal','totalAmount','deliveryCharge','final','customerDetails','addressBooks','totalAddress','outOfDelivery','addressBookLists','saveCardDetails','withOutDelivery','array_of_time','deliveryCharge','orderType','userDetails','offerMode','offerValue','voucherAmount','normalTotal','paymentDetails','needOrderCount', 'restDetails', 'timezoneList'));
 
         }else {
             return $this->redirect(BASE_URL);

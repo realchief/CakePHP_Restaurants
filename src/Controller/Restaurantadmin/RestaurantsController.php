@@ -382,7 +382,7 @@ class RestaurantsController extends AppController
 
                 
             $restEntity->id = $this->request->getData('resId');
-
+           
             $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
 
             //Get Userid From Restaurant Table
