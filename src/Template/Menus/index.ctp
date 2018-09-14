@@ -537,13 +537,10 @@
                             </div>                            
                             <div class="pic-del text-center cart-hide-wrap">
                                 <?php if($restDetails['restaurant_pickup'] == 'Yes') { ?>
-                                    <div class="pickup-time-div">                                        
-                                        <span><?php echo $restDetails['minimum_pickup_time'] ?></span>
+                                    <div class="pickup-time-div" style="height: 25px;">                                        
+                                        <span><?php echo $restDetails['minimum_pickup_time'] ?>  mins</span>
+                                        <span>  on <?php echo $restDetails['restaurant_timezone'] ?></span>
                                     </div>
-                                    <span><?php echo $restDetails['restaurant_timezone'] ?></span>
-                                    <span><?= $restDetails['cuisineLists'] ?></span>
-                                    <span><?= $restDetails['contact_address'] ?></span>
-                                    
                                 <?php } ?>                              
                             </div>
 
