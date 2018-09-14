@@ -542,14 +542,14 @@
                                         <?php 
                                             date_default_timezone_set($restDetails['timezoneList']);
 
-                                            $date = date('H:i');
+                                            $date = date('H:i a');
                                             $val_minimum_pickup_time = intval($restDetails['minimum_pickup_time']);
                                             $val = '+'.$val_minimum_pickup_time.' minute';
-                                            $due_date = date('H:i', strtotime($val, strtotime($date)));
+                                            $due_date = date('H:i a', strtotime($val, strtotime($date)));
                                             echo $due_date;
                                         ?>
                                             
-                                        </strong></span>
+                                        </strong> Pickup Time </span>
                                         
                                     </div>
                                 <?php } ?>                              
