@@ -87,8 +87,21 @@
                         <div class="now-radio">
                            <input id="now-option" type="radio" name="deliverytime" onchange="deliveryNow(this)" checked value="now">
                            <label for="now-option"><?php echo __('ASAP');?></label>
-                           <span><strong><?php echo $restaurantDetails['minimum_pickup_time'] ?></strong>  mins</span>
-                           <span>  on <strong><?php echo $restaurantDetails['timezoneList'] ?></strong> timezone</span>
+                            <div class="pickup-time-div" style="height: 40px;">                                        
+                                <span style="font-weight: 700; color: #e55b03; font-size: 20px;">
+                                    <strong>
+                                    <?php 
+                                        date_default_timezone_set($restaurantDetails['timezoneList']);
+
+                                        $date = date('H:i');
+                                        $val_minimum_pickup_time = intval($restaurantDetails['minimum_pickup_time']);
+                                        $val = '+'.$val_minimum_pickup_time.' minute';
+                                        $due_date = date('g:i A', strtotime($val, strtotime($date)));
+                                        echo $due_date;
+                                    ?>
+                                    </strong> Pickup Time 
+                                </span>
+                            </div>
                         </div>
                      </div>
 
