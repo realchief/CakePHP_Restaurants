@@ -80,6 +80,27 @@ class CheckoutsController extends AppController
             return $this->redirect(ADMIN_BASE_URL);
         }
 
+
+        //Get Restaurant Details
+        $restaurantDetails = $this->Restaurants->find('all', [
+            'conditions' => [
+                'id' => $this->request->session()->read('resid')
+            ]
+        ])->hydrate(false)->first();
+
+
+        if($restaurantDetails['restaurant_timezone'] != '') {
+            $selectedTimezone = explode(',',$restaurantDetails['restaurant_timezone']);
+        }else {
+            $selectedTimezone = '';
+        }
+
+
+        $timezoneList = $this->Timezones->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'timezone_name'            
+        ])->hydrate(false)->toArray();
+
         if($this->request->is('post')) {
 
             $custEnty = $this->StripeCustomers->newEntity();
@@ -118,18 +139,14 @@ class CheckoutsController extends AppController
         }else {
             return $this->redirect(BASE_URL);
         }
+       
 
-        $timezoneList = $this->Timezones->find('list',[
-            'keyField' => 'id',
-            'valueField' => 'timezone_name'            
-        ])->hydrate(false)->toArray();
-
-        if (!empty($restDetails)) {
+        if (!empty($restaurantDetails)) {
             //Get Timezones List
 
             $allTimezonesList = [];
 
-            $restaurantTimezone = explode(',', $restDetails['restaurant_timezone']);
+            $restaurantTimezone = explode(',', $restaurantDetails['restaurant_timezone']);
             $timezoneList = '';
             if (!empty($restaurantTimezone)) {
                 foreach ($restaurantTimezone as $tkey => $tvalue) {
@@ -159,7 +176,7 @@ class CheckoutsController extends AppController
                     }
                 }
             }
-            $restDetails['timezoneList'] = implode(', ', $timezoneList);
+            $restaurantDetails['timezoneList'] = implode(', ', $timezoneList);
         }
 
         if($this->Auth->user('id') != '' && $sessionId != '') {
@@ -193,15 +210,7 @@ class CheckoutsController extends AppController
                 'conditions' => [
                     'user_id' => $this->Auth->user('id')
                 ]
-            ])->hydrate(false)->first();
-
-
-            //Get Restaurant Details
-            $restaurantDetails = $this->Restaurants->find('all', [
-                'conditions' => [
-                    'id' => $this->request->session()->read('resid')
-                ]
-            ])->hydrate(false)->first();
+            ])->hydrate(false)->first();            
 
             $cartCount = count($cartsDetails);
             $subTotal = 0;
@@ -375,20 +384,7 @@ class CheckoutsController extends AppController
                     'id' => 1,
                     'reward_option' => 'Yes'
                 ]
-            ])->hydrate(false)->first();
-
-            $restDetails = $this->Restaurants->find('all', [
-                   'conditions' => [
-                    'user_id' => $user['id']
-                ],
-                'contain' => [
-                    'DeliverySettings',
-                    'Areamaps',
-                    'RestaurantPayments' => [
-                        'PaymentMethods'
-                    ]
-                ]
-            ])->hydrate(false)->first();
+            ])->hydrate(false)->first();        
 
 
             $getRestaurantOption = $this->Restaurants->find('all', [
@@ -792,7 +788,7 @@ class CheckoutsController extends AppController
 
             ])->hydrate(false)->first();*/
 
-            $this->set(compact('restaurantDetails','cuisinesList','cartsDetails','cartCount','taxAmount','subTotal','totalAmount','deliveryCharge','final','customerDetails','addressBooks','totalAddress','outOfDelivery','addressBookLists','saveCardDetails','withOutDelivery','array_of_time','deliveryCharge','orderType','userDetails','offerMode','offerValue','voucherAmount','normalTotal','paymentDetails','needOrderCount', 'restDetails', 'timezoneList'));
+            $this->set(compact('restaurantDetails','cuisinesList','cartsDetails','cartCount','taxAmount','subTotal','totalAmount','deliveryCharge','final','customerDetails','addressBooks','totalAddress','outOfDelivery','addressBookLists','saveCardDetails','withOutDelivery','array_of_time','deliveryCharge','orderType','userDetails','offerMode','offerValue','voucherAmount','normalTotal','paymentDetails','needOrderCount'));
 
         }else {
             return $this->redirect(BASE_URL);
