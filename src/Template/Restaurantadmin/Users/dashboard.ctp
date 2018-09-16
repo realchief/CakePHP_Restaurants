@@ -50,7 +50,30 @@
 					</div>
 				</div>
 			</div>
-		</div> 		
+		</div> 
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="toggle-box" style="display: block;  min-height: 50px;  background: #222;
+                width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
+                    
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="toggle-box" style="display: block;  min-height: 50px;  background: #222;
+                width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
+                    
+                </div>
+            </div>
+
+            <div class="clearfix visible-sm-block"></div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="toggle-box" style="display: block;  min-height: 50px;  background: #222;
+                width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
+                    
+                </div>
+            </div>
+        </div>      		
 	</section>
 	<section class="content clearfix">
 		<div class="row">
