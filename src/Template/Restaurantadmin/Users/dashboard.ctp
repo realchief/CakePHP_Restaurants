@@ -53,7 +53,8 @@
 		</div> 
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="toggle-box" style="display: block;  min-height: 50px;  background: #222;
+                <div class="toggle-box" style="display: flex; align-items: center;
+    justify-content: center; min-height: 50px;  background: #222;
                 width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
                     <div class="toggle-text" style="text-align: center;">
                         <span class="toggle-box-text" style="color: white; font-size: 15px;">Turn Online Ordering On/Off</span>
@@ -65,7 +66,8 @@
             </div>
 
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="toggle-box" style="display: block;  min-height: 50px;  background: #222;
+                <div class="toggle-box" style="display: flex; align-items: center;
+    justify-content: center;  min-height: 50px;  background: #222;
                 width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
                     <div class="toggle-text" style="text-align: center;">
                         <span class="toggle-box-text" style="color: white; font-size: 15px;">Turn Delivery On/Off</span>
@@ -78,14 +80,15 @@
 
             <div class="clearfix visible-sm-block"></div>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="toggle-box" style="display: block;  min-height: 50px;  background: #222;
-                width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
-                    <div class="toggle-text-left" style="text-align: center;">
+                <div class="toggle-box" style="display: flex; align-items: center;
+    justify-content: center;  min-height: 50px;  background: #222; width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
+                    <div class="toggle-text-left" style="text-align: center; padding: 0 20px;">
                         <span class="toggle-box-text" style="color: white; font-size: 15px;">Set Your Minimum Pickup Time</span>
                     </div>
-                    <div class="toggle-icon">
+                    <div class="time-input-icon" style="width: 45%;">
+                        <input type="text" name="pickup_minimum_time" style="width: 100%;">
                     </div>  
-                    <div class="toggle-text-right" style="text-align: center;">
+                    <div class="toggle-text-right" style="text-align: center; padding: 0 20px;">
                         <span class="toggle-box-text" style="color: white; font-size: 15px;">mins</span>
                     </div> 
                 </div>
