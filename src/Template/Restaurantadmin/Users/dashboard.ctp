@@ -53,43 +53,38 @@
 		</div> 
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="toggle-box" style="display: flex; align-items: center;
-    justify-content: center; min-height: 50px;  background: #222;
-                width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
-                    <div class="toggle-text" style="text-align: center;">
-                        <span class="toggle-box-text" style="color: white; font-size: 15px;">Turn Online Ordering On/Off</span>
+                <div class="toggle-box">
+                    <div class="toggle-text">
+                        <span class="toggle-box-text">Turn Online Ordering On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <!-- <input type="checkbox" id="switch" /><label for="switch">Toggle</label> -->
+                        <input type="checkbox" id="switch-ordering" /><label id="ordering-toggle-lable" for="switch-ordering"></label>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="toggle-box" style="display: flex; align-items: center;
-    justify-content: center;  min-height: 50px;  background: #222;
-                width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
-                    <div class="toggle-text" style="text-align: center;">
-                        <span class="toggle-box-text" style="color: white; font-size: 15px;">Turn Delivery On/Off</span>
+                <div class="toggle-box">
+                    <div class="toggle-text">
+                        <span class="toggle-box-text">Turn Delivery On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <!-- <input type="checkbox" id="switch" /><label for="switch">Toggle</label> -->
+                        <input type="checkbox" id="switch-delivery" /><label id="delivery-toggle-lable" for="switch-delivery"></label>                        
                     </div>
                 </div>
             </div>
 
             <div class="clearfix visible-sm-block"></div>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="toggle-box" style="display: flex; align-items: center;
-    justify-content: center;  min-height: 50px;  background: #222; width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
-                    <div class="toggle-text-left" style="text-align: center; padding: 0 20px;">
-                        <span class="toggle-box-text" style="color: white; font-size: 15px;">Set Your Minimum Pickup Time</span>
+                <div class="toggle-box">
+                    <div class="toggle-text-left">
+                        <span class="toggle-box-text">Set Your Minimum Pickup Time</span>
                     </div>
-                    <div class="time-input-icon" style="width: 45%;">
-                        <input type="text" name="pickup_minimum_time" style="width: 100%;">
+                    <div class="time-input-icon">
+                        <input type="text" name="pickup_minimum_time" class="input_pickup_time">
                     </div>  
-                    <div class="toggle-text-right" style="text-align: center; padding: 0 20px;">
-                        <span class="toggle-box-text" style="color: white; font-size: 15px;">mins</span>
+                    <div class="toggle-text-right">
+                        <span class="toggle-box-text">mins</span>
                     </div> 
                 </div>
             </div>
@@ -123,6 +118,162 @@
 		</div>
 	</section>
 </div>
+
+
+<div class="modal fade" id="failedReason" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel1">Failed Reason</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="orderId">
+                    <span class="failedreason"> </span>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Message:</label>
+                        <textarea class="form-control" id="failedreason"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button onclick="submitReason()" type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+
+    input[type=checkbox]{
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+
+    .toggle-text-left {
+        text-align: center; 
+        padding: 0 20px;
+    }
+
+    .input_pickup_time {
+        width: 100%;
+    }
+
+    .toggle-text-right {
+        text-align: center; 
+        padding: 0 20px;
+    }
+
+    .toggle-text {
+        text-align: center;
+    }
+
+    .toggle-box-text {
+        color: white; 
+        font-size: 15px;
+    }
+
+    .toggle-icon {
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        padding: 0 0 0 10px;
+    }
+
+    .toggle-box {
+        display: flex; 
+        align-items: center;
+        justify-content: center;  
+        min-height: 50px;  
+        background: #222;
+        width: 100%; 
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); 
+        border-radius: 2px; 
+        margin-bottom: 15px;
+    }
+
+    .time-input-icon {
+        width: 45%;
+    }
+
+    #ordering-toggle-lable {
+        cursor: pointer;
+        text-indent: -9999px;
+        width: 50px;
+        height: 26px;
+        background: grey;
+        display: block;
+        border-radius: 26px;
+        position: relative;   
+        margin-bottom: 0px;     
+    }
+
+    #ordering-toggle-lable:after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 5px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 20px;
+        transition: 0.3s;
+    }
+
+    input:checked + #ordering-toggle-lable {
+        background: #bada55;
+    }
+
+    input:checked + #ordering-toggle-lable:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+    }
+
+    #ordering-toggle-lable:active:after {
+        width: 35px;
+    }
+
+    #delivery-toggle-lable {
+        cursor: pointer;
+        text-indent: -9999px;
+        width: 50px;
+        height: 26px;
+        background: grey;
+        display: block;
+        border-radius: 26px;
+        position: relative;   
+        margin-bottom: 0px;     
+    }
+
+    #delivery-toggle-lable:after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 5px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 20px;
+        transition: 0.3s;
+    }
+
+    input:checked + #delivery-toggle-lable {
+        background: #bada55;
+    }
+
+    input:checked + #delivery-toggle-lable:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+    }
+
+    #delivery-toggle-lable:active:after {
+        width: 35px;
+    }
+    
+</style>
 
 <script>
 
@@ -228,27 +379,3 @@
     }
 </script>
 
-<div class="modal fade" id="failedReason" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel1">Failed Reason</h4>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <input type="hidden" id="orderId">
-                    <span class="failedreason"> </span>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">Message:</label>
-                        <textarea class="form-control" id="failedreason"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button onclick="submitReason()" type="button" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </div>
-</div>
