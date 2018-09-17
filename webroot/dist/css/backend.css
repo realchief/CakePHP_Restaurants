@@ -2185,6 +2185,17 @@ a:focus {
   border-radius: 2px;
   margin-bottom: 15px;
 }
+
+.toggle-box {
+  display: block;
+  min-height: 50px;
+  background: #222;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  margin-bottom: 15px;
+}
+
 .info-box small {
   font-size: 14px;
 }
