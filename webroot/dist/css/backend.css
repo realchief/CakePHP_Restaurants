@@ -2196,6 +2196,11 @@ a:focus {
   margin-bottom: 15px;
 }
 
+.toggle-box-text{
+  color: white;
+  font-size: 15px;
+}
+
 .info-box small {
   font-size: 14px;
 }
