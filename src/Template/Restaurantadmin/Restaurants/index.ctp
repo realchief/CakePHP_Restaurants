@@ -1462,10 +1462,10 @@
                                     <div class="form-group clearfix">
                                         <label for="" class="col-md-2 col-sm-3 control-label">Time Zone</label>
                                         <div class="col-md-4 col-sm-6 no-padding-right">
-                                            <?= $this->Form->input('pickup_timezone',[
+                                            <?= $this->Form->input('restaurant_timezone',[
                                                 'type' => 'select',
                                                 'multiple' => 'multiple',
-                                                'id'   => 'pickup_timezone',
+                                                'id'   => 'restaurant_timezone',
                                                 'class' => 'form-control',
                                                 'options' => $timezoneList,
                                                 'value' => $selectedTimezone,
@@ -1577,7 +1577,7 @@
         var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
 
         // Pickup Timezone
-        var pickup_timezone = $.trim($("#pickup_timezone").val());
+        var restaurant_timezone = $.trim($("#restaurant_timezone").val());
 
         if(contact_name == '') {
             $("#contactInfo").click();
@@ -1669,10 +1669,10 @@
             $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
             $("#minimum_pickup_time").focus();
             return false;
-        }else if(pickup_timezone == '') {
+        }else if(restaurant_timezone == '') {
             $("#timeZone").click();
             $(".timezoneErr").addClass('error').html('Please enter Pick up Timezone');
-            $("#minimum_pickup_time").focus();
+            $("#restaurant_timezone").focus();
             return false;
         }else if(bySearch != '' && bySearch == 'Google' && minimum_order == '') {
             $("#deliveryInfo").click();
@@ -1713,7 +1713,8 @@
                     'contact_email': username,
                     'restname': restaurant_name,
                     'id' : resId,
-                    'minimum_pickup_time' : minimum_pickup_time
+                    'minimum_pickup_time' : minimum_pickup_time,
+                    'restaurant_timezone': restaurant_timezone
                 },
                 function (data) {
                     if($.trim(data) == 'rest') {

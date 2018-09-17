@@ -55,14 +55,24 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="toggle-box" style="display: block;  min-height: 50px;  background: #222;
                 width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
-                    
+                    <div class="toggle-text" style="text-align: center;">
+                        <span class="toggle-box-text" style="color: white; font-size: 15px;">Turn Online Ordering On/Off</span>
+                    </div>
+                    <div class="toggle-icon">
+                        <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="toggle-box" style="display: block;  min-height: 50px;  background: #222;
                 width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
-                    
+                    <div class="toggle-text" style="text-align: center;">
+                        <span class="toggle-box-text" style="color: white; font-size: 15px;">Turn Delivery On/Off</span>
+                    </div>
+                    <div class="toggle-icon">
+                        <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+                    </div>
                 </div>
             </div>
 
@@ -70,7 +80,14 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="toggle-box" style="display: block;  min-height: 50px;  background: #222;
                 width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); border-radius: 2px; margin-bottom: 15px;">
-                    
+                    <div class="toggle-text-left" style="text-align: center;">
+                        <span class="toggle-box-text" style="color: white; font-size: 15px;">Set Your Minimum Pickup Time</span>
+                    </div>
+                    <div class="toggle-icon">
+                    </div>  
+                    <div class="toggle-text-right" style="text-align: center;">
+                        <span class="toggle-box-text" style="color: white; font-size: 15px;">mins</span>
+                    </div> 
                 </div>
             </div>
         </div>      		
