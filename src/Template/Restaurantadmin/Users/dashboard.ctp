@@ -59,7 +59,7 @@
                         <span class="toggle-box-text" style="color: white; font-size: 15px;">Turn Online Ordering On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+                        <!-- <input type="checkbox" id="switch" /><label for="switch">Toggle</label> -->
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                         <span class="toggle-box-text" style="color: white; font-size: 15px;">Turn Delivery On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+                        <!-- <input type="checkbox" id="switch" /><label for="switch">Toggle</label> -->
                     </div>
                 </div>
             </div>
