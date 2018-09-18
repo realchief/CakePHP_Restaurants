@@ -239,6 +239,30 @@ class UsersController extends AppController
         $this->set(compact('deliveredCount', 'salesPrice', 'no_orders', 'no_customers', 'totalUsers', 'activeUsers', 'deactiveUsers', 'totalRestaurants', 'deactiveRestaurants', 'activeRestaurants', 'totalDrivers',
             'deactiveDrivers', 'activeDrivers'));        
     }
+
+#------------------------------------------------------------------------------------
+    /*Settings Toggle in Dashboard */    
+    public function toggleSettings () {
+        if($this->request->is(['post','put'])) {
+            $restEntity = $this->Restaurants->newEntity();
+            $restEntity = $this->Restaurants->patchEntity($restEntity,$this->request->getData());
+            $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
+
+            $userDetails = $this->Restaurants->find('all', [
+                'conditions' => [
+                    'id' => $this->request->getData('resId')
+                ]
+            ])->hydrate(false)->first();
+
+            $saveEntity = $this->Restaurants->save($restEntity);
+
+            if($saveEntity) {
+                $this->Flash->success('Restaurant Updated Successful');
+                return $this->redirect(REST_BASE_URL.'dashboard');
+            }
+        }
+
+    }
 //-----------------------------------------------------------------------------------
     /*Change Password */
     public function changepassword() {
