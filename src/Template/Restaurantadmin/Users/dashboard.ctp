@@ -8,6 +8,14 @@
 			<li class="active">Dashboard</li>
 		</ol>
 	</section>
+
+    <?php
+        echo $this->Form->create('restaurantAdd', [
+            'id' => 'restaurantAdd',
+            'class' => 'form-horizontal',                           
+            'enctype'  =>'multipart/form-data'
+        ]);
+    ?>
 	<section class="content">
 		<div class="row">
 			<div class="col-md-3 col-sm-6 col-xs-12">
@@ -58,7 +66,7 @@
                         <span class="toggle-box-text">Turn Online Ordering On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <input type="checkbox" id="switch-ordering" /><label id="ordering-toggle-lable" for="switch-ordering"></label>
+                        <input type="checkbox" name="checkbox" id="switch-ordering" /><label id="ordering-toggle-lable" data-on="Yes" data-off="No" for="switch-ordering"></label>
                     </div>
                 </div>
             </div>
@@ -69,7 +77,7 @@
                         <span class="toggle-box-text">Turn Delivery On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <input type="checkbox" id="switch-delivery" /><label id="delivery-toggle-lable" for="switch-delivery"></label>                        
+                        <input type="checkbox" name="checkbox" id="switch-delivery" /><label id="delivery-toggle-lable" data-on="Yes" data-off="No" for="switch-delivery"></label>                        
                     </div>
                 </div>
             </div>
@@ -81,7 +89,15 @@
                         <span class="toggle-box-text">Set Your Minimum Pickup Time</span>
                     </div>
                     <div class="time-input-icon">
-                        <input type="text" name="pickup_minimum_time" class="input_pickup_time">
+                        <?= $this->Form->input('minimum_pickup_time',[
+                            'type' => 'text',
+                            'id'   => 'minimum_pickup_time',
+                            'class' => 'form-control',
+                            'placeholder' => '25',
+                            'value' => $restDetails['minimum_pickup_time'],
+                            'label' => false
+                        ]) ?>
+                        <span class="minimumPickupTimeErr"></span>
                     </div>  
                     <div class="toggle-text-right">
                         <span class="toggle-box-text">mins</span>
@@ -90,6 +106,13 @@
             </div>
         </div>      		
 	</section>
+    <div class="box-footer">
+        <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>dashboard">Cancel</a>
+        <button type="submit" class="btn btn-info" onclick=" return addRestaurant();">Submit</button>
+    </div>
+    <?= $this->Form->end();?>
+
+
 	<section class="content clearfix">
 		<div class="row">
 			<div class="col-xs-12">
@@ -158,7 +181,7 @@
         padding: 0 20px;
     }
 
-    .input_pickup_time {
+    .form-control {
         width: 100%;
     }
 
@@ -330,7 +353,35 @@
         }
     }
 
+    function addRestaurant() {
 
+        $(".error").html('');
+        var Url   = jssitebaseurl+'restaurants/checkEmail';
+        var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
+        if(minimum_pickup_time == '') {
+            $("#pickupTimeInfo").click();
+            $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
+            $("#minimum_pickup_time").focus();
+            return false;
+        }else {
+            else {
+                $.post(
+                    Url,
+                    {
+                        'contact_email': username,
+                        'restname': restaurant_name,
+                        'id' : resId,
+                        'minimum_pickup_time' : minimum_pickup_time
+                    },
+                    function (data) {                     
+                        $("#restaurantAdd").submit();
+                        return false;
+                    }
+                );
+            }
+        return false;
+        }
+    }
 
     function deleteRecord(id, urlval, action, page, loadDiv)
     {
