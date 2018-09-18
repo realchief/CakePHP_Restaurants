@@ -646,27 +646,27 @@ class RestaurantsController extends AppController
         $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod', 'timezoneList'));
     }
   //-----------------------------------------------------------------------------------------------------------
-    //  public function toggleSettings() {        
-    //     if($this->request->is(['post','put'])) {
-    //         $restEntity = $this->Restaurants->newEntity();
-    //         $restEntity = $this->Restaurants->patchEntity($restEntity,$this->request->getData());
-    //         $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
+     public function toggleSettings() {        
+        if($this->request->is(['post','put'])) {
+            $restEntity = $this->Restaurants->newEntity();
+            $restEntity = $this->Restaurants->patchEntity($restEntity,$this->request->getData());
+            $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
 
-    //         $userDetails = $this->Restaurants->find('all', [
-    //             'conditions' => [
-    //                 'id' => $this->request->getData('resId')
-    //             ]
-    //         ])->hydrate(false)->first();
+            $userDetails = $this->Restaurants->find('all', [
+                'conditions' => [
+                    'id' => $this->request->getData('resId')
+                ]
+            ])->hydrate(false)->first();
 
-    //         $saveEntity = $this->Restaurants->save($restEntity);
+            $saveEntity = $this->Restaurants->save($restEntity);
 
-    //         if($saveEntity) {
-    //             $this->Flash->success('Settings Updated Successful');
-    //             return $this->redirect(REST_BASE_URL.'dashboard');
-    //         }
-    //     }
+            if($saveEntity) {
+                $this->Flash->success('Settings Updated Successful');
+                return $this->redirect(REST_BASE_URL.'dashboard');
+            }
+        }
 
-    // }
+    }
 
 //-----------------------------------------------------------------------------------------------------------
     /*Check Username*/

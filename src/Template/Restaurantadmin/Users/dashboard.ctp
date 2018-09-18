@@ -356,7 +356,7 @@
     function dashboardSettings() {
 
         $(".error").html('');
-        var Url   = jssitebaseurl+'restaurants/index';
+        var Url   = jssitebaseurl+'restaurants/toggleSettings';
         var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
         if(minimum_pickup_time == '') {            
             $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
