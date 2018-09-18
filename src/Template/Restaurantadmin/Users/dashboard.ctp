@@ -108,7 +108,7 @@
 	</section>
     <div class="box-footer">
         <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>dashboard">Cancel</a>
-        <a href="javascript:;" type="submit" class="btn btn-info" onclick=" return dashboardSettings();">Submit</a>
+        <button type="submit" class="btn btn-info" onclick=" return dashboardSettings();">Submit</button>
     </div>
     <?= $this->Form->end();?>
 
@@ -356,36 +356,23 @@
     function dashboardSettings() {
 
         $(".error").html('');
-        // var Url   = jssitebaseurl+'orders/toggleSettings';
+        var Url   = jssitebaseurl+'restaurants/index';
         var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
         if(minimum_pickup_time == '') {            
             $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
             $("#minimum_pickup_time").focus();
             return false;
-        }else {
-            // $.post(
-            //     Url,
-            //     {
-            //         'minimum_pickup_time' : minimum_pickup_time
-            //     },
-            //     function (data) {        
-            //         alert("!!!!!!!!!");             
-            //         $("#toggleSettingsForm").submit();
-            //         return false;
-            //     }
-            // );
-            $.ajax({
-                type: 'POST',
-                url: jssitebaseurl+'orders/toggleSettings',
-                data: {
-                    minimum_pickup_time: minimum_pickup_time
+        }else {            
+            $.post(
+                Url,
+                {
+                    'minimum_pickup_time' : minimum_pickup_time
                 },
-                success: function (data) {
-                    alert("!!!!!!!!!");
+                function (data) {                  
                     $("#toggleSettingsForm").submit();
                     return false;
                 }
-            });       
+            );
         }
     }
 
