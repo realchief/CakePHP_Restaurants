@@ -10,8 +10,8 @@
 	</section>
 
     <?php
-        echo $this->Form->create('restaurantAdd', [
-            'id' => 'restaurantAdd',
+        echo $this->Form->create('toggleSettingsForm', [
+            'id' => 'toggleSettingsForm',
             'class' => 'form-horizontal',                           
             'enctype'  =>'multipart/form-data'
         ]);
@@ -108,7 +108,7 @@
 	</section>
     <div class="box-footer">
         <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>dashboard">Cancel</a>
-        <button type="submit" class="btn btn-info" onclick=" return addRestaurant();">Submit</button>
+        <a href="javascript:;" type="submit" class="btn btn-info" onclick=" return dashboardSettings();">Submit</a>
     </div>
     <?= $this->Form->end();?>
 
@@ -353,33 +353,39 @@
         }
     }
 
-    function addRestaurant() {
+    function dashboardSettings() {
 
         $(".error").html('');
-        var Url   = jssitebaseurl+'restaurants/checkEmail';
+        // var Url   = jssitebaseurl+'orders/toggleSettings';
         var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
-        if(minimum_pickup_time == '') {
-            $("#pickupTimeInfo").click();
+        if(minimum_pickup_time == '') {            
             $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
             $("#minimum_pickup_time").focus();
             return false;
         }else {
-            else {
-                $.post(
-                    Url,
-                    {
-                        'contact_email': username,
-                        'restname': restaurant_name,
-                        'id' : resId,
-                        'minimum_pickup_time' : minimum_pickup_time
-                    },
-                    function (data) {                     
-                        $("#restaurantAdd").submit();
-                        return false;
-                    }
-                );
-            }
-        return false;
+            // $.post(
+            //     Url,
+            //     {
+            //         'minimum_pickup_time' : minimum_pickup_time
+            //     },
+            //     function (data) {        
+            //         alert("!!!!!!!!!");             
+            //         $("#toggleSettingsForm").submit();
+            //         return false;
+            //     }
+            // );
+            $.ajax({
+                type: 'POST',
+                url: jssitebaseurl+'orders/toggleSettings',
+                data: {
+                    minimum_pickup_time: minimum_pickup_time
+                },
+                success: function (data) {
+                    alert("!!!!!!!!!");
+                    $("#toggleSettingsForm").submit();
+                    return false;
+                }
+            });       
         }
     }
 

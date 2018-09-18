@@ -299,6 +299,30 @@ class OrdersController extends AppController
         }
         echo json_encode($Response);die();
     }
+
+    public function toggleSettings() {
+        echo "========================";
+        exit;
+        if($this->request->is(['post','put'])) {
+            $restEntity = $this->Restaurants->newEntity();
+            $restEntity = $this->Restaurants->patchEntity($restEntity,$this->request->getData());
+            $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
+
+            $userDetails = $this->Restaurants->find('all', [
+                'conditions' => [
+                    'id' => $this->request->getData('resId')
+                ]
+            ])->hydrate(false)->first();
+
+            $saveEntity = $this->Restaurants->save($restEntity);
+
+            if($saveEntity) {
+                $this->Flash->success('Settings Updated Successful');
+                return $this->redirect(REST_BASE_URL.'dashboard');
+            }
+        }
+
+    }
 //-----------------------------------------------------------------------------------------------------------
     /*Order Status Change*/
     public function changeStatus() {

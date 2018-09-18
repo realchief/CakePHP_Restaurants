@@ -159,6 +159,11 @@ class RestaurantsController extends AppController
             $this->set('locationlist', $locationlist);
         }
     }
+
+
+
+    
+
 //-----------------------------------------------------------------------------------------
     /*Get Polygon list From Database*/
     public function getPolygonList() {
@@ -643,7 +648,8 @@ class RestaurantsController extends AppController
   //-----------------------------------------------------------------------------------------------------------
 
     /*Check Username*/
-    public function checkEmail() {
+    public function checkEmail() {        
+
         if($this->request->getData('contact_email') != '') {
 
             $restSeo = $this->Common->seoUrl($this->request->getData('restname'));
