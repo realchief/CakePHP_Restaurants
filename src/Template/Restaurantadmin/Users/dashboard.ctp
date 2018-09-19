@@ -123,7 +123,7 @@
 	</section>
     <div class="box-footer">
         <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>dashboard">Cancel</a>
-        <button type="submit" class="btn btn-info" onclick=" return dashboardSettings();">Submit</button>
+        <button type="submit" class="btn btn-info" onclick=" return dashboardSettings();">Save</button>
     </div>
     <?= $this->Form->end();?>
 

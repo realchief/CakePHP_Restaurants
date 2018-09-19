@@ -675,10 +675,12 @@ class RestaurantsController extends AppController
             $restEntity->ordering_switch_status = $this->request->getData('ordering_switch_status');
             $restEntity->delivery_switch_status = $this->request->getData('delivery_switch_status');  
                   
-            $saveEntity = $this->Restaurants->save($restEntity);           
-            return $this->redirect(REST_BASE_URL.'dashboard');          
+            $saveEntity = $this->Restaurants->save($restEntity); 
+            if($saveEntity){                
+                $this->Flash->success('Saved Successful');
+                return $this->redirect(REST_BASE_URL.'dashboard'); 
+            }          
         }
-      
     }
 
 //-----------------------------------------------------------------------------------------------------------
