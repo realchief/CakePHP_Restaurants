@@ -671,7 +671,10 @@ class RestaurantsController extends AppController
             $restEntity = $this->Restaurants->patchEntity($restEntity,$this->request->getData());
 
             $restEntity->id = $id;
-            $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');          
+            $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');  
+            $restEntity->ordering_switch_status = $this->request->getData('ordering_switch_status');
+            $restEntity->delivery_switch_status = $this->request->getData('delivery_switch_status');  
+                  
             $saveEntity = $this->Restaurants->save($restEntity);           
             return $this->redirect(REST_BASE_URL.'dashboard');          
         }
