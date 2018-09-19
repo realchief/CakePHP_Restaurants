@@ -15,6 +15,19 @@
             'class' => 'form-horizontal',                           
             'enctype'  =>'multipart/form-data'
         ]);
+        echo  $this->Form->input('resId', [
+            'id' => 'resId',
+            'class' => 'form-horizontal',
+            'type' => 'hidden',
+            'value' => !empty($id) ? $id : '',
+            'enctype'  =>'multipart/form-data'
+        ]);
+        echo $this->Form->input('bySearch', [
+            'id' => 'bySearch',
+            'type' => 'hidden',
+            'class' => 'form-horizontal',
+            'value'=> SEARCHBY
+        ]);
     ?>
 	<section class="content">
 		<div class="row">
@@ -357,6 +370,7 @@
 
         $(".error").html('');
         var Url   = jssitebaseurl+'restaurants/toggleSettings';
+        var resId = $("#resId").val();
         var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
         if(minimum_pickup_time == '') {            
             $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
@@ -366,6 +380,7 @@
             $.post(
                 Url,
                 {
+                    'id' : resId,
                     'minimum_pickup_time' : minimum_pickup_time
                 },
                 function (data) {                  
