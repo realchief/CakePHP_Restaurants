@@ -367,25 +367,24 @@
     }
 
     function dashboardSettings() {
-
+        event.preventDefault();
         $(".error").html('');
         var Url   = jssitebaseurl+'restaurants/toggleSettings';
-        var resId = $("#resId").val();
         var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
         if(minimum_pickup_time == '') {            
             $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
             $("#minimum_pickup_time").focus();
             return false;
-        }else {            
+        }else {
             $.post(
                 Url,
                 {
-                    'id' : resId,
                     'minimum_pickup_time' : minimum_pickup_time
                 },
                 function (data) {                  
-                    $("#toggleSettingsForm").submit();
-                    return false;
+                    // $("#toggleSettingsForm").submit();
+                    // return false;
+                    console.log(data);
                 }
             );
         }

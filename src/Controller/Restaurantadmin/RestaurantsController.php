@@ -386,8 +386,7 @@ class RestaurantsController extends AppController
                 ? 'Close' : '';
 
                 
-            $restEntity->id = $this->request->getData('resId');
-           
+            $restEntity->id = $this->request->getData('resId');           
             $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
 
             //Get Userid From Restaurant Table
@@ -646,8 +645,10 @@ class RestaurantsController extends AppController
         $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod', 'timezoneList'));
     }
   //-----------------------------------------------------------------------------------------------------------
-     public function toggleSettings() { 
-
+     public function toggleSettings() {
+        
+        $user = $this->Auth->user(); 
+        
         $restDetails = $this->Restaurants->find('all', [
                'conditions' => [
                 'user_id' => $user['id']
@@ -660,40 +661,31 @@ class RestaurantsController extends AppController
                 ]
             ]
         ])->hydrate(false)->first();
+
         $id  = $restDetails['id']; 
+     
+        
+        if($this->request->is(['post'])) {
 
-        if($this->request->is(['post','put'])) {
-            $restEntity = $this->Restaurants->newEntity();
-            $restEntity = $this->Restaurants->patchEntity($restEntity,$this->request->getData());
-            $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
-            $restEntity->id = $this->request->getData('resId');
-
-            //Get Userid From Restaurant Table
-            $userDetails = $this->Restaurants->find('all', [
-                'conditions' => [
-                    'id' => $this->request->getData('resId')
-                ]
-            ])->hydrate(false)->first();            
-
-            $saveEntity = $this->Restaurants->save($restEntity);
-
-            if($saveEntity) {
-
-                //Insert into User Table
-                $userEntity = $this->Users->newEntity();
-                $patchEntity = $this->Users->patchEntity($userEntity,$this->request->getData());
-                $patchEntity->id = $userDetails['user_id'];
-                $saveUser = $this->Users->save($patchEntity);
-                if($saveUser) {          
-                    $restEntity->id = $this->request->getData('resId');      
-                    $saveRest = $this->Restaurants->save($restEntity);
-                }
-                $this->Flash->success('Settings Updated Successful');
-                return $this->redirect(REST_BASE_URL.'dashboard');
-            }
+            $minimum_pickup_time = $this->request->getData('minimum_pickup_time');
+            $restDetails->minimum_pickup_time = $minimum_pickup_time;
+             
+            var_dump($restDetails);            
+            exit();            
+            $this->Restaurants->save($restDetails);   
+                    
+            // if($saveEntity) {
+            //     $this->Flash->success('Settings Updated Successful');
+            //     //return $this->redirect(REST_BASE_URL.'dashboard');
+            //     return $this->request->getData('minimum_pickup_time');
+            // }
+            // else {
+            //     //$this->Flash->error('Settings Failed');
+            //     //return $this->redirect(REST_BASE_URL.'dashboard');
+            //     return false;
+            // }
         }
-
-        $this->set(compact('restDetails','id'));
+        // $this->set(compact('restDetails','id'));
     }
 
 //-----------------------------------------------------------------------------------------------------------
