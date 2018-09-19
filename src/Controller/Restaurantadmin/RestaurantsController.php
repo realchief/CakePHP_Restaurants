@@ -226,7 +226,8 @@ class RestaurantsController extends AppController
                     'PaymentMethods'
                 ]
             ]
-        ])->hydrate(false)->first();
+        ])->hydrate(false)->first();     
+
         $id  = $restDetails['id'];
          //echo "<pre>"; print_r($restDetails); die();
 
@@ -663,26 +664,30 @@ class RestaurantsController extends AppController
         ])->hydrate(false)->first();
 
         $id  = $restDetails['id']; 
-     
         
         if($this->request->is(['post'])) {
 
-            $minimum_pickup_time = $this->request->getData('minimum_pickup_time');
-            $restDetails->minimum_pickup_time = $minimum_pickup_time;
-             
-            var_dump($restDetails);            
-            exit();            
-            $this->Restaurants->save($restDetails);   
+            $restEntity = $this->Restaurants->newEntity();
+            $restEntity = $this->Restaurants->patchEntity($restEntity,$this->request->getData());
+
+            $restEntity->id = $id;
+            $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');          
+
+            $saveEntity = $this->Restaurants->save($restEntity);
+            $this->Flash->success('Settings Updated Successful');
+            
+            return $this->redirect(REST_BASE_URL.'dashboard');
+            // exit;
                     
             // if($saveEntity) {
-            //     $this->Flash->success('Settings Updated Successful');
+            //     // $this->Flash->success('Settings Updated Successful');
             //     //return $this->redirect(REST_BASE_URL.'dashboard');
-            //     return $this->request->getData('minimum_pickup_time');
+            //     // return $this->request->getData('minimum_pickup_time');
             // }
             // else {
             //     //$this->Flash->error('Settings Failed');
             //     //return $this->redirect(REST_BASE_URL.'dashboard');
-            //     return false;
+            //     // return false;
             // }
         }
         // $this->set(compact('restDetails','id'));
@@ -690,7 +695,8 @@ class RestaurantsController extends AppController
 
 //-----------------------------------------------------------------------------------------------------------
     /*Check Username*/
-    public function checkEmail() {            
+    public function checkEmail() {      
+              
         if($this->request->getData('contact_email') != '') {
 
             $restSeo = $this->Common->seoUrl($this->request->getData('restname'));
