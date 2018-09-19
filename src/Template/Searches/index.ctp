@@ -185,8 +185,15 @@
 
                                             </div>
                                             <div class="col-xs-12 no-padding-right no-xs-padding m-t-20 m-t-xs-20 no-rtlpadding-left">
-                                                <span href="#" class="order-now-btn"><?= (($value['currentStatus'] == 'Open') ? 'ORDER NOW' : (($value['currentStatus'] == 'PreOrder') ? 'PRE ORDER' : 'PRE ORDER')) ?>
-                                                </span>
+                                                <?php echo $value['ordering_switch_status'] ?>
+                                                <?php if($value['ordering_switch_status'] == 'true') { ?>
+                                                    <span href="#" class="order-now-btn"><?= (($value['currentStatus'] == 'Open') ? 'ORDER NOW' : (($value['currentStatus'] == 'PreOrder') ? 'PRE ORDER' : 'PRE ORDER')) ?>
+                                                    </span>
+                                                <?php } 
+                                                else { ?>
+                                                    <span href="#" class="order-now-btn" onclick='return false;'><?= (($value['currentStatus'] == 'Open') ? 'ORDER NOW' : (($value['currentStatus'] == 'PreOrder') ? 'PRE ORDER' : 'PRE ORDER')) ?>
+                                                    </span>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -208,6 +215,7 @@
         </div>
     </section>
 </div>
+
 <script>
     //Filter Cuisine and restaurant types
     var $filterCheckboxes = $('input[type="checkbox"]');
@@ -264,4 +272,17 @@
         }
 
     });
+
 </script>
+
+<style type="text/css">
+    .order-closed-text {
+        background: #222 none repeat scroll 0 0;
+        border-radius: 5px;
+        color: #ffffff;
+        float: left;
+        font: 15px/35px GothamRoundedMedium;        
+        text-align: center;
+        width: 100%;
+    }
+</style>
