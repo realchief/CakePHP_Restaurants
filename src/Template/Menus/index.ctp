@@ -524,12 +524,24 @@
                                         <label for="res-pickup"><?php echo __('Pickup');?></label>
                                     </div>
                                 <?php } ?>
-                                <?php if($restDetails['restaurant_delivery'] == 'Yes') { ?>
-                                    <div class="delivery-div">
-                                        <input type="radio" id="res-delivery" name="deliveryType" <?= ($orderType != 'pickup') ? 'checked' : '' ?> onclick="return orderType('delivery');" value="delivery">
-                                        <label for="res-delivery"><?php echo __('Delivery');?></label>
-                                    </div>
-                                <?php } ?>
+                                <?php
+
+                                if($restDetails['delivery_switch_status'] == 'true') {
+                                    if($restDetails['restaurant_delivery'] == 'Yes') { ?>
+                                        <div class="delivery-div">
+                                            <input type="radio" id="res-delivery" name="deliveryType" <?= ($orderType != 'pickup') ? 'checked' : '' ?> onclick="return orderType('delivery');" value="delivery">
+                                            <label for="res-delivery"><?php echo __('Delivery');?></label>
+                                        </div>
+                                    <?php } 
+                                } else {
+                                    if($restDetails['restaurant_delivery'] == 'Yes') { ?>
+                                        <div class="delivery-div">
+                                            <input type="radio" id="res-delivery-disable" name="deliveryType" value="delivery" disabled>
+                                            <label for="res-delivery-disable" style="cursor: not-allowed; "><?php echo __('Delivery');?></label>
+                                        </div>
+                                    <?php } 
+                                }
+                                ?>
                             </div>
                             <div class="pickup-time-hide-wrap cart-box">
                                 <div class="col-md-12 text-left warehouse_head"><?php echo __('Pickup Time');?>
