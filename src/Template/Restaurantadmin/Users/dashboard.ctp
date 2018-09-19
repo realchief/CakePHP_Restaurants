@@ -79,7 +79,8 @@
                         <span class="toggle-box-text">Turn Online Ordering On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <input type="checkbox" name="checkbox" id="switch-ordering" /><label id="ordering-toggle-lable" data-on="Yes" data-off="No" for="switch-ordering"></label>
+                        <input type="checkbox" name="switch-ordering" id="switch-ordering" />
+                        <label id="ordering-toggle-lable" data-on="Yes" data-off="No" for="switch-ordering"></label>
                     </div>
                 </div>
             </div>
@@ -90,7 +91,8 @@
                         <span class="toggle-box-text">Turn Delivery On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <input type="checkbox" name="checkbox" id="switch-delivery" /><label id="delivery-toggle-lable" data-on="Yes" data-off="No" for="switch-delivery"></label>                        
+                        <input type="checkbox" name="switch-delivery" id="switch-delivery" />
+                        <label id="delivery-toggle-lable" data-on="Yes" data-off="No" for="switch-delivery"></label>                        
                     </div>
                 </div>
             </div>
@@ -371,6 +373,10 @@
         $(".error").html('');
         var Url   = jssitebaseurl+'restaurants/toggleSettings';
         var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
+
+        var ordering_switch_status = $("#switch-ordering").is(':checked');
+        var delivery_switch_status = $("#switch-delivery").is(':checked');        
+       
         if(minimum_pickup_time == '') {            
             $(".minimumPickupTimeErr").addClass('error').html('Please enter Minimum Pick up Time');
             $("#minimum_pickup_time").focus();
@@ -379,11 +385,11 @@
             $.post(
                 Url,
                 {
-                    'minimum_pickup_time' : minimum_pickup_time
+                    'minimum_pickup_time' : minimum_pickup_time,
+                    'ordering_switch_status' : ordering_switch_status,
+                    'delivery_switch_status' : delivery_switch_status
                 },
-                function (data) {                  
-                    // $("#toggleSettingsForm").submit();
-                    // return false;
+                function (data) {                
                     console.log(data);
                 }
             );
