@@ -672,25 +672,10 @@ class RestaurantsController extends AppController
 
             $restEntity->id = $id;
             $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');          
-
-            $saveEntity = $this->Restaurants->save($restEntity);
-            $this->Flash->success('Settings Updated Successful');
-            
-            return $this->redirect(REST_BASE_URL.'dashboard');
-            // exit;
-                    
-            // if($saveEntity) {
-            //     // $this->Flash->success('Settings Updated Successful');
-            //     //return $this->redirect(REST_BASE_URL.'dashboard');
-            //     // return $this->request->getData('minimum_pickup_time');
-            // }
-            // else {
-            //     //$this->Flash->error('Settings Failed');
-            //     //return $this->redirect(REST_BASE_URL.'dashboard');
-            //     // return false;
-            // }
+            $saveEntity = $this->Restaurants->save($restEntity);           
+            return $this->redirect(REST_BASE_URL.'dashboard');          
         }
-        // $this->set(compact('restDetails','id'));
+      
     }
 
 //-----------------------------------------------------------------------------------------------------------
