@@ -185,14 +185,15 @@
 
                                             </div>
                                             <div class="col-xs-12 no-padding-right no-xs-padding m-t-20 m-t-xs-20 no-rtlpadding-left">
-                                                <?php echo $value['ordering_switch_status'] ?>
+                                                
                                                 <?php if($value['ordering_switch_status'] == 'true') { ?>
-                                                    <span href="#" class="order-now-btn"><?= (($value['currentStatus'] == 'Open') ? 'ORDER NOW' : (($value['currentStatus'] == 'PreOrder') ? 'PRE ORDER' : 'PRE ORDER')) ?>
-                                                    </span>
+                                                    <button href="#" class="order-now-btn"><?= (($value['currentStatus'] == 'Open') ? 'ORDER NOW' : (($value['currentStatus'] == 'PreOrder') ? 'PRE ORDER' : 'PRE ORDER')) ?>
+                                                    </button>
                                                 <?php } 
                                                 else { ?>
-                                                    <span href="#" class="order-now-btn" onclick='return false;'><?= (($value['currentStatus'] == 'Open') ? 'ORDER NOW' : (($value['currentStatus'] == 'PreOrder') ? 'PRE ORDER' : 'PRE ORDER')) ?>
-                                                    </span>
+                                                    <h4 id="order-close-alert">Order is closed</h4>
+                                                    <button href="#" class="order-now-btn" disabled><?= (($value['currentStatus'] == 'Open') ? 'ORDER NOW' : (($value['currentStatus'] == 'PreOrder') ? 'PRE ORDER' : 'PRE ORDER')) ?>
+                                                    </button>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -200,8 +201,6 @@
                                 </div>
                             </a>
                         </div>
-
-
                         <?php
                     }
                 }else { ?>
@@ -276,13 +275,11 @@
 </script>
 
 <style type="text/css">
-    .order-closed-text {
-        background: #222 none repeat scroll 0 0;
-        border-radius: 5px;
-        color: #ffffff;
-        float: left;
-        font: 15px/35px GothamRoundedMedium;        
+    #order-close-alert {
+        font-size: 12px;
+        font: italic;
+        font-style: italic;
+        color: rgb(150, 0, 0);
         text-align: center;
-        width: 100%;
     }
 </style>
