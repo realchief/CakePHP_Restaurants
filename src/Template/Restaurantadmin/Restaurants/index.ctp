@@ -32,7 +32,7 @@
                             <li><a href="#tab_14" data-toggle="tab" id="timeZone">Time Zone</a></li>
                             <!-- <li><a href="#tab_11" data-toggle="tab">Reward Point</a></li> -->
                         </ul>
-                        
+
                         <?php
                             echo $this->Form->create('restaurantAdd', [
                                 'id' => 'restaurantAdd',

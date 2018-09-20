@@ -38,6 +38,10 @@ class UsersController extends AppController
             'forgotPassword'
         ]);
     }
+
+
+
+
 #--------------------------------------------------------------------------------------------
     //Restaturantadmin login 
     public function login() {
@@ -113,6 +117,7 @@ class UsersController extends AppController
         }
 
     }#getlocation function end...
+
 #---------------------------------------------------------------------------------------------
     //Restaurantadmin dashboard 
     public function dashboard() {
@@ -193,7 +198,10 @@ class UsersController extends AppController
         $user = $this->Auth->user();     
         $restDetails = $this->Restaurants->find('all', [
                'fields' =>[
-                   'id'
+                   'Restaurants.id', 
+                   'Restaurants.minimum_pickup_time',
+                   'Restaurants.ordering_switch_status',
+                   'Restaurants.delivery_switch_status'
                ],
                'conditions' => [
                    'user_id' => $user['id']
@@ -236,8 +244,7 @@ class UsersController extends AppController
             ]
         ])->count();  
 
-        $this->set(compact('deliveredCount', 'salesPrice', 'no_orders', 'no_customers', 'totalUsers', 'activeUsers', 'deactiveUsers', 'totalRestaurants', 'deactiveRestaurants', 'activeRestaurants', 'totalDrivers',
-            'deactiveDrivers', 'activeDrivers'));        
+        $this->set(compact('restDetails', 'deliveredCount', 'salesPrice', 'no_orders', 'no_customers', 'totalUsers', 'activeUsers', 'deactiveUsers', 'totalRestaurants', 'deactiveRestaurants', 'activeRestaurants', 'totalDrivers', 'deactiveDrivers', 'activeDrivers'));        
     }
 
 #------------------------------------------------------------------------------------
