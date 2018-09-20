@@ -79,9 +79,16 @@
                         <span class="toggle-box-text">Turn Online Ordering On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <?php echo ($restDetails['ordering_switch_status']) ?>
-                        <input type="checkbox" name="switch-ordering" id="switch-ordering" checked />
-                        <label id="ordering-toggle-lable" data-on="Yes" data-off="No" for="switch-ordering"></label>
+                        
+                        <?php if($restDetails['ordering_switch_status'] == 'true') {
+                            ?>
+                            <input type="checkbox" name="switch-ordering" id="switch-ordering" checked />
+                            <label id="ordering-toggle-lable" data-on="Yes" data-off="No" for="switch-ordering"></label>
+                        <?php } else { ?>
+                            <input type="checkbox" name="switch-delivery" id="switch-delivery"/>
+                            <label id="delivery-toggle-lable" data-on="Yes" data-off="No" for="switch-delivery"></label>
+                        <?php } ?> 
+
                     </div>
                 </div>
             </div>
@@ -92,9 +99,15 @@
                         <span class="toggle-box-text">Turn Delivery On/Off</span>
                     </div>
                     <div class="toggle-icon">
-                        <?php echo $restDetails['delivery_switch_status'] ?>
-                        <input type="checkbox" name="switch-delivery" id="switch-delivery" checked />
-                        <label id="delivery-toggle-lable" data-on="Yes" data-off="No" for="switch-delivery"></label>                        
+                        <?php if($restDetails['delivery_switch_status'] == 'true') {
+                            ?>
+                            <input type="checkbox" name="switch-delivery" id="switch-delivery" checked />
+                            <label id="delivery-toggle-lable" data-on="Yes" data-off="No" for="switch-delivery"></label>
+                        <?php } else { ?>
+                            <input type="checkbox" name="switch-delivery" id="switch-delivery"/>
+                            <label id="delivery-toggle-lable" data-on="Yes" data-off="No" for="switch-delivery"></label>
+
+                        <?php } ?>                        
                     </div>
                 </div>
             </div>
@@ -105,7 +118,7 @@
                     <div class="toggle-text-left">
                         <span class="toggle-box-text">Set Your Minimum Pickup Time</span>
                     </div>
-                    <?php echo $restDetails['id'] ?>
+                    
                     <div class="time-input-icon">
                         <?= $this->Form->input('minimum_pickup_time',[
                             'type' => 'text',
