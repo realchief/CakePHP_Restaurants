@@ -85,8 +85,8 @@
                             <input type="checkbox" name="switch-ordering" id="switch-ordering" checked />
                             <label id="ordering-toggle-lable" data-on="Yes" data-off="No" for="switch-ordering"></label>
                         <?php } else { ?>
-                            <input type="checkbox" name="switch-delivery" id="switch-delivery"/>
-                            <label id="delivery-toggle-lable" data-on="Yes" data-off="No" for="switch-delivery"></label>
+                            <input type="checkbox" name="switch-ordering" id="switch-ordering"/>
+                            <label id="ordering-toggle-lable" data-on="Yes" data-off="No" for="switch-ordering"></label>
                         <?php } ?> 
 
                     </div>
