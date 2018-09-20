@@ -91,113 +91,113 @@
                         <div class="searchres_box col-xs-12 no-padding-right no-padding-left-xs m-b-15 no-rtlpadding-left" data-category="<?php echo $value['cuisineLists'] ?>,<?= ($value['restaurant_delivery'] == 'Yes') ? 'delivery' : '' ?>,<?= ($value['restaurant_pickup'] == 'Yes') ? 'pickup' : '' ?>,<?= $offers ?>">
                             <a class="flower" href="<?= BASE_URL ?>menu/<?= $value['seo_url'] ?>" >
                                 <div class="right-rest-info">
-                                    <div class="rest-details">
-                                        <div class="col-md-2 col-sm-12 col-xs-12 no-xs-padding no-padding-left pul-right no-rtlpadding-right">
-                                            <div class="res-img-box">
-                                                <span class="res-logo-helper"></span>
 
-                                                <img src="<?php echo BASE_URL.'uploads/storeLogos/'.$value['logo_name'] ?>" height="100" width="150" onerror="this.src='<?php echo BASE_URL;?>webroot/images/no_store.jpg'">
+                                    <?php if($value['ordering_switch_status'] == 'true') { ?>
 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-sm-12 col-xs-12 no-padding pul-right">
-                                            <div class="col-xs-6 col-sm-6 no-padding-left pul-right no-xs-rtl-padding">
-                                                <div class="firstheadrestname"><?php echo $value['restaurant_name'] ?></div>
-                                                <?php
-                                                if (!empty($rewardData) && $value['reward_option'] == 'Yes'): ?>
-                                                    <img class="rewardsIconWrap" src="<?php echo BASE_URL ?>images/reward-points.png">
-                                                        <?php
-                                                endif;
-                                                ?>
+                                        <div class="rest-details">
+                                            <div class="col-md-2 col-sm-12 col-xs-12 no-xs-padding no-padding-left pul-right no-rtlpadding-right">
+                                                <div class="res-img-box">
+                                                    <span class="res-logo-helper"></span>
 
-                                                <div class="firstheadercuis"><?php echo $value['cuisineRecord'] ?></div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6 hidden-md hidden-lg no-xs-padding-right no-xs-rtl-padding">
-                                                <div class="rest-ratting-star text-right">
-                                                    <div class="ratingstar-outer">
-                                                        <span style="width:<?= $value['finalReview'] ?>%" class="ratingstar-new"></span>
-                                                    </div>
+                                                    <img src="<?php echo BASE_URL.'uploads/storeLogos/'.$value['logo_name'] ?>" height="100" width="150" onerror="this.src='<?php echo BASE_URL;?>webroot/images/no_store.jpg'">
+
                                                 </div>
-                                                <div class="restaurant-reviews pull-right pul-left"><?= $value['totalRating'] ?> <?php echo __('Reviews');?></div>
-
                                             </div>
-                                            <div class="col-xs-12 no-padding no-rtlpadding-left rtl-padding-R15 no-xs-rtl-padding">
-                                                <div class="food-order-details">
-                                                    <div class="no-padding cost-details">
-                                                        <div class="priceing-datails"><?= $siteSettings['site_currency'] ?> <?php echo number_format($value['minimum_order'], 2) ?></div>
-                                                        <p class="content-details"><?php echo __('Min. Cost');?></p>
-                                                    </div>
-                                                    <div class="no-padding cost-details">
-                                                        <div class="priceing-datails text-right-xs"><?= $value['to_distance'] ?><?php echo __('miles');?></div>
-                                                        <p class="content-details text-right-xs"><?php echo __('Distance');?></p>
-                                                    </div>
-                                                    <div class="clearfix visible-xs"></div>
-                                                    <div class="no-padding cost-details">
-                                                        <div class="priceing-datails"><?= $siteSettings['site_currency'] ?> <?= number_format($value['delivery_charge'],2) ?></div>
-                                                        <p class="content-details"><?php echo __('Del. Fee');?></p>
-                                                    </div>
-                                                    <div class="no-padding min-cost">
-                                                        <div class="time-log"><?= $value[$currentDay.'_first_opentime'] ?> - <?= $value[$currentDay.'_first_closetime'] ?></div>
-                                                        <div class="time-log"><?= $value[$currentDay.'_second_opentime'] ?> - <?= $value[$currentDay.'_second_closetime'] ?></div>
-                                                    </div>
-                                                    <div class="no-padding min-cost xs-left">
-
-                                                        <?php if(!empty($value['restOffers'])) { ?>
-
-                                                            <?php if($value['restOffers']['first_user'] == 'Y') { ?>
-                                                                <div class="offer-log" data-toggle="tooltip" data-placement="top" title="<?php echo $value['restOffers']['free_percentage']?>% off for first time over <?= $siteSettings['site_currency'] ?> <?php echo $value['restOffers']['free_price'] ?>"><i class="fa fa-usd"></i>
-                                                                    <?php echo $value['restOffers']['free_percentage']?>% off for first time over <?= $siteSettings['site_currency'] ?> <?php echo $value['restOffers']['free_price'] ?>
-                                                                </div>
-                                                            <?php } ?>
-
-                                                            <?php if($value['restOffers']['normal'] == 'Y') { ?>
-                                                                <div class="offer-log" data-toggle="tooltip" data-placement="top" title="<?php echo $value['restOffers']['normal_percentage']?>% off for over <?= $siteSettings['site_currency'] ?> <?php echo $value['restOffers']['normal_price'] ?>"><i class="fa fa-usd"></i>
-                                                                    <?php echo $value['restOffers']['normal_percentage']?>% off for over <?= $siteSettings['site_currency'] ?> <?php echo $value['restOffers']['normal_price'] ?>
-                                                                </div>
-                                                            <?php } ?>
-
+                                            <div class="col-md-8 col-sm-12 col-xs-12 no-padding pul-right">
+                                                <div class="col-xs-6 col-sm-6 no-padding-left pul-right no-xs-rtl-padding">
+                                                    <div class="firstheadrestname"><?php echo $value['restaurant_name'] ?></div>
+                                                    <?php
+                                                    if (!empty($rewardData) && $value['reward_option'] == 'Yes'): ?>
+                                                        <img class="rewardsIconWrap" src="<?php echo BASE_URL ?>images/reward-points.png">
                                                             <?php
-                                                        }else { ?>
-                                                            <span class="no-offer"><img src="<?= BASE_URL ?>images/no-offer.png">no offers</span>
-                                                        <?php } ?>
-                                                        <?php /*if(SEARCHBY == 'Google' && $value['free_delivery'] > 0) { */?><!--
-                                                            <div class="offer-log"><i class="fa fa-usd"></i>
+                                                    endif;
+                                                    ?>
 
-                                                                Free Delivery over <?php /*$siteSettings['site_currency'] */?> <?php /*echo $value['free_delivery']*/?>
-                                                            </div>
+                                                    <div class="firstheadercuis"><?php echo $value['cuisineRecord'] ?></div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 hidden-md hidden-lg no-xs-padding-right no-xs-rtl-padding">
+                                                    <div class="rest-ratting-star text-right">
+                                                        <div class="ratingstar-outer">
+                                                            <span style="width:<?= $value['finalReview'] ?>%" class="ratingstar-new"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="restaurant-reviews pull-right pul-left"><?= $value['totalRating'] ?> <?php echo __('Reviews');?></div>
 
-                                                        --><?php /*} */?>
+                                                </div>
+                                                <div class="col-xs-12 no-padding no-rtlpadding-left rtl-padding-R15 no-xs-rtl-padding">
+                                                    <div class="food-order-details">
+                                                        <div class="no-padding cost-details">
+                                                            <div class="priceing-datails"><?= $siteSettings['site_currency'] ?> <?php echo number_format($value['minimum_order'], 2) ?></div>
+                                                            <p class="content-details"><?php echo __('Min. Cost');?></p>
+                                                        </div>
+                                                        <div class="no-padding cost-details">
+                                                            <div class="priceing-datails text-right-xs"><?= $value['to_distance'] ?><?php echo __('miles');?></div>
+                                                            <p class="content-details text-right-xs"><?php echo __('Distance');?></p>
+                                                        </div>
+                                                        <div class="clearfix visible-xs"></div>
+                                                        <div class="no-padding cost-details">
+                                                            <div class="priceing-datails"><?= $siteSettings['site_currency'] ?> <?= number_format($value['delivery_charge'],2) ?></div>
+                                                            <p class="content-details"><?php echo __('Del. Fee');?></p>
+                                                        </div>
+                                                        <div class="no-padding min-cost">
+                                                            <div class="time-log"><?= $value[$currentDay.'_first_opentime'] ?> - <?= $value[$currentDay.'_first_closetime'] ?></div>
+                                                            <div class="time-log"><?= $value[$currentDay.'_second_opentime'] ?> - <?= $value[$currentDay.'_second_closetime'] ?></div>
+                                                        </div>
+                                                        <div class="no-padding min-cost xs-left">
+
+                                                            <?php if(!empty($value['restOffers'])) { ?>
+
+                                                                <?php if($value['restOffers']['first_user'] == 'Y') { ?>
+                                                                    <div class="offer-log" data-toggle="tooltip" data-placement="top" title="<?php echo $value['restOffers']['free_percentage']?>% off for first time over <?= $siteSettings['site_currency'] ?> <?php echo $value['restOffers']['free_price'] ?>"><i class="fa fa-usd"></i>
+                                                                        <?php echo $value['restOffers']['free_percentage']?>% off for first time over <?= $siteSettings['site_currency'] ?> <?php echo $value['restOffers']['free_price'] ?>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                                <?php if($value['restOffers']['normal'] == 'Y') { ?>
+                                                                    <div class="offer-log" data-toggle="tooltip" data-placement="top" title="<?php echo $value['restOffers']['normal_percentage']?>% off for over <?= $siteSettings['site_currency'] ?> <?php echo $value['restOffers']['normal_price'] ?>"><i class="fa fa-usd"></i>
+                                                                        <?php echo $value['restOffers']['normal_percentage']?>% off for over <?= $siteSettings['site_currency'] ?> <?php echo $value['restOffers']['normal_price'] ?>
+                                                                    </div>
+                                                                <?php } ?>
+
+                                                                <?php
+                                                            }else { ?>
+                                                                <span class="no-offer"><img src="<?= BASE_URL ?>images/no-offer.png">no offers</span>
+                                                            <?php } ?>
+                                                            <?php /*if(SEARCHBY == 'Google' && $value['free_delivery'] > 0) { */?><!--
+                                                                <div class="offer-log"><i class="fa fa-usd"></i>
+
+                                                                    Free Delivery over <?php /*$siteSettings['site_currency'] */?> <?php /*echo $value['free_delivery']*/?>
+                                                                </div>
+
+                                                            --><?php /*} */?>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-12 col-xs-12 no-padding mobile-tab pul-right">
-                                            <div class="col-md-12 hidden-sm hidden-xs no-padding text-right">
-                                                <div class="rest-ratting-star">
-                                                    <div class="ratingstar-outer">
-                                                        <span style="width:<?= $value['finalReview'] ?>%" class="ratingstar-new"></span>
+                                            <div class="col-md-2 col-sm-12 col-xs-12 no-padding mobile-tab pul-right">
+                                                <div class="col-md-12 hidden-sm hidden-xs no-padding text-right">
+                                                    <div class="rest-ratting-star">
+                                                        <div class="ratingstar-outer">
+                                                            <span style="width:<?= $value['finalReview'] ?>%" class="ratingstar-new"></span>
+                                                        </div>
                                                     </div>
+                                                    <div class="restaurant-reviews pull-right pul-left"><?= $value['totalRating'] ?> <?php echo __('Reviews');?></div>
                                                 </div>
-                                                <div class="restaurant-reviews pull-right pul-left"><?= $value['totalRating'] ?> <?php echo __('Reviews');?></div>
-                                            </div>
-                                            <div class="col-xs-12 col-md-8 col-sm-8 m-t-5  no-padding">
-
-
-                                            </div>
-                                            <div class="col-xs-12 no-padding-right no-xs-padding m-t-20 m-t-xs-20 no-rtlpadding-left">
-                                                
-                                                <?php if($value['ordering_switch_status'] == 'true') { ?>
+                                                <div class="col-xs-12 col-md-8 col-sm-8 m-t-5  no-padding">
+                                                </div>
+                                                <div class="col-xs-12 no-padding-right no-xs-padding m-t-20 m-t-xs-20 no-rtlpadding-left">                                                
                                                     <button href="#" class="order-now-btn"><?= (($value['currentStatus'] == 'Open') ? 'ORDER NOW' : (($value['currentStatus'] == 'PreOrder') ? 'PRE ORDER' : 'PRE ORDER')) ?>
                                                     </button>
-                                                <?php } 
-                                                else { ?>
-                                                    <h4 id="order-close-alert">Order is closed</h4>
-                                                    <button href="#" class="order-now-btn" disabled><?= (($value['currentStatus'] == 'Open') ? 'ORDER NOW' : (($value['currentStatus'] == 'PreOrder') ? 'PRE ORDER' : 'PRE ORDER')) ?>
-                                                    </button>
-                                                <?php } ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                    <?php }
+
+                                     else { ?>
+                                        <h4 id="order-close-alert">Online Ordering is Closed</h4>
+                                    <?php } ?>
+
                                 </div>
                             </a>
                         </div>
