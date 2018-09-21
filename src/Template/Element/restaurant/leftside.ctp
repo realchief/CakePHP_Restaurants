@@ -24,7 +24,7 @@
             <li class="">
                 <a href="<?php echo REST_BASE_URL; ?>categories"><i class="fa fa-th-list"></i> <span>Category</span></a>
             </li>
-            <!-- <li class="">
+           <!--  <li class="">
                 <a href="<?php echo REST_BASE_URL; ?>coupons"><i class="fa fa-bars"></i> <span>Coupons</span></a>
             </li> -->
             <li class="">
@@ -50,9 +50,9 @@
             <li class="">
                 <a href="<?php echo REST_BASE_URL; ?>reports/index"><i class="fa fa-file-text-o"></i> <span>Report</span></a>
             </li>
-            <!--<li class="">
-                <a href="<?php /*echo REST_BASE_URL; */?>vouchers/index"><i class="fa fa-gift"></i> <span>Voucher</span></a>
-            </li>-->
+            <li class="">
+                <a href="<?php echo REST_BASE_URL; ?>vouchers/index"><i class="fa fa-bars"></i> <span>Coupons</span></a>
+            </li>
 
             <!--<li class="">
                 <a href="<?php /*echo REST_BASE_URL; */?>deals/index"><i class="fa fa-tags"></i> <span>Deals</span></a>

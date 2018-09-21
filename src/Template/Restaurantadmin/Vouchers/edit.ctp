@@ -1,13 +1,13 @@
 <div class="content-wrapper">
     <section class="content-header">
-        <h1> <?php if(!empty($id)) {?> Edit <?php }?>Voucher </h1> 
+        <h1> <?php if(!empty($id)) {?> Edit <?php }?>Coupon </h1> 
         <ol class="breadcrumb">
             <li>
               <a href="<?php echo REST_BASE_URL ;?>dashboard">
                  <i class="fa fa-dashboard"></i> Home</a>
             </li>           
             <li class="active">
-               <a href="<?php echo REST_BASE_URL ;?>vouchers">Manage Voucher</a>
+               <a href="<?php echo REST_BASE_URL ;?>vouchers">Manage Coupons</a>
             </li>
         </ol>
     </section>
