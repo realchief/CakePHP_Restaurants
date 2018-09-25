@@ -30,6 +30,7 @@
                             <li><a href="#tab_10" data-toggle="tab">Facebook Ordering</a></li>
                             <li><a href="#tab_12" data-toggle="tab" id="pickupTimeInfo">Pickup</a></li>
                             <li><a href="#tab_14" data-toggle="tab" id="timeZone">Time Zone</a></li>
+                            <li><a href="#tab_15" data-toggle="tab" id="pizzaMenu">Pizza Menu</a></li>
                             <!-- <li><a href="#tab_11" data-toggle="tab">Reward Point</a></li> -->
                         </ul>
 
@@ -1474,6 +1475,83 @@
                                         </div>
                                     <span class="timezoneErr"></span>                                       
                                     </div>
+                                </div>
+                            </div>
+
+
+                            <div class="tab-pane" id="tab_15">
+                                <div class="box-body">                          
+                       
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Visibility</label>
+                                        <div class="col-sm-4">
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_visibility" class="minimal" <?= ($restDetails['restaurant_visibility'] == 'FOS') ? 'checked' : '' ?> value="FOS">
+                                                FOS
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="restaurant_visibility" class="minimal" value="external" <?= ($restDetails['restaurant_visibility'] == 'external') ? 'checked' : '' ?>>
+                                                External
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="restaurant_visibility" class="minimal" value="both" <?= ($restDetails['restaurant_visibility'] == 'both') ? 'checked' : '' ?>>
+                                                Both
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <label for="" class="col-md-2 col-sm-4 control-label">Do You Wanna dispatch</label>
+                                        <div class="col-md-4 col-sm-6">
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_dispatch" class="minimal" <?= ($restDetails['restaurant_dispatch'] == 'Yes') ? 'checked' : '' ?> value="Yes">
+                                                Yes
+                                            </label>
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_dispatch" class="minimal" value="No" <?= ($restDetails['restaurant_dispatch'] == 'No') ? 'checked' : '' ?>>
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <label for="" class="col-md-2 col-sm-4 control-label">Pickup</label>
+                                        <div class="col-md-4 col-sm-6">
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_pickup" class="minimal" <?= ($restDetails['restaurant_pickup'] == 'Yes') ? 'checked' : '' ?> value="Yes">
+                                                Yes
+                                            </label>
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_pickup" class="minimal" <?= ($restDetails['restaurant_pickup'] == 'No') ? 'checked' : '' ?> value="No">
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <label for="" class="col-md-2 col-sm-4 control-label">Delivery</label>
+                                        <div class="col-md-4 col-sm-6">
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_delivery" class="minimal" <?= ($restDetails['restaurant_delivery'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
+                                            </label>
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_delivery" class="minimal" value="No" <?= ($restDetails['restaurant_delivery'] == 'No') ? 'checked' : '' ?>>
+                                                No
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <label for="" class="col-md-2 col-sm-4 control-label">Book a table</label>
+                                        <div class="col-md-4 col-sm-6">
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_booktable" class="minimal" value="Yes" <?= ($restDetails['restaurant_booktable'] == 'Yes') ? 'checked' : '' ?> >
+                                                Yes
+                                            </label>
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_booktable" class="minimal" value="No" <?= ($restDetails['restaurant_booktable'] == 'No') ? 'checked' : '' ?> >
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
