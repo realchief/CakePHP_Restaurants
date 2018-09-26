@@ -1483,37 +1483,33 @@
                                 <div class="box-body">                          
                        
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">Visibility</label>
+                                        <label class="col-sm-2 control-label">Size</label>
                                         <div class="col-sm-4">
                                             <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_visibility" class="minimal" <?= ($restDetails['restaurant_visibility'] == 'FOS') ? 'checked' : '' ?> value="FOS">
-                                                FOS
+                                                <input type="radio" name="restaurant_size" class="minimal" <?= ($restDetails['restaurant_size'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
+                                                12" Medium
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="restaurant_visibility" class="minimal" value="external" <?= ($restDetails['restaurant_visibility'] == 'external') ? 'checked' : '' ?>>
-                                                External
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="restaurant_visibility" class="minimal" value="both" <?= ($restDetails['restaurant_visibility'] == 'both') ? 'checked' : '' ?>>
-                                                Both
-                                            </label>
+                                                <input type="radio" name="restaurant_size" class="minimal" value='14 Large' <?= ($restDetails['restaurant_size'] == '14 Large') ? 'checked' : '' ?>>
+                                                14" Large
+                                            </label>                                            
                                         </div>
                                     </div>
                                     <div class="form-group clearfix">
-                                        <label for="" class="col-md-2 col-sm-4 control-label">Do You Wanna dispatch</label>
+                                        <label for="" class="col-md-2 col-sm-4 control-label">Crust Style</label>
                                         <div class="col-md-4 col-sm-6">
                                             <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_dispatch" class="minimal" <?= ($restDetails['restaurant_dispatch'] == 'Yes') ? 'checked' : '' ?> value="Yes">
-                                                Yes
+                                                <input type="radio" name="restaurant_dispatch" class="minimal" <?= ($restDetails['restaurant_dispatch'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
+                                                12 Medium
                                             </label>
                                             <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_dispatch" class="minimal" value="No" <?= ($restDetails['restaurant_dispatch'] == 'No') ? 'checked' : '' ?>>
-                                                No
+                                                <input type="radio" name="restaurant_dispatch" class="minimal" value="No" <?= ($restDetails['restaurant_dispatch'] == '14 Large') ? 'checked' : '' ?>>
+                                                14 Large
                                             </label>
                                         </div>
                                     </div>
                                     <div class="form-group clearfix">
-                                        <label for="" class="col-md-2 col-sm-4 control-label">Pickup</label>
+                                        <label for="" class="col-md-2 col-sm-4 control-label">Sauces</label>
                                         <div class="col-md-4 col-sm-6">
                                             <label class="radio-inline no-padding-left">
                                                 <input type="radio" name="restaurant_pickup" class="minimal" <?= ($restDetails['restaurant_pickup'] == 'Yes') ? 'checked' : '' ?> value="Yes">
@@ -1526,7 +1522,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group clearfix">
-                                        <label for="" class="col-md-2 col-sm-4 control-label">Delivery</label>
+                                        <label for="" class="col-md-2 col-sm-4 control-label">Cheeses</label>
                                         <div class="col-md-4 col-sm-6">
                                             <label class="radio-inline no-padding-left">
                                                 <input type="radio" name="restaurant_delivery" class="minimal" <?= ($restDetails['restaurant_delivery'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
@@ -1539,7 +1535,21 @@
 
                                     </div>
                                     <div class="form-group clearfix">
-                                        <label for="" class="col-md-2 col-sm-4 control-label">Book a table</label>
+                                        <label for="" class="col-md-2 col-sm-4 control-label">Meats</label>
+                                        <div class="col-md-4 col-sm-6">
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_booktable" class="minimal" value="Yes" <?= ($restDetails['restaurant_booktable'] == 'Yes') ? 'checked' : '' ?> >
+                                                Yes
+                                            </label>
+                                            <label class="radio-inline no-padding-left">
+                                                <input type="radio" name="restaurant_booktable" class="minimal" value="No" <?= ($restDetails['restaurant_booktable'] == 'No') ? 'checked' : '' ?> >
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group clearfix">
+                                        <label for="" class="col-md-2 col-sm-4 control-label">Veggies</label>
                                         <div class="col-md-4 col-sm-6">
                                             <label class="radio-inline no-padding-left">
                                                 <input type="radio" name="restaurant_booktable" class="minimal" value="Yes" <?= ($restDetails['restaurant_booktable'] == 'Yes') ? 'checked' : '' ?> >
