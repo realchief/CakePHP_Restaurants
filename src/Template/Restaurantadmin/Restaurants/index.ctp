@@ -1464,8 +1464,7 @@
                                         <label for="" class="col-md-2 col-sm-3 control-label">Time Zone</label>
                                         <div class="col-md-4 col-sm-6 no-padding-right">
                                             <?= $this->Form->input('restaurant_timezone',[
-                                                'type' => 'select',
-                                                'multiple' => 'multiple',
+                                                'type' => 'select',                                                
                                                 'id'   => 'restaurant_timezone',
                                                 'class' => 'form-control',
                                                 'options' => $timezoneList,
@@ -1537,34 +1536,40 @@
                                     <div class="form-group clearfix">
                                         <label for="" class="col-md-2 col-sm-4 control-label">Meats</label>
                                         <div class="col-md-4 col-sm-6">
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_booktable" class="minimal" value="Yes" <?= ($restDetails['restaurant_booktable'] == 'Yes') ? 'checked' : '' ?> >
-                                                Yes
-                                            </label>
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_booktable" class="minimal" value="No" <?= ($restDetails['restaurant_booktable'] == 'No') ? 'checked' : '' ?> >
-                                                No
-                                            </label>
+                                            <div class="col-md-4 col-sm-6 no-padding-right">
+                                                <?= $this->Form->input('restaurant_meats',[
+                                                    'type' => 'select',
+                                                    'multiple' => 'multiple',
+                                                    'id'   => 'restaurant_meats',
+                                                    'class' => 'form-control',
+                                                    'options' => $cuisinesList,
+                                                    'value' => $selectedCuisine,
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="meatsErr"></span>
                                         </div>
                                     </div>
 
                                     <div class="form-group clearfix">
                                         <label for="" class="col-md-2 col-sm-4 control-label">Veggies</label>
                                         <div class="col-md-4 col-sm-6">
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_booktable" class="minimal" value="Yes" <?= ($restDetails['restaurant_booktable'] == 'Yes') ? 'checked' : '' ?> >
-                                                Yes
-                                            </label>
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_booktable" class="minimal" value="No" <?= ($restDetails['restaurant_booktable'] == 'No') ? 'checked' : '' ?> >
-                                                No
-                                            </label>
+                                            <div class="col-md-4 col-sm-6 no-padding-right">
+                                                <?= $this->Form->input('restaurant_veggies',[
+                                                    'type' => 'select',
+                                                    'multiple' => 'multiple',
+                                                    'id'   => 'restaurant_veggies',
+                                                    'class' => 'form-control',
+                                                    'options' => $cuisinesList,
+                                                    'value' => $selectedCuisine,
+                                                    'label' => false
+                                                ]) ?>
+                                            </div>
+                                            <span class="veggiesErr"></span>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-
 
                             <div class="box-footer">
                                 <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>restaurants">Cancel</a>
