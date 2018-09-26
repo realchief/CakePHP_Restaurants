@@ -1542,8 +1542,8 @@
                                                     'multiple' => 'multiple',
                                                     'id'   => 'restaurant_meats',
                                                     'class' => 'form-control',
-                                                    'options' => $cuisinesList,
-                                                    'value' => $selectedCuisine,
+                                                    'options' => $meatList,
+                                                    'value' => $selectedMeat,
                                                     'label' => false
                                                 ]) ?>
                                             </div>

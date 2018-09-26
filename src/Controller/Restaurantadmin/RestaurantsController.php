@@ -38,6 +38,7 @@ class RestaurantsController extends AppController
         $this->loadModel('PaymentMethods');
         $this->loadModel('RestaurantPayments');
         $this->loadModel('Timezones');
+        $this->loadModel('Meats');
     }
 //-----------------------------------------------------------------------------------------
     /*Ajaxaction For Get Latitude and Draw Radius*/
@@ -350,6 +351,10 @@ class RestaurantsController extends AppController
             'valueField' => 'timezone_name'            
         ])->hydrate(false)->toArray();
 
+        $meatList = $this->Meats->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'meat_name'            
+        ])->hydrate(false)->toArray();
 
         $EditPromoImgList = $this->Promotions->find('all', [
             'conditions' => [
@@ -643,7 +648,7 @@ class RestaurantsController extends AppController
             }
         }
 
-        $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod', 'timezoneList'));
+        $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod', 'timezoneList', 'meatList'));
     }
   //-----------------------------------------------------------------------------------------------------------
      public function toggleSettings() {
@@ -676,7 +681,7 @@ class RestaurantsController extends AppController
             $restEntity->delivery_switch_status = $this->request->getData('delivery_switch_status');  
                   
             $saveEntity = $this->Restaurants->save($restEntity); 
-            if($saveEntity){                
+            if($saveEntity){                              
                 $this->Flash->success('Saved Successful');
                 return $this->redirect(REST_BASE_URL.'dashboard'); 
             }          
