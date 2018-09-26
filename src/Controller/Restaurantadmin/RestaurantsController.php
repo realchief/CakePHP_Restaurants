@@ -39,6 +39,7 @@ class RestaurantsController extends AppController
         $this->loadModel('RestaurantPayments');
         $this->loadModel('Timezones');
         $this->loadModel('Meats');
+        $this->loadModel('Veggies');
     }
 //-----------------------------------------------------------------------------------------
     /*Ajaxaction For Get Latitude and Draw Radius*/
@@ -356,6 +357,11 @@ class RestaurantsController extends AppController
             'valueField' => 'meat_name'            
         ])->hydrate(false)->toArray();
 
+        $veggiesList = $this->Veggies->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'veggies_name'            
+        ])->hydrate(false)->toArray();
+
         $EditPromoImgList = $this->Promotions->find('all', [
             'conditions' => [
                 'restaurant_id' => $id
@@ -648,7 +654,7 @@ class RestaurantsController extends AppController
             }
         }
 
-        $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod', 'timezoneList', 'meatList'));
+        $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod', 'timezoneList', 'meatList', 'veggiesList'));
     }
   //-----------------------------------------------------------------------------------------------------------
      public function toggleSettings() {

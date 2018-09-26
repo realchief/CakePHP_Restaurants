@@ -1560,8 +1560,8 @@
                                                     'multiple' => 'multiple',
                                                     'id'   => 'restaurant_veggies',
                                                     'class' => 'form-control',
-                                                    'options' => $cuisinesList,
-                                                    'value' => $selectedCuisine,
+                                                    'options' => $veggiesList,
+                                                    'value' => $selectedVeggies,
                                                     'label' => false
                                                 ]) ?>
                                             </div>
