@@ -1543,7 +1543,7 @@
                                                     'id'   => 'restaurant_meats',
                                                     'class' => 'form-control',
                                                     'options' => $meatList,
-                                                    'value' => $selectedMeat,
+                                                    'value' => $selectedMeats,
                                                     'label' => false
                                                 ]) ?>
                                             </div>
@@ -1672,6 +1672,12 @@
         // Pickup Timezone
         var restaurant_timezone = $.trim($("#restaurant_timezone").val());
 
+        // Restaurant Meats
+        var restaurant_meats = $.trim($("#restaurant_meats").val());
+
+        // Restaurant Veggies
+        var restaurant_veggies = $.trim($("#restaurant_veggies").val());
+
         if(contact_name == '') {
             $("#contactInfo").click();
             $(".contactNameErr").addClass('error').html('Please enter your contact name');
@@ -1765,8 +1771,7 @@
         }else if(restaurant_timezone == '') {
             $("#timeZone").click();
             $(".timezoneErr").addClass('error').html('Please enter Pick up Timezone');
-            $("#restaurant_timezone").focus();
-            return false;
+            $("#restaurant_timezone").focus();   
         }else if(bySearch != '' && bySearch == 'Google' && minimum_order == '') {
             $("#deliveryInfo").click();
             $(".minimumErr").addClass('error').html('Please enter minimum order');
@@ -1807,7 +1812,9 @@
                     'restname': restaurant_name,
                     'id' : resId,
                     'minimum_pickup_time' : minimum_pickup_time,
-                    'restaurant_timezone': restaurant_timezone
+                    'restaurant_timezone': restaurant_timezone,
+                    'restaurant_meats': restaurant_meats,
+                    'restaurant_veggies': restaurant_veggies
                 },
                 function (data) {
                     if($.trim(data) == 'rest') {

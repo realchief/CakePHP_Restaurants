@@ -337,6 +337,18 @@ class RestaurantsController extends AppController
             $selectedTimezone = '';
         }
 
+        if($restDetails['restaurant_meats'] != '') {
+            $selectedMeats = explode(',',$restDetails['restaurant_meats']);
+        }else {
+            $selectedMeats = '';
+        }
+
+        if($restDetails['restaurant_veggies'] != '') {
+            $selectedVeggies = explode(',',$restDetails['restaurant_veggies']);
+        }else {
+            $selectedVeggies = '';
+        }
+
         $cuisinesList = $this->Cuisines->find('list',[
             'keyField' => 'id',
             'valueField' => 'cuisine_name',
@@ -466,6 +478,19 @@ class RestaurantsController extends AppController
                     $restaurantTimezone = '';
                 }
 
+
+                if(!empty($this->request->getData('restaurant_meats'))) {
+                    $restaurantMeats = implode(',',$this->request->getData('restaurant_meats'));
+                }else {
+                    $restaurantMeats = '';
+                }
+
+                if(!empty($this->request->getData('restaurant_veggies'))) {
+                    $restaurantVeggies = implode(',',$this->request->getData('restaurant_veggies'));
+                }else {
+                    $restaurantVeggies = '';
+                }
+
                 //Insert into User Table
                 $userEntity = $this->Users->newEntity();
                 $patchEntity = $this->Users->patchEntity($userEntity,$this->request->getData());
@@ -481,6 +506,8 @@ class RestaurantsController extends AppController
                     }
                     $restEntity->restaurant_cuisine = $restaurantCuisine;
                     $restEntity->restaurant_timezone = $restaurantTimezone;
+                    $restEntity->restaurant_meats = $restaurantMeats;
+                    $restEntity->restaurant_veggies = $restaurantVeggies;
                     $saveRest = $this->Restaurants->save($restEntity);
                 }
 
