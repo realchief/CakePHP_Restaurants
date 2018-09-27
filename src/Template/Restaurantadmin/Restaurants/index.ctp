@@ -1495,7 +1495,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group clearfix">
-                                        <label for="" class="col-md-2 col-sm-4 control-label">Crust Style</label>
+                                        <label class="col-md-2 col-sm-4 control-label">Crust Style</label>
                                         <div class="col-md-4 col-sm-6">
                                             <label class="radio-inline no-padding-left">
                                                 <input type="radio" name="restaurant_crust_style" class="minimal" <?= ($restDetails['restaurant_crust_style'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
@@ -1508,7 +1508,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group clearfix">
-                                        <label for="" class="col-md-2 col-sm-4 control-label">Sauces</label>
+                                        <label class="col-md-2 col-sm-4 control-label">Sauces</label>
                                         <div class="col-md-4 col-sm-6">
                                             <label class="radio-inline no-padding-left">
                                                 <input type="radio" name="restaurant_sauces" class="minimal" <?= ($restDetails['restaurant_sauces'] == 'Pizza Sauce') ? 'checked' : '' ?> value="Pizza Sauce">
@@ -1521,7 +1521,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group clearfix">
-                                        <label for="" class="col-md-2 col-sm-4 control-label">Cheeses</label>
+                                        <label class="col-md-2 col-sm-4 control-label">Cheeses</label>
                                         <div class="col-md-4 col-sm-6">
                                             <label class="radio-inline no-padding-left">
                                                 <input type="radio" name="restaurant_cheese_status" class="minimal" <?= ($restDetails['restaurant_cheese_status'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
@@ -1534,7 +1534,7 @@
 
                                     </div>
                                     <div class="form-group clearfix">
-                                        <label for="" class="col-md-2 col-sm-4 control-label">Meats</label>
+                                        <label class="col-md-2 col-sm-4 control-label">Meats</label>
                                         <div class="col-md-4 col-sm-6">
                                             <div class="col-md-4 col-sm-6 no-padding-right">
                                                 <?= $this->Form->input('restaurant_meats',[
@@ -1552,7 +1552,7 @@
                                     </div>
 
                                     <div class="form-group clearfix">
-                                        <label for="" class="col-md-2 col-sm-4 control-label">Veggies</label>
+                                        <label class="col-md-2 col-sm-4 control-label">Veggies</label>
                                         <div class="col-md-4 col-sm-6">
                                             <div class="col-md-4 col-sm-6 no-padding-right">
                                                 <?= $this->Form->input('restaurant_veggies',[
