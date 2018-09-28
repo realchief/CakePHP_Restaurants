@@ -473,7 +473,7 @@ class RestaurantsController extends AppController
                 }
 
                 if(!empty($this->request->getData('restaurant_timezone'))) {
-                    $restaurantTimezone = implode(',',$this->request->getData('restaurant_timezone'));
+                    $restaurantTimezone = $this->request->getData('restaurant_timezone');
                 }else {
                     $restaurantTimezone = '';
                 }
@@ -511,7 +511,7 @@ class RestaurantsController extends AppController
                         $restEntity->sourcelongitude = $sourcelongitude;
                     }
                     $restEntity->restaurant_cuisine = $restaurantCuisine;
-                    $restEntity->restaurant_timezone = $restaurantTimezone;
+                    $restEntity->restaurant_timezone = $restaurantTimezone;                    
                     $restEntity->restaurant_meats = $restaurantMeats;
                     $restEntity->restaurant_veggies = $restaurantVeggies;
                     $restEntity->pizza_menu_name = $pizza_menu_name;
