@@ -1479,7 +1479,21 @@
 
 
                             <div class="tab-pane" id="tab_15">
-                                <div class="box-body">                          
+                                <div class="box-body">  
+                                    <div class="form-group clearfix">
+                                        <label for="" class="col-md-2 col-sm-3 control-label">Pizza Menu Name</label>
+                                        <div class="col-md-4 col-sm-5">
+                                            <?= $this->Form->input('pizza_menu_name',[
+                                                'type' => 'text',
+                                                'id'   => 'pizza_menu_name',
+                                                'class' => 'form-control',
+                                                'placeholder' => 'Pepperoni Pizza',
+                                                'value' => $restDetails['pizza_menu_name'],
+                                                'label' => false
+                                            ]) ?>
+                                            <span class="pizzaMenuNameErr"></span>
+                                        </div>
+                                    </div>                        
                        
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Size</label>
@@ -1678,6 +1692,9 @@
         // Restaurant Veggies
         var restaurant_veggies = $.trim($("#restaurant_veggies").val());
 
+        // Pizza Menu Name
+        var pizza_menu_name = $.trim($("#pizza_menu_name").val());
+
         if(contact_name == '') {
             $("#contactInfo").click();
             $(".contactNameErr").addClass('error').html('Please enter your contact name');
@@ -1814,7 +1831,8 @@
                     'minimum_pickup_time' : minimum_pickup_time,
                     'restaurant_timezone': restaurant_timezone,
                     'restaurant_meats': restaurant_meats,
-                    'restaurant_veggies': restaurant_veggies
+                    'restaurant_veggies': restaurant_veggies,
+                    'pizza_menu_name': pizza_menu_name
                 },
                 function (data) {
                     if($.trim(data) == 'rest') {
