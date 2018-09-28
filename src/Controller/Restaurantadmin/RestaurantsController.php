@@ -497,6 +497,12 @@ class RestaurantsController extends AppController
                     $pizza_menu_name = '';
                 }
 
+                if(!empty($this->request->getData('pizza_menu_details'))) {
+                    $pizza_menu_details = $this->request->getData('pizza_menu_details');
+                }else {
+                    $pizza_menu_details = '';
+                }
+
                 //Insert into User Table
                 $userEntity = $this->Users->newEntity();
                 $patchEntity = $this->Users->patchEntity($userEntity,$this->request->getData());
@@ -515,6 +521,7 @@ class RestaurantsController extends AppController
                     $restEntity->restaurant_meats = $restaurantMeats;
                     $restEntity->restaurant_veggies = $restaurantVeggies;
                     $restEntity->pizza_menu_name = $pizza_menu_name;
+                    $restEntity->pizza_menu_details = $pizza_menu_details;
                     $saveRest = $this->Restaurants->save($restEntity);
                 }
 

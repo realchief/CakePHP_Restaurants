@@ -1493,8 +1493,21 @@
                                             ]) ?>
                                             <span class="pizzaMenuNameErr"></span>
                                         </div>
+                                    </div>   
+                                    <div class="form-group clearfix">
+                                        <label for="" class="col-md-2 col-sm-3 control-label">Details</label>
+                                        <div class="col-md-4 col-sm-5">
+                                            <?= $this->Form->input('pizza_menu_details',[
+                                                'type' => 'text',
+                                                'id'   => 'pizza_menu_details',
+                                                'class' => 'form-control',
+                                                'placeholder' => 'Thin, Famous, golden, crispy and served in perfect pizza slices',
+                                                'value' => $restDetails['pizza_menu_details'],
+                                                'label' => false
+                                            ]) ?>
+                                            <span class="pizzaMenuDetailsErr"></span>
+                                        </div>
                                     </div>                        
-                       
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Size</label>
                                         <div class="col-sm-4">
@@ -1695,6 +1708,9 @@
         // Pizza Menu Name
         var pizza_menu_name = $.trim($("#pizza_menu_name").val());
 
+        // Pizza Menu Details
+        var pizza_menu_details = $.trim($("#pizza_menu_details").val());
+
         if(contact_name == '') {
             $("#contactInfo").click();
             $(".contactNameErr").addClass('error').html('Please enter your contact name');
@@ -1832,7 +1848,8 @@
                     'restaurant_timezone': restaurant_timezone,
                     'restaurant_meats': restaurant_meats,
                     'restaurant_veggies': restaurant_veggies,
-                    'pizza_menu_name': pizza_menu_name
+                    'pizza_menu_name': pizza_menu_name,
+                    'pizza_menu_details': pizza_menu_details
                 },
                 function (data) {
                     if($.trim(data) == 'rest') {
