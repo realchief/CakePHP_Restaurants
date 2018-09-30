@@ -26,6 +26,7 @@ class PizzamenusController extends AppController
         $this->loadModel('RestaurantMenus');
         $this->loadModel('MenuDetails');
         $this->loadModel('MenuAddons');
+        $this->loadModel('Mainaddons');
     }
 //----------------------------------------------------------------------------------
     public function beforeFilter(Event $event)
@@ -37,10 +38,39 @@ class PizzamenusController extends AppController
     }
 //----------------------------------------------------------------------------------
     /*Get All Menu*/
-    public function index($process = null) {
+    public function index() {
 
-        echo "===============test=============";
-        exit;
+        $addonsList = $this->Mainaddons->find('all', [
+            'fields' => [
+                'Mainaddons.id',
+                'Mainaddons.mainaddons_name',
+                'Mainaddons.status',
+                'Mainaddons.created'
+            ],
+            'conditions' => [
+                'Mainaddons.delete_status' => 'N',
+            ],
+            'contain' => [
+                'Subaddons' => [
+                    'conditions' => [
+                        'Subaddons.delete_status' => 'N',
+                    ]
+                ],
+                'Categories' => [
+                    'fields' => [
+                        'Categories.id',
+                        'Categories.category_name'
+                    ],
+                    'conditions' => [
+                        'Categories.delete_status' => 'N',
+                    ]
+                ]
+            ],
+            'order' => [
+                'Mainaddons.id' => 'DESC'
+            ]
+        ])->hydrate(false)->toArray();
+        $this->set(compact('addonsList'));
     }    
 //----------------------------------------------------------------------------------
 } #classEnd...
