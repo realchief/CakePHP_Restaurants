@@ -22,15 +22,15 @@ Router::scope('/', function (RouteBuilder $routes) {
             'action' => 'login'
         ]);
 
-        $routes->connect('/dashboard', [
-            'controller' => 'Users',
-            'action' => 'dashboard'
-        ]);
+        // $routes->connect('/dashboard', [
+        //     'controller' => 'Users',
+        //     'action' => 'dashboard'
+        // ]);
 
-        $routes->connect('/changepassword', [
-            'controller' => 'Users',
-            'action' => 'changepassword'
-        ]);
+        // $routes->connect('/changepassword', [
+        //     'controller' => 'Users',
+        //     'action' => 'changepassword'
+        // ]);
 
         $routes->connect('/dispatch', [
             'controller' => 'Dispatches',
@@ -89,8 +89,12 @@ Router::scope('/', function (RouteBuilder $routes) {
         'action' => 'thanks'
     ]);
 
-    $routes->connect('/menu/*', [
-        'controller' => 'Menus',
+    // $routes->connect('/menu/*', [
+    //     'controller' => 'Menus',
+    //     'action' => 'index'
+    // ]);
+    $routes->connect('/pizzamenus/*', [
+        'controller' => 'Menuspizza',
         'action' => 'index'
     ]);
 

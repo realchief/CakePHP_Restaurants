@@ -35,6 +35,7 @@ class AddonsController extends AppController
 #--------------------------------------------------------------------------------------------
     //Restaurantadmin Addons index
     public function index() {
+          
          $addonsList = $this->Mainaddons->find('all', [
             'fields' => [
                 'Mainaddons.id',
