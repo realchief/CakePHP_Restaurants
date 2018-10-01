@@ -42,6 +42,22 @@ class PizzamenusController extends AppController
     /*Get All Menu*/
     public function index() {
 
+        $user = $this->Auth->user();
+        $restDetails = $this->Restaurants->find('all', [
+               'conditions' => [
+                'user_id' => $user['id']
+            ],
+            'contain' => [
+                'DeliverySettings',
+                'Areamaps',
+                'RestaurantPayments' => [
+                    'PaymentMethods'
+                ]
+            ]
+        ])->hydrate(false)->first();     
+
+        $id  = $restDetails['id'];
+
         $meatList = $this->Meats->find('list',[
             'keyField' => 'id',
             'valueField' => 'meat_name'            
@@ -52,7 +68,7 @@ class PizzamenusController extends AppController
             'valueField' => 'veggies_name'            
         ])->hydrate(false)->toArray();
 
-        $this->set(compact('meatList', 'veggiesList'));
+        $this->set(compact('meatList', 'veggiesList', 'restDetails'));
     }    
 //----------------------------------------------------------------------------------
 } #classEnd...

@@ -10,6 +10,26 @@
 	<section class="content clearfix">
 		<div class="row">
 			<div class="col-xs-12">
+				<?php
+                    echo $this->Form->create('pizzaSetting', [
+                        'id' => 'pizzaSetting',
+                        'class' => 'form-horizontal',                           
+                        'enctype'  =>'multipart/form-data'
+                    ]);
+                    echo  $this->Form->input('resId', [
+                        'id' => 'resId',
+                        'class' => 'form-horizontal',
+                        'type' => 'hidden',
+                        'value' => !empty($id) ? $id : '',
+                        'enctype'  =>'multipart/form-data'
+                    ]);
+                    echo $this->Form->input('bySearch', [
+                        'id' => 'bySearch',
+                        'type' => 'hidden',
+                        'class' => 'form-horizontal',
+                        'value'=> SEARCHBY
+                    ]);
+                ?>
 				<div class="box">
 					<div class="box-header">
 						<h3 class="box-title">Settings for Manage Pizza Menus</h3>						
@@ -106,9 +126,10 @@
 
 					<div class="box-footer">
                         <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>restaurants">Cancel</a>
-                        <button type="submit" class="btn btn-info" onclick=" return addRestaurant();">Submit</button>
+                        <button type="submit" class="btn btn-info" onclick=" return SaveSettings();">Submit</button>
                     </div>
 				</div>
+				<?= $this->Form->end();?>
 			</div>
 		</div>
 	</section>
