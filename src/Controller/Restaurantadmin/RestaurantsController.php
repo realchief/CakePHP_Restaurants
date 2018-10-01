@@ -337,17 +337,17 @@ class RestaurantsController extends AppController
             $selectedTimezone = '';
         }
 
-        if($restDetails['restaurant_meats'] != '') {
-            $selectedMeats = explode(',',$restDetails['restaurant_meats']);
-        }else {
-            $selectedMeats = '';
-        }
+        // if($restDetails['restaurant_meats'] != '') {
+        //     $selectedMeats = explode(',',$restDetails['restaurant_meats']);
+        // }else {
+        //     $selectedMeats = '';
+        // }
 
-        if($restDetails['restaurant_veggies'] != '') {
-            $selectedVeggies = explode(',',$restDetails['restaurant_veggies']);
-        }else {
-            $selectedVeggies = '';
-        }
+        // if($restDetails['restaurant_veggies'] != '') {
+        //     $selectedVeggies = explode(',',$restDetails['restaurant_veggies']);
+        // }else {
+        //     $selectedVeggies = '';
+        // }
 
         $cuisinesList = $this->Cuisines->find('list',[
             'keyField' => 'id',
@@ -364,15 +364,15 @@ class RestaurantsController extends AppController
             'valueField' => 'timezone_name'            
         ])->hydrate(false)->toArray();
 
-        $meatList = $this->Meats->find('list',[
-            'keyField' => 'id',
-            'valueField' => 'meat_name'            
-        ])->hydrate(false)->toArray();
+        // $meatList = $this->Meats->find('list',[
+        //     'keyField' => 'id',
+        //     'valueField' => 'meat_name'            
+        // ])->hydrate(false)->toArray();
 
-        $veggiesList = $this->Veggies->find('list',[
-            'keyField' => 'id',
-            'valueField' => 'veggies_name'            
-        ])->hydrate(false)->toArray();
+        // $veggiesList = $this->Veggies->find('list',[
+        //     'keyField' => 'id',
+        //     'valueField' => 'veggies_name'            
+        // ])->hydrate(false)->toArray();
 
         $EditPromoImgList = $this->Promotions->find('all', [
             'conditions' => [
@@ -479,28 +479,16 @@ class RestaurantsController extends AppController
                 }
 
 
-                if(!empty($this->request->getData('restaurant_meats'))) {
-                    $restaurantMeats = implode(',',$this->request->getData('restaurant_meats'));
-                }else {
-                    $restaurantMeats = '';
-                }
-
-                if(!empty($this->request->getData('restaurant_veggies'))) {
-                    $restaurantVeggies = implode(',',$this->request->getData('restaurant_veggies'));
-                }else {
-                    $restaurantVeggies = '';
-                }
-
-                // if(!empty($this->request->getData('pizza_menu_name'))) {
-                //     $pizza_menu_name = $this->request->getData('pizza_menu_name');
+                // if(!empty($this->request->getData('restaurant_meats'))) {
+                //     $restaurantMeats = implode(',',$this->request->getData('restaurant_meats'));
                 // }else {
-                //     $pizza_menu_name = '';
+                //     $restaurantMeats = '';
                 // }
 
-                // if(!empty($this->request->getData('pizza_menu_details'))) {
-                //     $pizza_menu_details = $this->request->getData('pizza_menu_details');
+                // if(!empty($this->request->getData('restaurant_veggies'))) {
+                //     $restaurantVeggies = implode(',',$this->request->getData('restaurant_veggies'));
                 // }else {
-                //     $pizza_menu_details = '';
+                //     $restaurantVeggies = '';
                 // }
 
                 //Insert into User Table
@@ -518,10 +506,8 @@ class RestaurantsController extends AppController
                     }
                     $restEntity->restaurant_cuisine = $restaurantCuisine;
                     $restEntity->restaurant_timezone = $restaurantTimezone;                    
-                    $restEntity->restaurant_meats = $restaurantMeats;
-                    $restEntity->restaurant_veggies = $restaurantVeggies;
-                    // $restEntity->pizza_menu_name = $pizza_menu_name;
-                    // $restEntity->pizza_menu_details = $pizza_menu_details;
+                    // $restEntity->restaurant_meats = $restaurantMeats;
+                    // $restEntity->restaurant_veggies = $restaurantVeggies;         
                     $saveRest = $this->Restaurants->save($restEntity);
                 }
 
@@ -695,7 +681,7 @@ class RestaurantsController extends AppController
             }
         }
 
-        $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod', 'timezoneList', 'meatList', 'veggiesList'));
+        $this->set(compact('restDetails','id','cuisinesList','statelist','citylist','locationlist','selectedCuisine','EditPromoImgList','deliveryLocation','paymentList','editPayMethod', 'timezoneList'));
     }
   //-----------------------------------------------------------------------------------------------------------
      public function toggleSettings() {

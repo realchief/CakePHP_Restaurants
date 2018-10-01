@@ -30,7 +30,7 @@
                             <li><a href="#tab_10" data-toggle="tab">Facebook Ordering</a></li>
                             <li><a href="#tab_12" data-toggle="tab" id="pickupTimeInfo">Pickup</a></li>
                             <li><a href="#tab_14" data-toggle="tab" id="timeZone">Time Zone</a></li>
-                            <li><a href="#tab_15" data-toggle="tab" id="pizzaMenu">Pizza Menu</a></li>
+                            <!-- <li><a href="#tab_15" data-toggle="tab" id="pizzaMenu">Pizza Menu</a></li> -->
                             <!-- <li><a href="#tab_11" data-toggle="tab">Reward Point</a></li> -->
                         </ul>
 
@@ -1477,99 +1477,6 @@
                                 </div>
                             </div>
 
-
-                            <div class="tab-pane" id="tab_15">
-                                <div class="box-body">  
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Size</label>
-                                        <div class="col-sm-4">
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_size" class="minimal" <?= ($restDetails['restaurant_size'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
-                                                12" Medium
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="restaurant_size" class="minimal" value='14 Large' <?= ($restDetails['restaurant_size'] == '14 Large') ? 'checked' : '' ?>>
-                                                14" Large
-                                            </label>                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                        <label class="col-md-2 col-sm-4 control-label">Crust Style</label>
-                                        <div class="col-md-4 col-sm-6">
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_crust_style" class="minimal" <?= ($restDetails['restaurant_crust_style'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
-                                                12" Medium
-                                            </label>
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_crust_style" class="minimal" value="14 Large" <?= ($restDetails['restaurant_crust_style'] == '14 Large') ? 'checked' : '' ?>>
-                                                14" Large
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                        <label class="col-md-2 col-sm-4 control-label">Sauces</label>
-                                        <div class="col-md-4 col-sm-6">
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_sauces" class="minimal" <?= ($restDetails['restaurant_sauces'] == 'Pizza Sauce') ? 'checked' : '' ?> value="Pizza Sauce">
-                                                 Pizza Sauce
-                                            </label>
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_sauces" class="minimal" <?= ($restDetails['restaurant_sauces'] == 'Alfredo Sauce') ? 'checked' : '' ?> value="Alfredo Sauce">
-                                                Alfredo Sauce
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                        <label class="col-md-2 col-sm-4 control-label">Cheeses</label>
-                                        <div class="col-md-4 col-sm-6">
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_cheese_status" class="minimal" <?= ($restDetails['restaurant_cheese_status'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
-                                            </label>
-                                            <label class="radio-inline no-padding-left">
-                                                <input type="radio" name="restaurant_cheese_status" class="minimal" value="No" <?= ($restDetails['restaurant_cheese_status'] == 'No') ? 'checked' : '' ?>>
-                                                No
-                                            </label>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group clearfix">
-                                        <label class="col-md-2 col-sm-4 control-label">Meats</label>
-                                        <div class="col-md-4 col-sm-6">
-                                            <div class="col-md-4 col-sm-6 no-padding-right">
-                                                <?= $this->Form->input('restaurant_meats',[
-                                                    'type' => 'select',
-                                                    'multiple' => 'multiple',
-                                                    'id'   => 'restaurant_meats',
-                                                    'class' => 'form-control',
-                                                    'options' => $meatList,
-                                                    'value' => $selectedMeats,
-                                                    'label' => false
-                                                ]) ?>
-                                            </div>
-                                            <span class="meatsErr"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group clearfix">
-                                        <label class="col-md-2 col-sm-4 control-label">Veggies</label>
-                                        <div class="col-md-4 col-sm-6">
-                                            <div class="col-md-4 col-sm-6 no-padding-right">
-                                                <?= $this->Form->input('restaurant_veggies',[
-                                                    'type' => 'select',
-                                                    'multiple' => 'multiple',
-                                                    'id'   => 'restaurant_veggies',
-                                                    'class' => 'form-control',
-                                                    'options' => $veggiesList,
-                                                    'value' => $selectedVeggies,
-                                                    'label' => false
-                                                ]) ?>
-                                            </div>
-                                            <span class="veggiesErr"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="box-footer">
                                 <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>restaurants">Cancel</a>
                                 <button type="submit" class="btn btn-info" onclick=" return addRestaurant();">Submit</button>
@@ -1669,13 +1576,7 @@
         var minimum_pickup_time = $.trim($("#minimum_pickup_time").val());
 
         // Pickup Timezone
-        var restaurant_timezone = $.trim($("#restaurant_timezone").val());
-
-        // Restaurant Meats
-        var restaurant_meats = $.trim($("#restaurant_meats").val());
-
-        // Restaurant Veggies
-        var restaurant_veggies = $.trim($("#restaurant_veggies").val());
+        var restaurant_timezone = $.trim($("#restaurant_timezone").val());  
 
         // // Pizza Menu Name
         // var pizza_menu_name = $.trim($("#pizza_menu_name").val());
@@ -1817,11 +1718,7 @@
                     'restname': restaurant_name,
                     'id' : resId,
                     'minimum_pickup_time' : minimum_pickup_time,
-                    'restaurant_timezone': restaurant_timezone,
-                    'restaurant_meats': restaurant_meats,
-                    'restaurant_veggies': restaurant_veggies
-                    // 'pizza_menu_name': pizza_menu_name,
-                    // 'pizza_menu_details': pizza_menu_details
+                    'restaurant_timezone': restaurant_timezone
                 },
                 function (data) {
                     if($.trim(data) == 'rest') {
