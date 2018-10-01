@@ -53,11 +53,11 @@
                             <label class="col-sm-2 control-label">Size</label>
                             <div class="col-sm-4">
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="restaurant_size" class="minimal" <?= ($restDetails['restaurant_size'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
+                                    <input type="radio" name="menu_size" class="minimal" <?= ($menuDetails['menu_size'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
                                     12" Medium
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="restaurant_size" class="minimal" value='14 Large' <?= ($restDetails['restaurant_size'] == '14 Large') ? 'checked' : '' ?>>
+                                    <input type="radio" name="menu_size" class="minimal" value='14 Large' <?= ($menuDetails['menu_size'] == '14 Large') ? 'checked' : '' ?>>
                                     14" Large
                                 </label>                                            
                             </div>
@@ -66,12 +66,39 @@
                             <label class="col-md-2 col-sm-4 control-label">Crust Style</label>
                             <div class="col-md-4 col-sm-6">
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="restaurant_crust_style" class="minimal" <?= ($restDetails['restaurant_crust_style'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
+                                    <input type="radio" name="menu_crust_style" class="minimal" <?= ($menuDetails['menu_crust_style'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
                                     12" Medium
                                 </label>
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="restaurant_crust_style" class="minimal" value="14 Large" <?= ($restDetails['restaurant_crust_style'] == '14 Large') ? 'checked' : '' ?>>
+                                    <input type="radio" name="menu_crust_style" class="minimal" value="14 Large" <?= ($menuDetails['menu_crust_style'] == '14 Large') ? 'checked' : '' ?>>
                                     14" Large
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Popular</label>
+                            <div class="col-sm-4">
+                                <label class="radio-inline no-padding-left">
+                                    <input type="radio" name="popular_dish" class="minimal" value="Yes" <?= ($menuDetails['popular_dish'] == 'Yes') ? 'checked' : '' ?> >
+                                    Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="popular_dish" class="minimal" value="No" <?= ($menuDetails['popular_dish'] == 'No') ? 'checked' : '' ?> >
+                                    No
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Spicy</label>
+                            <div class="col-sm-4">
+                                <label class="radio-inline no-padding-left">
+                                    <input type="radio" name="spicy_dish" class="minimal" value="Yes" <?= ($menuDetails['spicy_dish'] == 'Yes') ? 'checked' : '' ?> >
+                                    Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="spicy_dish" class="minimal" value="No" <?= ($menuDetails['spicy_dish'] == 'No') ? 'checked' : '' ?>>
+                                    No
                                 </label>
                             </div>
                         </div>
@@ -79,11 +106,11 @@
                             <label class="col-md-2 col-sm-4 control-label">Sauces</label>
                             <div class="col-md-4 col-sm-6">
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="restaurant_sauces" class="minimal" <?= ($restDetails['restaurant_sauces'] == 'Pizza Sauce') ? 'checked' : '' ?> value="Pizza Sauce">
+                                    <input type="radio" name="menu_sauces" class="minimal" <?= ($menuDetails['restaurant_sauces'] == 'Pizza Sauce') ? 'checked' : '' ?> value="Pizza Sauce">
                                      Pizza Sauce
                                 </label>
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="restaurant_sauces" class="minimal" <?= ($restDetails['restaurant_sauces'] == 'Alfredo Sauce') ? 'checked' : '' ?> value="Alfredo Sauce">
+                                    <input type="radio" name="menu_sauces" class="minimal" <?= ($menuDetails['restaurant_sauces'] == 'Alfredo Sauce') ? 'checked' : '' ?> value="Alfredo Sauce">
                                     Alfredo Sauce
                                 </label>
                             </div>
@@ -92,10 +119,10 @@
                             <label class="col-md-2 col-sm-4 control-label">Cheeses</label>
                             <div class="col-md-4 col-sm-6">
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="restaurant_cheese_status" class="minimal" <?= ($restDetails['restaurant_cheese_status'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
+                                    <input type="radio" name="menu_cheese_status" class="minimal" <?= ($menuDetails['menu_cheese_status'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
                                 </label>
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="restaurant_cheese_status" class="minimal" value="No" <?= ($restDetails['restaurant_cheese_status'] == 'No') ? 'checked' : '' ?>>
+                                    <input type="radio" name="menu_cheese_status" class="minimal" value="No" <?= ($menuDetails['menu_cheese_status'] == 'No') ? 'checked' : '' ?>>
                                     No
                                 </label>
                             </div>
@@ -105,10 +132,10 @@
                             <label class="col-md-2 col-sm-4 control-label">Meats</label>
                             <div class="col-md-4 col-sm-6">
                                 <div class="col-md-4 col-sm-6 no-padding-right">
-                                    <?= $this->Form->input('restaurant_meats',[
+                                    <?= $this->Form->input('menu_meats',[
                                         'type' => 'select',
                                         'multiple' => 'multiple',
-                                        'id'   => 'restaurant_meats',
+                                        'id'   => 'menu_meats',
                                         'class' => 'form-control',
                                         'options' => $meatList,
                                         'value' => $selectedMeats,

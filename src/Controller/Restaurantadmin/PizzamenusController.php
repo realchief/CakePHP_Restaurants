@@ -56,7 +56,7 @@ class PizzamenusController extends AppController
             ]
         ])->hydrate(false)->first();     
 
-        // $id  = $restDetails['id'];
+        $id  = $restDetails['id'];
 
         $meatList = $this->Meats->find('list',[
             'keyField' => 'id',
@@ -77,9 +77,9 @@ class PizzamenusController extends AppController
             ]
         ])->first();
 
-        $menuList = $this->MenuDetails->find('list', [
+        $menuList = $this->RestaurantMenus->find('list', [
             'keyField' => 'id',
-            'valueField' => 'sub_name'
+            'valueField' => 'menu_name'
         ])->toArray();
 
         $this->set(compact('meatList', 'veggiesList', 'restDetails', 'menuDetails', 'id', 'menuList'));
