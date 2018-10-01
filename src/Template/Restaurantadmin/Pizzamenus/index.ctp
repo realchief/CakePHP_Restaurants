@@ -122,10 +122,10 @@
                             <label class="col-md-2 col-sm-4 control-label">Cheeses</label>
                             <div class="col-md-4 col-sm-6">
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="menu_cheese_status" class="minimal" <?= ($menuDetails['menu_cheeses_status'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
+                                    <input type="radio" name="menu_cheeses_status" class="minimal" <?= ($menuDetails['menu_cheeses_status'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
                                 </label>
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="menu_cheese_status" class="minimal" value="No" <?= ($menuDetails['menu_cheeses_status'] == 'No') ? 'checked' : '' ?>>
+                                    <input type="radio" name="menu_cheeses_status" class="minimal" value="No" <?= ($menuDetails['menu_cheeses_status'] == 'No') ? 'checked' : '' ?>>
                                     No
                                 </label>
                             </div>
@@ -224,7 +224,7 @@
         var popular_dish = $.trim($("input[name='popular_dish']:checked").val());
         var spicy_dish = $.trim($("input[name='spicy_dish']:checked").val());
         var menu_sauces = $.trim($("input[name='menu_sauces']:checked").val());
-        var menu_cheese_status = $.trim($("input[name='menu_cheese_status']:checked").val());
+        var menu_cheeses_status = $.trim($("input[name='menu_cheeses_status']:checked").val());
 
         if(selectedId == '') {
             $(".menuErr").addClass('error').html('Please enter menu name');
@@ -249,7 +249,7 @@
                     'popular_dish' :  popular_dish,
                     'spicy_dish'  :  spicy_dish,
                     'menu_sauces'  :  menu_sauces,
-                    'menu_cheese_status'  :  menu_cheese_status
+                    'menu_cheeses_status'  :  menu_cheeses_status
                 },
                 function (data) {                
                     console.log(data);

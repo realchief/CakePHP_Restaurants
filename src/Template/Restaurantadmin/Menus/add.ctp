@@ -157,35 +157,6 @@
                                     <textarea name="menu_description" class="form-control" placeholder="Enter Description"></textarea>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Popular</label>
-                                <div class="col-sm-4">
-                                    <label class="radio-inline no-padding-left">
-                                        <input type="radio" name="popular_dish" class="minimal" value="Yes" checked>
-                                        Yes
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="popular_dish" class="minimal" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Spicy</label>
-                                <div class="col-sm-4">
-                                    <label class="radio-inline no-padding-left">
-                                        <input type="radio" name="spicy_dish" class="minimal" value="Yes" checked>
-                                        Yes
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="spicy_dish" class="minimal" value="No">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
-
                             
                         </div>
                         <div class="box-footer">
