@@ -56,7 +56,10 @@ class PizzamenusController extends AppController
             ]
         ])->hydrate(false)->first();     
 
-        $res_id  = $restDetails['id'];     
+        $resId  = $restDetails['id'];
+        $id = $resId;
+
+        // // echo $resId;die;            
 
         $meatList = $this->Meats->find('list',[
             'keyField' => 'id',
@@ -70,7 +73,7 @@ class PizzamenusController extends AppController
 
         $menuDetails = $this->RestaurantMenus->find('all', [
             'conditions' => [
-                'id' => $res_id
+                'id' => $id
             ],
             'contain' => [
                 'MenuDetails'
@@ -80,12 +83,73 @@ class PizzamenusController extends AppController
         $menuList = $this->RestaurantMenus->find('list', [
             'keyField' => 'id',
             'conditions' => [
-                'restaurant_id' => $res_id
+                'restaurant_id' => $resId
             ],
             'valueField' => 'menu_name'
         ])->toArray();
 
-        $this->set(compact('meatList', 'veggiesList', 'restDetails', 'menuDetails', 'res_id', 'menuList'));
-    }    
+        $this->set(compact('meatList', 'veggiesList', 'restDetails', 'menuDetails', 'resId', 'menuList'));
+    }   
+
+
+//----------------------------------------------------------------------------------
+
+
+    public function pizzamenusSettings() {
+        
+        $user = $this->Auth->user(); 
+        
+        $restDetails = $this->Restaurants->find('all', [
+               'conditions' => [
+                'user_id' => $user['id']
+            ],
+            'contain' => [
+                'DeliverySettings',
+                'Areamaps',
+                'RestaurantPayments' => [
+                    'PaymentMethods'
+                ]
+            ]
+        ])->hydrate(false)->first();
+
+        $resId  = $restDetails['id']; 
+
+        // echo "<pre>";print_r($this->request->getData());    
+        // echo "<pre>";print_r($this->request->getData('menu_meats'));        
+
+        if($this->request->getData('menu_meats') != '') {
+            $selectedMeats = implode(',',$this->request->getData('menu_meats'));           
+        }else {
+            $selectedMeats = '';
+        }
+
+        if($this->request->getData('menu_veggies') != '') {            
+            $selectedVeggies = implode(',',$this->request->getData('menu_veggies'));
+        }else {
+            $selectedVeggies = '';
+        }
+        echo "=====";
+        echo $selectedMeats;
+        
+        if($this->request->is(['post'])) {           
+
+            $menuEntity = $this->RestaurantMenus->newEntity();
+            $menuPatch = $this->RestaurantMenus->patchEntity($menuEntity,$this->request->getData());
+
+            $menuPatch['restaurant_id'] = $resId;  
+            $menuPatch['id'] = $this->request->getData('selectedId');            
+            $menuPatch['menu_meats'] = $selectedMeats; 
+            $menuPatch['menu_veggies'] = $selectedVeggies;      
+            
+            $menuSave = $this->RestaurantMenus->save($menuPatch); 
+            
+            if($menuSave){                              
+                $this->Flash->success('Saved Successful');
+                return $this->redirect(REST_BASE_URL.'pizzamenus'); 
+            }          
+        }
+    }
 //----------------------------------------------------------------------------------
 } #classEnd...
+
+

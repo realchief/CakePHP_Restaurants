@@ -121,10 +121,10 @@
                             <label class="col-md-2 col-sm-4 control-label">Cheeses</label>
                             <div class="col-md-4 col-sm-6">
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="menu_cheese_status" class="minimal" <?= ($menuDetails['menu_cheese_status'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
+                                    <input type="radio" name="menu_cheese_status" class="minimal" <?= ($menuDetails['menu_cheeses_status'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
                                 </label>
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="menu_cheese_status" class="minimal" value="No" <?= ($menuDetails['menu_cheese_status'] == 'No') ? 'checked' : '' ?>>
+                                    <input type="radio" name="menu_cheese_status" class="minimal" value="No" <?= ($menuDetails['menu_cheeses_status'] == 'No') ? 'checked' : '' ?>>
                                     No
                                 </label>
                             </div>
@@ -152,7 +152,7 @@
                             <label class="col-md-2 col-sm-4 control-label">Veggies</label>
                             <div class="col-md-4 col-sm-6">
                                 <div class="col-md-4 col-sm-6 no-padding-right">
-                                    <?= $this->Form->input('restaurant_veggies',[
+                                    <?= $this->Form->input('menu_veggies',[
                                         'type' => 'select',
                                         'multiple' => 'multiple',
                                         'id'   => 'menu_veggies',
@@ -168,7 +168,7 @@
                     </div>
 
 					<div class="box-footer">
-                        <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>restaurants">Cancel</a>
+                        <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>pizzamenus">Cancel</a>
                         <button type="submit" class="btn btn-info" onclick=" return SaveSettings();">Submit</button>
                     </div>
 				</div>
@@ -182,11 +182,14 @@
 	function SaveSettings() {
 		$(".error").html('');
         var error = 0;
-        var menu_name    = $("#menu_name").val();     
-        var resId       = $("#resId").val();
-        var restaurant_id = $("#RestId").val();    
+        var Url   = jssitebaseurl+'pizzamenus/pizzamenusSettings';             
+        var resId  = $("#resId").val();
+        var selectedId = $("#menu_name").val(); 
+        var restaurant_id = $("#RestId").val();  
+        var menu_meats = $("#menu_meats").val();  
+        var menu_veggies = $("#menu_veggies").val();  
 
-        if(menu_name == '') {
+        if(selectedId == '') {
             $(".menuErr").addClass('error').html('Please enter menu name');
             $("#menu_name").focus();
             return false;
@@ -196,22 +199,20 @@
         }
 
         if(error == 0 && menuLength == 0){
-            $.ajax({
-                type   : 'POST',
-                url    : jssitebaseurl+'menus/checkMenu',
-                data   : {id:resId, menu_name:menu_name, restaurant_id:restaurant_id},
-                success: function(data){
-                    if($.trim(data) == '1') {
-                        $(".menuErr").addClass('error').html('This menu name already exists');
-                        $("#menu_name").focus();
-                        return false;
-                    }else {
-                        $("#pizzaSetting").submit();
-                    }
+            $.post(
+                Url,
+                {
+                	'resId': resId,
+                	'selectedId': selectedId,                    
+                    'restaurant_id' : restaurant_id,
+                    'menu_meats':  menu_meats,
+                    'menu_veggies' : menu_veggies             
+                },
+                function (data) {                
+                    console.log(data);
                 }
-            });
+            );
             return false;
         }
-        return false;
     }
 </script>
