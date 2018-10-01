@@ -127,9 +127,7 @@ class PizzamenusController extends AppController
             $selectedVeggies = implode(',',$this->request->getData('menu_veggies'));
         }else {
             $selectedVeggies = '';
-        }
-        echo "=====";
-        echo $selectedMeats;
+        }        
         
         if($this->request->is(['post'])) {           
 
