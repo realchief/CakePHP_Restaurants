@@ -30,20 +30,22 @@
                         'value'=> SEARCHBY
                     ]);
                 ?>
-				<div class="box">
+                <div class="box">
 					<div class="box-header">
 						<h3 class="box-title">Settings for Manage Pizza Menus</h3>						
 					</div>
+					<input type="hidden" value="<?= $id ?>" name="editedId" id="resId">
+                    <input type="hidden" value="<?= $resId ?>" name="restaurant_id" id="RestId">
 					<div class="box-body" style="display: grid;">  
 						<div class="form-group">
                             <label class="col-sm-2 control-label">Menu Name<span class="help">*</span></label>
                             <div class="col-sm-4">
-                                <?= $this->Form->input('menu_id',[
+                                <?= $this->Form->input('menu_name',[
                                     'type' => 'select',
-                                    'id'   => 'menu_id',
+                                    'id'   => 'menu_name',
                                     'class' => 'form-control',
                                     'options' => $menuList,
-                                    'value' => $menuDetails['menu_id'],
+                                    'value' => $menuDetails['menu_name'],
                                     'label' => false
                                 ]) ?>
                             </div>
@@ -106,11 +108,11 @@
                             <label class="col-md-2 col-sm-4 control-label">Sauces</label>
                             <div class="col-md-4 col-sm-6">
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="menu_sauces" class="minimal" <?= ($menuDetails['restaurant_sauces'] == 'Pizza Sauce') ? 'checked' : '' ?> value="Pizza Sauce">
+                                    <input type="radio" name="menu_sauces" class="minimal" <?= ($menuDetails['menu_sauces'] == 'Pizza Sauce') ? 'checked' : '' ?> value="Pizza Sauce">
                                      Pizza Sauce
                                 </label>
                                 <label class="radio-inline no-padding-left">
-                                    <input type="radio" name="menu_sauces" class="minimal" <?= ($menuDetails['restaurant_sauces'] == 'Alfredo Sauce') ? 'checked' : '' ?> value="Alfredo Sauce">
+                                    <input type="radio" name="menu_sauces" class="minimal" <?= ($menuDetails['menu_sauces'] == 'Alfredo Sauce') ? 'checked' : '' ?> value="Alfredo Sauce">
                                     Alfredo Sauce
                                 </label>
                             </div>
@@ -153,7 +155,7 @@
                                     <?= $this->Form->input('restaurant_veggies',[
                                         'type' => 'select',
                                         'multiple' => 'multiple',
-                                        'id'   => 'restaurant_veggies',
+                                        'id'   => 'menu_veggies',
                                         'class' => 'form-control',
                                         'options' => $veggiesList,
                                         'value' => $selectedVeggies,
@@ -178,7 +180,38 @@
 
 <script>
 	function SaveSettings() {
-        
-    }
+		$(".error").html('');
+        var error = 0;
+        var menu_name    = $("#menu_name").val();     
+        var resId       = $("#resId").val();
+        var restaurant_id = $("#RestId").val();    
 
+        if(menu_name == '') {
+            $(".menuErr").addClass('error').html('Please enter menu name');
+            $("#menu_name").focus();
+            return false;
+        }else {
+            var menuLength = 0;
+            error = 0;
+        }
+
+        if(error == 0 && menuLength == 0){
+            $.ajax({
+                type   : 'POST',
+                url    : jssitebaseurl+'menus/checkMenu',
+                data   : {id:resId, menu_name:menu_name, restaurant_id:restaurant_id},
+                success: function(data){
+                    if($.trim(data) == '1') {
+                        $(".menuErr").addClass('error').html('This menu name already exists');
+                        $("#menu_name").focus();
+                        return false;
+                    }else {
+                        $("#pizzaSetting").submit();
+                    }
+                }
+            });
+            return false;
+        }
+        return false;
+    }
 </script>
