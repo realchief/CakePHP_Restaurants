@@ -35,7 +35,21 @@
 						<h3 class="box-title">Settings for Manage Pizza Menus</h3>						
 					</div>
 					<div class="box-body" style="display: grid;">  
-                        <div class="form-group">
+						<div class="form-group">
+                            <label class="col-sm-2 control-label">Menu Name<span class="help">*</span></label>
+                            <div class="col-sm-4">
+                                <?= $this->Form->input('menu_id',[
+                                    'type' => 'select',
+                                    'id'   => 'menu_id',
+                                    'class' => 'form-control',
+                                    'options' => $menuList,
+                                    'value' => $menuDetails['menu_id'],
+                                    'label' => false
+                                ]) ?>
+                            </div>
+                            <span class="menuErr"></span>
+                        </div>
+                        <div class="form-group clearfix">
                             <label class="col-sm-2 control-label">Size</label>
                             <div class="col-sm-4">
                                 <label class="radio-inline no-padding-left">
@@ -134,3 +148,10 @@
 		</div>
 	</section>
 </div>
+
+<script>
+	function SaveSettings() {
+        
+    }
+
+</script>
