@@ -46,12 +46,13 @@
                                     'class' => 'form-control',
                                     'options' => $menuList,
                                     'value' => $menuDetails['menu_name'],
+                                    'onchange' => 'changeMenu();',
                                     'label' => false
                                 ]) ?>
                             </div>
                             <span class="menuErr"></span>
                         </div>
-                        <div class="form-group clearfix">
+                        <div id="menu_size" class="form-group clearfix">
                             <label class="col-sm-2 control-label">Size</label>
                             <div class="col-sm-4">
                                 <label class="radio-inline no-padding-left">
@@ -179,6 +180,36 @@
 </div>
 
 <script>
+	function changeMenu() {
+
+		var Url = jssitebaseurl+'pizzamenus/getChangedMenu'; 
+        var menu_name = $("#menu_name").val();        
+
+        $.post(
+            Url,
+            {
+            	'menu_name': menu_name,
+            	'action': 'getMenu'                    
+            },
+            function (data) {                
+                console.log(data);
+            }
+        );  
+
+        // $.ajax({
+        //     type   : 'POST',
+        //     url    : jssitebaseurl+'pizzamenus/ajaxaction',
+        //     data   : {menu_name:menu_name, action: 'getMenu'},
+        //     success: function(data){  
+        //     	console.log("=======data=====");
+        //     	console.log(data);          	
+        //         $('#menu_size').html(data);
+        //         return false;
+        //     }
+        // });
+        return false;
+    }
+
 	function SaveSettings() {
 		$(".error").html('');
         var error = 0;

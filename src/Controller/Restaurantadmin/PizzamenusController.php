@@ -38,6 +38,7 @@ class PizzamenusController extends AppController
             'login'
         ]);
     }
+
 //----------------------------------------------------------------------------------
     /*Get All Menu*/
     public function index() {
@@ -89,7 +90,28 @@ class PizzamenusController extends AppController
         ])->toArray();
 
         $this->set(compact('meatList', 'veggiesList', 'restDetails', 'menuDetails', 'resId', 'menuList'));
-    }   
+    }  
+
+//----------------------------------------------------------------------------------
+
+    public function getChangedMenu() {
+        echo "=======AAAAAAAAAAA===========";
+        echo $this->request->getData('action');
+        if ($this->request->getData('action') == 'getMenu') {
+            $selectedMenuDetails = $this->RestaurantMenus->find('all', [              
+                'conditions' => [                    
+                    'id' => $this->request->getData('menu')
+                ],
+            ])->hydrate(false)->first();
+
+            $selectedMenuID = $selectedMenuDetails['id'];
+
+            echo $selectedMenuID;
+
+            $this->set('action', $this->request->getData('action'));
+            $this->set('selectedMenuDetails', $selectedMenuDetails);
+        }
+    } 
 
 
 //----------------------------------------------------------------------------------
