@@ -56,7 +56,7 @@ class PizzamenusController extends AppController
             ]
         ])->hydrate(false)->first();     
 
-        $id  = $restDetails['id'];
+        $id  = $restDetails['id'];     
 
         $meatList = $this->Meats->find('list',[
             'keyField' => 'id',
@@ -79,6 +79,9 @@ class PizzamenusController extends AppController
 
         $menuList = $this->RestaurantMenus->find('list', [
             'keyField' => 'id',
+            'conditions' => [
+                'restaurant_id' => $id
+            ],
             'valueField' => 'menu_name'
         ])->toArray();
 
