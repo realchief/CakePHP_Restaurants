@@ -27,6 +27,8 @@ class PizzamenusController extends AppController
         $this->loadModel('MenuDetails');
         $this->loadModel('MenuAddons');
         $this->loadModel('Mainaddons');
+        $this->loadModel('Meats');
+        $this->loadModel('Veggies');
     }
 //----------------------------------------------------------------------------------
     public function beforeFilter(Event $event)
@@ -40,37 +42,17 @@ class PizzamenusController extends AppController
     /*Get All Menu*/
     public function index() {
 
-        $addonsList = $this->Mainaddons->find('all', [
-            'fields' => [
-                'Mainaddons.id',
-                'Mainaddons.mainaddons_name',
-                'Mainaddons.status',
-                'Mainaddons.created'
-            ],
-            'conditions' => [
-                'Mainaddons.delete_status' => 'N',
-            ],
-            'contain' => [
-                'Subaddons' => [
-                    'conditions' => [
-                        'Subaddons.delete_status' => 'N',
-                    ]
-                ],
-                'Categories' => [
-                    'fields' => [
-                        'Categories.id',
-                        'Categories.category_name'
-                    ],
-                    'conditions' => [
-                        'Categories.delete_status' => 'N',
-                    ]
-                ]
-            ],
-            'order' => [
-                'Mainaddons.id' => 'DESC'
-            ]
+        $meatList = $this->Meats->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'meat_name'            
         ])->hydrate(false)->toArray();
-        $this->set(compact('addonsList'));
+
+        $veggiesList = $this->Veggies->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'veggies_name'            
+        ])->hydrate(false)->toArray();
+
+        $this->set(compact('meatList', 'veggiesList'));
     }    
 //----------------------------------------------------------------------------------
 } #classEnd...
