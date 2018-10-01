@@ -57,10 +57,13 @@ class PizzamenusController extends AppController
             ]
         ])->hydrate(false)->first();     
 
-        $resId  = $restDetails['id'];
+        $resId  = $restDetails['id'];    
         $id = $resId;
 
-        // // echo $resId;die;            
+        if ($this->request->getData('action') == 'getMenu') {         
+            $selectedId = $this->request->getData('menu_name');
+            $id = $selectedId;
+        }       
 
         $meatList = $this->Meats->find('list',[
             'keyField' => 'id',
@@ -70,7 +73,7 @@ class PizzamenusController extends AppController
         $veggiesList = $this->Veggies->find('list',[
             'keyField' => 'id',
             'valueField' => 'veggies_name'            
-        ])->hydrate(false)->toArray();
+        ])->hydrate(false)->toArray();   
 
         $menuDetails = $this->RestaurantMenus->find('all', [
             'conditions' => [
@@ -89,18 +92,18 @@ class PizzamenusController extends AppController
             'valueField' => 'menu_name'
         ])->toArray();
 
-        $this->set(compact('meatList', 'veggiesList', 'restDetails', 'menuDetails', 'resId', 'menuList'));
+        $this->set(compact('meatList', 'veggiesList', 'restDetails', 'menuDetails', 'resId', 'menuList', 'id'));
     }  
 
 //----------------------------------------------------------------------------------
 
     public function getChangedMenu() {
-        echo "=======AAAAAAAAAAA===========";
+        
         echo $this->request->getData('action');
         if ($this->request->getData('action') == 'getMenu') {
             $selectedMenuDetails = $this->RestaurantMenus->find('all', [              
                 'conditions' => [                    
-                    'id' => $this->request->getData('menu')
+                    'id' => $this->request->getData('menu_name')
                 ],
             ])->hydrate(false)->first();
 

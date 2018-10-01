@@ -182,7 +182,7 @@
 <script>
 	function changeMenu() {
 
-		var Url = jssitebaseurl+'pizzamenus/getChangedMenu'; 
+		var Url = jssitebaseurl+'pizzamenus/index'; 
         var menu_name = $("#menu_name").val();        
 
         $.post(
