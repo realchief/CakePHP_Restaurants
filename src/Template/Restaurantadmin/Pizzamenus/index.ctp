@@ -1,63 +1,113 @@
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
-			Manage Addons
-		</h1>
+		<h1>Manage Pizza Menu</h1>
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Manage Addons</li>
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>		
+            <li class="active">Manage Pizza Menu</li>
 		</ol>
 	</section>
+
 	<section class="content clearfix">
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
-						<h3 class="box-title">Manage Addons</h3>
-						<a class="btn btn-primary pull-right" href="<?php echo "https://www.hangrymenu.com/restaurantadmin/";?>addons/add"><i class="fa fa-plus"></i> Add New</a>							
+						<h3 class="box-title">Settings for Manage Pizza Menus</h3>						
 					</div>
-					<div class="box-body" id="ajaxReplace">
-						<table id="addonTable" class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>S.No</th>
-									<th>Addons Name</th>
-									<th>Category</th>
-									<th>Added Date</th>
-									<th>Status</th>
- 									<th>Action</th>									
-								</tr>
-							</thead>
-							<tbody>
-			                                <?php if(!empty($addonsList)) {
-                            				    foreach($addonsList as $key => $value) { ?>
-                                    				<tr>
-                                       				    <td><?php echo $key+1 ;?></td>
-                                        			    <td><?php echo $value['mainaddons_name'] ;?></td>
-                                       			            <td><?php echo $value['category']['category_name'];?></td>
-                                                                    <td><?php echo date('Y-m-d h:i A', strtotime($value['created'])); ?>
-                                                                    </td>
-                                                                    <td id="status_<?php echo $value['id'];?>">
-                                                                        <?php if($value['status'] == '0') { ?>
-                                                                            <button  href="javascript:;" onclick="changeStatus('<?= $value['id'] ?>', '1', 'status', 'addons/ajaxaction', 'addonStatusChange')"><i class="fa fa-close"></i>
-                                                                            </button>
-                                                                        <?php }else { ?>
-                                                                             <button  href="javascript:;" onclick="changeStatus('<?= $value['id'] ?>', '0', 'status', 'addons/ajaxaction', 'addonStatusChange')"><i class="fa fa-check"></i>
-                                                                             </button>
-                                                                        <?php } ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <a href="<?php echo "https://www.hangrymenu.com/restaurantadmin/" ;?>addons/edit/<?php echo $value['id'] ?>">
-                                                                        <i class="fa fa-pencil"></i></a>
-                                                                        <a id="<?php echo $value['id']; ?>" onclick="return deleteRecord(<?php echo $value['id']; ?>, 'addons/deleteAddon', 'Addon', '', 'addonTable')" href="javascript:;">
-                                                                        <i class="fa fa-trash-o"></i></a>
-                                                                    </td>
-                                                                </tr>
-                                                             <?php }
-                                                         } ?>
-                                                        </tbody>
-						</table>
-					</div>
+					<div class="box-body" style="display: grid;">  
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Size</label>
+                            <div class="col-sm-4">
+                                <label class="radio-inline no-padding-left">
+                                    <input type="radio" name="restaurant_size" class="minimal" <?= ($restDetails['restaurant_size'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
+                                    12" Medium
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="restaurant_size" class="minimal" value='14 Large' <?= ($restDetails['restaurant_size'] == '14 Large') ? 'checked' : '' ?>>
+                                    14" Large
+                                </label>                                            
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-md-2 col-sm-4 control-label">Crust Style</label>
+                            <div class="col-md-4 col-sm-6">
+                                <label class="radio-inline no-padding-left">
+                                    <input type="radio" name="restaurant_crust_style" class="minimal" <?= ($restDetails['restaurant_crust_style'] == '12 Medium') ? 'checked' : '' ?> value="12 Medium">
+                                    12" Medium
+                                </label>
+                                <label class="radio-inline no-padding-left">
+                                    <input type="radio" name="restaurant_crust_style" class="minimal" value="14 Large" <?= ($restDetails['restaurant_crust_style'] == '14 Large') ? 'checked' : '' ?>>
+                                    14" Large
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-md-2 col-sm-4 control-label">Sauces</label>
+                            <div class="col-md-4 col-sm-6">
+                                <label class="radio-inline no-padding-left">
+                                    <input type="radio" name="restaurant_sauces" class="minimal" <?= ($restDetails['restaurant_sauces'] == 'Pizza Sauce') ? 'checked' : '' ?> value="Pizza Sauce">
+                                     Pizza Sauce
+                                </label>
+                                <label class="radio-inline no-padding-left">
+                                    <input type="radio" name="restaurant_sauces" class="minimal" <?= ($restDetails['restaurant_sauces'] == 'Alfredo Sauce') ? 'checked' : '' ?> value="Alfredo Sauce">
+                                    Alfredo Sauce
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-md-2 col-sm-4 control-label">Cheeses</label>
+                            <div class="col-md-4 col-sm-6">
+                                <label class="radio-inline no-padding-left">
+                                    <input type="radio" name="restaurant_cheese_status" class="minimal" <?= ($restDetails['restaurant_cheese_status'] == 'Yes') ? 'checked' : '' ?> value="Yes">Yes
+                                </label>
+                                <label class="radio-inline no-padding-left">
+                                    <input type="radio" name="restaurant_cheese_status" class="minimal" value="No" <?= ($restDetails['restaurant_cheese_status'] == 'No') ? 'checked' : '' ?>>
+                                    No
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-md-2 col-sm-4 control-label">Meats</label>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="col-md-4 col-sm-6 no-padding-right">
+                                    <?= $this->Form->input('restaurant_meats',[
+                                        'type' => 'select',
+                                        'multiple' => 'multiple',
+                                        'id'   => 'restaurant_meats',
+                                        'class' => 'form-control',
+                                        'options' => $meatList,
+                                        'value' => $selectedMeats,
+                                        'label' => false
+                                    ]) ?>
+                                </div>
+                                <span class="meatsErr"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-md-2 col-sm-4 control-label">Veggies</label>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="col-md-4 col-sm-6 no-padding-right">
+                                    <?= $this->Form->input('restaurant_veggies',[
+                                        'type' => 'select',
+                                        'multiple' => 'multiple',
+                                        'id'   => 'restaurant_veggies',
+                                        'class' => 'form-control',
+                                        'options' => $veggiesList,
+                                        'value' => $selectedVeggies,
+                                        'label' => false
+                                    ]) ?>
+                                </div>
+                                <span class="veggiesErr"></span>
+                            </div>
+                        </div>
+                    </div>
+
+					<div class="box-footer">
+                        <a type="submit" class="btn btn-default m-r-15" href="<?php echo REST_BASE_URL ?>restaurants">Cancel</a>
+                        <button type="submit" class="btn btn-info" onclick=" return addRestaurant();">Submit</button>
+                    </div>
 				</div>
 			</div>
 		</div>
