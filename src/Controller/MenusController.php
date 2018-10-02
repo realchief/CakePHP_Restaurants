@@ -44,6 +44,8 @@ class MenusController extends AppController
         $this->loadModel('Rewards');
         $this->loadModel('CustomerPoints');
         $this->loadModel('Timezones');
+        $this->loadModel('Meats');
+        $this->loadModel('Veggies');
     }
 
     public function beforeFilter(Event $event)
@@ -201,6 +203,15 @@ class MenusController extends AppController
                     ]
                 ])->hydrate(false)->first();                
                 //echo "<pre>"; print_r($restDetails); die();
+
+                $menuDetails = $this->RestaurantMenus->find('all', [
+                    'conditions' => [
+                        'RestaurantMenus.id' => $this->request->getData('menuid')
+                    ],
+                    'contain' => [
+                        'MenuDetails'
+                    ]
+                ])->hydrate(false)->first();
 
                 $offerCount = 0;
                 $currentDate = strtotime(date('Y-m-d'));
@@ -430,8 +441,8 @@ class MenusController extends AppController
                             }
                         }
                     }
-                    $restDetails['timezoneList'] = implode(', ', $timezoneList);
-
+                    $restDetails['timezoneList'] = implode(', ', $timezoneList);                   
+                              
 
                     //offers
                     $offerCount = 0;
@@ -2026,6 +2037,51 @@ class MenusController extends AppController
 
                     ]
                 ])->hydrate(false)->first();
+
+                //Get Meats List
+
+                $allMeatsList = [];
+
+                $restaurantMeats = explode(',', $menuDetails['menu_meats'] );                
+
+                $meatList = '';
+                if (!empty($restaurantMeats)) {
+                    foreach ($restaurantMeats as $mkey => $mvalue) {
+                        $meats = $this->Meats->find('all', [
+                            'conditions' => [
+                                'id' => $mvalue
+                            ]
+                        ])->hydrate(false)->first();
+
+                        print_r(json_encode($meats));
+
+                        if (!empty($meats)) {
+                            $meatList[] = $meats['meat_name'];
+                            if (!in_array($mvalue, $allMeatsList)) {
+                                $allMeatsList[] = $mvalue;
+                                if (empty($sideMeats[$meats['meat_name']])) {
+                                    $sideMeats[$meats['meat_name']] = 1;
+                                } else {
+                                    $sideMeats[$meats['meat_name']]++;
+                                }
+
+                                $allMeatsList[$cvalue] = $meats['meat_name'];
+                            } else {
+                                if (empty($sideMeats[$meats['meat_name']])) {
+                                    $sideMeats[$meats['meat_name']] = 1;
+                                } else {
+                                    $sideMeats[$meats['meat_name']]++;
+                                }
+                            }
+                        }
+                    }
+                }
+                $menuDetails['meatList'] = implode(', ', $meatList); 
+
+                print_r(json_encode($meatList));
+                print_r(json_encode($menuDetails['meatList']));         
+                
+
                 //pr($menuDetails);die();
                 $details = [];
                 $addons = [];
