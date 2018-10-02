@@ -2078,11 +2078,49 @@ class MenusController extends AppController
                 }
                 $menuDetails['meatList'] = implode(', ', $meatList); 
 
-                print_r(json_encode($meatList));
-                print_r(json_encode($menuDetails['meatList']));         
-                
+                // print_r(json_encode($meatList));
+                // print_r(json_encode($menuDetails['meatList'])); 
 
-                //pr($menuDetails);die();
+                //Get Veggies List
+
+                $allVeggiesList = [];
+
+                $restaurantVeggies = explode(',', $menuDetails['menu_veggies'] );                
+
+                $meatList = '';
+                if (!empty($restaurantVeggies)) {
+                    foreach ($restaurantVeggies as $mkey => $mvalue) {
+                        $veggies = $this->Veggies->find('all', [
+                            'conditions' => [
+                                'id' => $mvalue
+                            ]
+                        ])->hydrate(false)->first();
+
+                        print_r(json_encode($veggies));
+
+                        if (!empty($veggies)) {
+                            $veggiesList[] = $veggies['veggies_name'];
+                            if (!in_array($mvalue, $allMeatsList)) {
+                                $allVeggiesList[] = $mvalue;
+                                if (empty($sideVeggies[$veggies['veggies_name']])) {
+                                    $sideVeggies[$veggies['veggies_name']] = 1;
+                                } else {
+                                    $sideVeggies[$veggies['veggies_name']]++;
+                                }
+
+                                $allVeggiesList[$cvalue] = $veggies['veggies_name'];
+                            } else {
+                                if (empty($sideVeggies[$veggies['veggies_name']])) {
+                                    $sideVeggies[$veggies['veggies_name']] = 1;
+                                } else {
+                                    $sideVeggies[$veggies['veggies_name']]++;
+                                }
+                            }
+                        }
+                    }
+                }
+                $menuDetails['veggiesList'] = implode(', ', $veggiesList); 
+               
                 $details = [];
                 $addons = [];
                 foreach ($menuDetails['menu_details'] as $key => $value) {

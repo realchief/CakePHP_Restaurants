@@ -252,7 +252,7 @@
                                     <div class="row">
                                         <h5 class="addcart_popup_head-cart">Veggies :</h5>
                                         <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;">
-                                            <?= $menuDetails['menu_veggies'] ?>
+                                            <?= $menuDetails['veggiesList'] ?>
                                         </h2>                                        
                                     </div>
                                 </div>
