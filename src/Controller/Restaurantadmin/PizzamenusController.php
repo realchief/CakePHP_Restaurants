@@ -29,6 +29,7 @@ class PizzamenusController extends AppController
         $this->loadModel('Mainaddons');
         $this->loadModel('Meats');
         $this->loadModel('Veggies');
+        $this->loadModel('Amount');
     }
 //----------------------------------------------------------------------------------
     public function beforeFilter(Event $event)
@@ -92,7 +93,23 @@ class PizzamenusController extends AppController
             'valueField' => 'menu_name'
         ])->toArray();
 
-        $this->set(compact('meatList', 'veggiesList', 'restDetails', 'menuDetails', 'resId', 'menuList', 'id'));
+        // $cheeseAmountList = ['Extra', 'Normal', 'Light', 'None'];
+        $cheeseAmountList = $this->Amount->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'amount'
+        ])->toArray();
+
+        $sauceAmountList = $this->Amount->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'amount'
+        ])->toArray();
+
+        $spicyAmountList = $this->Amount->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'amount'
+        ])->toArray();
+
+        $this->set(compact('meatList', 'veggiesList', 'restDetails', 'menuDetails', 'resId', 'menuList', 'id', 'cheeseAmountList', 'sauceAmountList', 'spicyAmountList'));
     }  
 
 //----------------------------------------------------------------------------------
@@ -152,8 +169,8 @@ class PizzamenusController extends AppController
             $selectedVeggies = implode(',',$this->request->getData('menu_veggies'));
         }else {
             $selectedVeggies = '';
-        }        
-        
+        } 
+
         if($this->request->is(['post'])) {           
 
             $menuEntity = $this->RestaurantMenus->newEntity();
@@ -162,7 +179,7 @@ class PizzamenusController extends AppController
             $menuPatch['restaurant_id'] = $resId;  
             $menuPatch['id'] = $this->request->getData('selectedId');            
             $menuPatch['menu_meats'] = $selectedMeats; 
-            $menuPatch['menu_veggies'] = $selectedVeggies;      
+            $menuPatch['menu_veggies'] = $selectedVeggies;    
             
             $menuSave = $this->RestaurantMenus->save($menuPatch); 
             

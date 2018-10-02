@@ -105,6 +105,21 @@
                                 </label>
                             </div>
                         </div>
+
+                        <div class="form-group" style="margin-left: 20%;">
+                            <label class="col-sm-2 control-label">How much Spicy?<span class="help">*</span></label>
+                            <div class="col-sm-4" style="width: 10%;">
+                                <?= $this->Form->input('menu_spicy_amount',[
+                                    'type' => 'select',
+                                    'id'   => 'menu_spicy_amount',
+                                    'class' => 'form-control',
+                                    'options' => $spicyAmountList,
+                                    'value' => $menuDetails['menu_spicy_amount'],                                  
+                                    'label' => false
+                                ]) ?>
+                            </div>                            
+                        </div>
+
                         <div class="form-group clearfix">
                             <label class="col-md-2 col-sm-4 control-label">Sauces</label>
                             <div class="col-md-4 col-sm-6">
@@ -118,6 +133,21 @@
                                 </label>
                             </div>
                         </div>
+
+                        <div class="form-group" style="margin-left: 20%;">
+                            <label class="col-sm-2 control-label">How much Sauce?<span class="help">*</span></label>
+                            <div class="col-sm-4" style="width: 10%;">
+                                <?= $this->Form->input('menu_sauce_amount',[
+                                    'type' => 'select',
+                                    'id'   => 'menu_sauce_amount',
+                                    'class' => 'form-control',
+                                    'options' => $sauceAmountList,
+                                    'value' => $menuDetails['menu_sauce_amount'],                                  
+                                    'label' => false
+                                ]) ?>
+                            </div>                            
+                        </div>
+
                         <div class="form-group clearfix">
                             <label class="col-md-2 col-sm-4 control-label">Cheeses</label>
                             <div class="col-md-4 col-sm-6">
@@ -129,8 +159,22 @@
                                     No
                                 </label>
                             </div>
-
                         </div>
+                        
+                        <div class="form-group" style="margin-left: 20%;">
+                            <label class="col-sm-2 control-label">How much Cheese?<span class="help">*</span></label>
+                            <div class="col-sm-4" style="width: 10%;">
+                                <?= $this->Form->input('menu_cheeses_amount',[
+                                    'type' => 'select',
+                                    'id'   => 'menu_cheeses_amount',
+                                    'class' => 'form-control',
+                                    'options' => $cheeseAmountList,
+                                    'value' => $menuDetails['menu_cheeses_amount'],                                  
+                                    'label' => false
+                                ]) ?>
+                            </div>                            
+                        </div>
+                       
                         <div class="form-group clearfix">
                             <label class="col-md-2 col-sm-4 control-label">Meats</label>
                             <div class="col-md-4 col-sm-6">
@@ -216,6 +260,9 @@
         var Url   = jssitebaseurl+'pizzamenus/pizzamenusSettings';             
         var resId  = $("#resId").val();
         var selectedId = $("#menu_name").val(); 
+        var menu_sauce_amount = $("#menu_sauce_amount").val(); 
+        var menu_spicy_amount = $("#menu_spicy_amount").val(); 
+        var menu_cheeses_amount = $("#menu_cheeses_amount").val(); 
         var restaurant_id = $("#RestId").val();  
         var menu_meats = $("#menu_meats").val();  
         var menu_veggies = $("#menu_veggies").val();           
@@ -249,7 +296,10 @@
                     'popular_dish' :  popular_dish,
                     'spicy_dish'  :  spicy_dish,
                     'menu_sauces'  :  menu_sauces,
-                    'menu_cheeses_status'  :  menu_cheeses_status
+                    'menu_cheeses_status'  :  menu_cheeses_status,
+                    'menu_sauce_amount'  :  menu_sauce_amount,
+                    'menu_spicy_amount'  :  menu_spicy_amount,
+                    'menu_cheeses_amount'  :  menu_cheeses_amount
                 },
                 function (data) {                
                     console.log(data);
