@@ -235,7 +235,7 @@
                                     'id'   => 'menu_veggies_price',
                                     'class' => 'form-control',
                                     'style' => 'width: 32%;',
-                                    'placeholder'=>'Veggues Price',
+                                    'placeholder'=>'Veggies Price',
                                     'value' => $menuDetails['menu_veggies_price'],
                                     'label' => false
                                 ]) ?>
