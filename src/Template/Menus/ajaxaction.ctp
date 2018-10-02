@@ -179,7 +179,7 @@
                                     <div class="row">
                                         <h5 class="addcart_popup_head-cart">Cheese :</h5>
                                         <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
-                                            Normal
+                                            <?= $menuDetails['cheesesAmountList'] ?>
                                         </h2>                                        
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@
                                     <div class="row">
                                         <h5 class="addcart_popup_head-cart">Spicy :</h5>
                                         <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
-                                            Normal
+                                            <?= $menuDetails['spicyAmountList'] ?>
                                         </h2>                                        
                                     </div>
                                 </div>
@@ -222,7 +222,7 @@
                                             <?= $menuDetails['menu_sauces'] ?>
                                         </h2> 
                                         <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
-                                            Light
+                                            <?= $menuDetails['sauceAmountList'] ?>
                                         </h2>                                        
                                     </div>
                                 </div>
@@ -241,9 +241,12 @@
                                 <div class="col-xs-12 margin-top-15 selectSize">
                                     <div class="row">
                                         <h5 class="addcart_popup_head-cart">Meats :</h5>
-                                        <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;">
+                                        <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0; display: inline-block;">
                                             <?= $menuDetails['meatList'] ?>
-                                        </h2>                                        
+                                        </h2>      
+                                        <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
+                                            (<?= number_format($menuDetails['menu_meats_price'] ,2) ?>$)
+                                        </h2>                                       
                                     </div>
                                 </div>
                             <?php } ?>
@@ -251,9 +254,12 @@
                                 <div class="col-xs-12 margin-top-15 selectSize">
                                     <div class="row">
                                         <h5 class="addcart_popup_head-cart">Veggies :</h5>
-                                        <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;">
+                                        <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0; display: inline-block;">
                                             <?= $menuDetails['veggiesList'] ?>
-                                        </h2>                                        
+                                        </h2>  
+                                        <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
+                                            (<?= number_format($menuDetails['menu_veggies_price'], 2) ?>$)
+                                        </h2>                                           
                                     </div>
                                 </div>
                             <?php } ?>
