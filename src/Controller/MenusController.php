@@ -46,6 +46,7 @@ class MenusController extends AppController
         $this->loadModel('Timezones');
         $this->loadModel('Meats');
         $this->loadModel('Veggies');
+        $this->loadModel('Amount');
     }
 
     public function beforeFilter(Event $event)
@@ -2087,7 +2088,7 @@ class MenusController extends AppController
 
                 $restaurantVeggies = explode(',', $menuDetails['menu_veggies'] );                
 
-                $meatList = '';
+                $veggiesList = '';
                 if (!empty($restaurantVeggies)) {
                     foreach ($restaurantVeggies as $mkey => $mvalue) {
                         $veggies = $this->Veggies->find('all', [
@@ -2100,7 +2101,7 @@ class MenusController extends AppController
 
                         if (!empty($veggies)) {
                             $veggiesList[] = $veggies['veggies_name'];
-                            if (!in_array($mvalue, $allMeatsList)) {
+                            if (!in_array($mvalue, $allVeggiesList)) {
                                 $allVeggiesList[] = $mvalue;
                                 if (empty($sideVeggies[$veggies['veggies_name']])) {
                                     $sideVeggies[$veggies['veggies_name']] = 1;
@@ -2120,6 +2121,51 @@ class MenusController extends AppController
                     }
                 }
                 $menuDetails['veggiesList'] = implode(', ', $veggiesList); 
+
+
+
+                //Get amount value
+
+                $allSauceAmountList = [];
+
+                $restaurantSauceAmount = explode(',', $menuDetails['menu_sauce_amount'] );                
+
+                $sauceAmountList = '';
+                if (!empty($restaurantSauceAmount)) {
+                    foreach ($restaurantSauceAmount as $mkey => $mvalue) {
+                        $sauceAmount = $this->Amount->find('all', [
+                            'conditions' => [
+                                'id' => $mvalue
+                            ]
+                        ])->hydrate(false)->first();
+
+                        print_r(json_encode($sauceAmount));
+
+                        if (!empty($sauceAmount)) {
+                            $sauceAmountList[] = $sauceAmount['amount'];
+                            if (!in_array($mvalue, $allSauceAmountList)) {
+                                $allSauceAmount[] = $mvalue;
+                                if (empty($sideSauceAmount[$sauceAmount['amount']])) {
+                                    $sideSauceAmount[$sauceAmount['amount']] = 1;
+                                } else {
+                                    $sideSauceAmount[$sauceAmount['amount']]++;
+                                }
+
+                                $allSauceAmountList[$cvalue] = $sauceAmount['amount'];
+                            } else {
+                                if (empty($sideSauceAmount[$sauceAmount['amount']])) {
+                                    $sideSauceAmount[$sauceAmount['amount']] = 1;
+                                } else {
+                                    $sideSauceAmount[$sauceAmount['amount']]++;
+                                }
+                            }
+                        }
+                    }
+                }
+                $menuDetails['sauceAmountList'] = implode(', ', $sauceAmountList); 
+
+
+
                
                 $details = [];
                 $addons = [];
