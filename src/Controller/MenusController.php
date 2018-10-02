@@ -2206,6 +2206,48 @@ class MenusController extends AppController
                 $menuDetails['cheesesAmountList'] = implode(', ', $cheesesAmountList); 
 
 
+
+                //Get spicy amount value
+
+                $allSpicyAmountList = [];
+
+                $restaurantSpicyAmount = explode(',', $menuDetails['menu_spicy_amount'] );                
+
+                $spicyAmountList = '';
+                if (!empty($restaurantSpicyAmount)) {
+                    foreach ($restaurantSpicyAmount as $mkey => $mvalue) {
+                        $spicyAmount = $this->Amount->find('all', [
+                            'conditions' => [
+                                'id' => $mvalue
+                            ]
+                        ])->hydrate(false)->first();
+
+                        print_r(json_encode($spicyAmount));
+
+                        if (!empty($spicyAmount)) {
+                            $spicyAmountList[] = $spicyAmount['amount'];
+                            if (!in_array($mvalue, $allSpicyAmountList)) {
+                                $allSpicyAmount[] = $mvalue;
+                                if (empty($sideSpicyAmount[$spicyAmount['amount']])) {
+                                    $sideSpicyAmount[$spicyAmount['amount']] = 1;
+                                } else {
+                                    $sideSpicyAmount[$spicyAmount['amount']]++;
+                                }
+
+                                $allSpicyAmountList[$cvalue] = $spicyAmount['amount'];
+                            } else {
+                                if (empty($sideSpicyAmount[$spicyAmount['amount']])) {
+                                    $sideSpicyAmount[$spicyAmount['amount']] = 1;
+                                } else {
+                                    $sideSpicyAmount[$spicyAmount['amount']]++;
+                                }
+                            }
+                        }
+                    }
+                }
+                $menuDetails['spicyAmountList'] = implode(', ', $spicyAmountList); 
+
+
                //=============================================================================
 
                 $details = [];
