@@ -2124,7 +2124,7 @@ class MenusController extends AppController
 
 
 
-                //Get amount value
+                //Get sauce amount value
 
                 $allSauceAmountList = [];
 
@@ -2165,8 +2165,49 @@ class MenusController extends AppController
                 $menuDetails['sauceAmountList'] = implode(', ', $sauceAmountList); 
 
 
+                //Get cheese amount value
 
-               
+                $allCheesesAmountList = [];
+
+                $restaurantCheesesAmount = explode(',', $menuDetails['menu_cheeses_amount'] );                
+
+                $cheesesAmountList = '';
+                if (!empty($restaurantCheesesAmount)) {
+                    foreach ($restaurantCheesesAmount as $mkey => $mvalue) {
+                        $cheesesAmount = $this->Amount->find('all', [
+                            'conditions' => [
+                                'id' => $mvalue
+                            ]
+                        ])->hydrate(false)->first();
+
+                        print_r(json_encode($cheesesAmount));
+
+                        if (!empty($cheesesAmount)) {
+                            $cheesesAmountList[] = $cheesesAmount['amount'];
+                            if (!in_array($mvalue, $allCheesesAmountList)) {
+                                $allCheesesAmount[] = $mvalue;
+                                if (empty($sideCheesesAmount[$cheesesAmount['amount']])) {
+                                    $sideCheesesAmount[$cheesesAmount['amount']] = 1;
+                                } else {
+                                    $sideCheesesAmount[$cheesesAmount['amount']]++;
+                                }
+
+                                $allCheesesAmountList[$cvalue] = $cheesesAmount['amount'];
+                            } else {
+                                if (empty($sideCheesesAmount[$cheesesAmount['amount']])) {
+                                    $sideCheesesAmount[$cheesesAmount['amount']] = 1;
+                                } else {
+                                    $sideCheesesAmount[$cheesesAmount['amount']]++;
+                                }
+                            }
+                        }
+                    }
+                }
+                $menuDetails['cheesesAmountList'] = implode(', ', $cheesesAmountList); 
+
+
+               //=============================================================================
+
                 $details = [];
                 $addons = [];
                 foreach ($menuDetails['menu_details'] as $key => $value) {
