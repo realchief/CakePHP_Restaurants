@@ -193,6 +193,22 @@
                             </div>
                         </div>
 
+                        <div class="form-group" style="margin-left: 20%;">
+                            <label class="col-sm-2 control-label">Price of Meats<span class="help">*</span></label>
+                            <div class="col-sm-4">
+                                <?= $this->Form->input('menu_meats_price',[
+                                    'type' => 'text',
+                                    'id'   => 'menu_meats_price',
+                                    'class' => 'form-control',
+                                    'style' => 'width: 32%;',
+                                    'placeholder'=>'Meats Price',
+                                    'value' => $menuDetails['menu_meats_price'],
+                                    'label' => false
+                                ]) ?>
+                            </div>
+                            <span class="menu_meats_priceErr"></span>
+                        </div>
+
                         <div class="form-group clearfix">
                             <label class="col-md-2 col-sm-4 control-label">Veggies</label>
                             <div class="col-md-4 col-sm-6">
@@ -210,6 +226,23 @@
                                 <span class="veggiesErr"></span>
                             </div>
                         </div>
+
+                        <div class="form-group" style="margin-left: 20%;">
+                            <label class="col-sm-2 control-label">Price of Veggies<span class="help">*</span></label>
+                            <div class="col-sm-4">
+                                <?= $this->Form->input('menu_veggies_price',[
+                                    'type' => 'text',
+                                    'id'   => 'menu_veggies_price',
+                                    'class' => 'form-control',
+                                    'style' => 'width: 32%;',
+                                    'placeholder'=>'Veggues Price',
+                                    'value' => $menuDetails['menu_veggies_price'],
+                                    'label' => false
+                                ]) ?>
+                            </div>
+                            <span class="menu_veggies_priceErr"></span>
+                        </div>
+
                     </div>
 
 					<div class="box-footer">
@@ -265,7 +298,9 @@
         var menu_cheeses_amount = $("#menu_cheeses_amount").val(); 
         var restaurant_id = $("#RestId").val();  
         var menu_meats = $("#menu_meats").val();  
-        var menu_veggies = $("#menu_veggies").val();           
+        var menu_veggies = $("#menu_veggies").val(); 
+        var menu_meats_price = $("#menu_meats_price").val();  
+        var menu_veggies_price = $("#menu_veggies_price").val();            
         var menu_size = $.trim($("input[name='menu_size']:checked").val());
         var menu_crust_style = $.trim($("input[name='menu_crust_style']:checked").val());
         var popular_dish = $.trim($("input[name='popular_dish']:checked").val());
@@ -299,7 +334,9 @@
                     'menu_cheeses_status'  :  menu_cheeses_status,
                     'menu_sauce_amount'  :  menu_sauce_amount,
                     'menu_spicy_amount'  :  menu_spicy_amount,
-                    'menu_cheeses_amount'  :  menu_cheeses_amount
+                    'menu_cheeses_amount'  :  menu_cheeses_amount,
+                    'menu_veggies_price':  menu_veggies_price,
+                    'menu_meats_price' :  menu_meats_price
                 },
                 function (data) {                
                     console.log(data);
