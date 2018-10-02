@@ -154,12 +154,105 @@
                                     </div>
                                 </div>
                             <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['menu_size'] != '' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Menu Size :</h5>
+                                        <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;">
+                                            <?= $menuDetails['menu_size'] ?>
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
                             <?php if(!empty($details) && $menuDetails['menu_crust_style'] != '' ) { ?>
                                 <div class="col-xs-12 margin-top-15 selectSize">
                                     <div class="row">
                                         <h5 class="addcart_popup_head-cart">Crust Style :</h5>
                                         <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;">
                                             <?= $menuDetails['menu_crust_style'] ?>
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['menu_cheeses_status'] == 'Yes' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Cheese :</h5>
+                                        <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
+                                            Normal
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['menu_cheeses_status'] == 'No' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Cheese :</h5>
+                                        <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
+                                            None
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['spicy_dish'] == 'Yes' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Spicy :</h5>
+                                        <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
+                                            Normal
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['spicy_dish'] == 'No' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Spicy :</h5>
+                                        <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
+                                            None
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['menu_sauces'] != '' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Sauces :</h5>
+                                        <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0; display: inline-block;">
+                                            <?= $menuDetails['menu_sauces'] ?>
+                                        </h2> 
+                                        <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
+                                            Light
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['menu_sauces'] == '' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Sauces :</h5>
+                                        <h2 style="font: 12px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;     display: inline; margin-left: 40px; color: #4aa3df;">
+                                            None
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['menu_meats'] != '' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Meats :</h5>
+                                        <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;">
+                                            <?= $menuDetails['menu_meats'] ?>
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['menu_veggies'] != '' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Veggies :</h5>
+                                        <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;">
+                                            <?= $menuDetails['menu_veggies'] ?>
                                         </h2>                                        
                                     </div>
                                 </div>
