@@ -154,6 +154,16 @@
                                     </div>
                                 </div>
                             <?php } ?>
+                            <?php if(!empty($details) && $menuDetails['menu_crust_style'] != '' ) { ?>
+                                <div class="col-xs-12 margin-top-15 selectSize">
+                                    <div class="row">
+                                        <h5 class="addcart_popup_head-cart">Crust Style :</h5>
+                                        <h2 style="font: 18px GothamRounded_Book;  margin-bottom: 0;  margin-top: 0;">
+                                            <?= $menuDetails['menu_crust_style'] ?>
+                                        </h2>                                        
+                                    </div>
+                                </div>
+                            <?php } ?>
                             <div class="col-xs-12 no-padding selectSize">
                                 <div class="row">
 
@@ -246,10 +256,9 @@
                                         } ?>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                           
                         </div>
-                    </div>
-
+                    </div>                   
                 </div>
 
                 <div class="col-xs-12 text-center modal-footer">
