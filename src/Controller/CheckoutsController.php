@@ -53,6 +53,7 @@ class CheckoutsController extends AppController
         $this->loadComponent('FcmNotification');
         $this->loadComponent('Twilio');
         $this->loadModel('Timezones');
+        $this->loadModel('Users');
     }
 
     public function beforeFilter(Event $event)
@@ -2480,6 +2481,7 @@ class CheckoutsController extends AppController
     //-----------------------------------------Check Customer's Profile-------------------------------------------------
 
     public function checkData() {
+        
         $userDetails = $this->Users->find('all', [
             'conditions' => [
                 'id' => $this->Auth->user('id')
@@ -2491,11 +2493,14 @@ class CheckoutsController extends AppController
         ])->hydrate(false)->first();
 
         if($userDetails['phone_number'] == '' && $userDetails['username'] == '') {
-            echo 'both';die();
+            echo 'both';
+            die();
         }else if($userDetails['phone_number'] == '') {
-            echo 'phone';die();
+            echo 'phone';
+            die();
         }else if($userDetails['username'] == '') {
-            echo 'email';die();
+            echo 'email';
+            die();
         }
     }
 

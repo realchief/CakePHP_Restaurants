@@ -577,7 +577,12 @@
             <h4 class="modal-title"><?php echo __('Add Your New Card');?></h4>
          </div>
          <div class="modal-body clearfix">
-             <script src="https://js.stripe.com/v3/"></script>
+             <!-- <script src="https://js.stripe.com/v3/"></script> -->
+            <script src="https://api2.heartlandportico.com/securesubmit.v1/token/gp-1.0.1/globalpayments.min.js"></script>
+            <style>
+              #payment-form iframe { min-height: 2em; }
+            </style>
+
              <form action="" method="post" id="payment-form">
                  <input type="hidden" value="addCard" name="action">
                  <div class="form-row">
@@ -1536,144 +1541,259 @@
    }
 
 
-   // Create a Stripe client
-   var stripe = Stripe('<?= STRIPE_PUBLISH; ?>');
+   // // Create a Stripe client
+   // var stripe = Stripe('<?= STRIPE_PUBLISH; ?>');
 
-   // Create an instance of Elements
-   var elements = stripe.elements();
+   // // Create an instance of Elements
+   // var elements = stripe.elements();
 
-   // Custom styling can be passed to options when creating an Element.
-   // (Note that this demo uses a wider set of styles than the guide below.)
-   var style = {
-       base: {
-           color: '#32325d',
-           lineHeight: '18px',
-           fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-           fontSmoothing: 'antialiased',
-           fontSize: '16px',
-           '::placeholder': {
-               color: '#aab7c4'
-           }
-       },
-       invalid: {
-           color: '#fa755a',
-           iconColor: '#fa755a'
-       }
-   };
+   // // Custom styling can be passed to options when creating an Element.
+   // // (Note that this demo uses a wider set of styles than the guide below.)
+   // var style = {
+   //     base: {
+   //         color: '#32325d',
+   //         lineHeight: '18px',
+   //         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+   //         fontSmoothing: 'antialiased',
+   //         fontSize: '16px',
+   //         '::placeholder': {
+   //             color: '#aab7c4'
+   //         }
+   //     },
+   //     invalid: {
+   //         color: '#fa755a',
+   //         iconColor: '#fa755a'
+   //     }
+   // };
 
-   // Create an instance of the card Element
-   var card = elements.create('card', {style: style});
+   // // Create an instance of the card Element
+   // var card = elements.create('card', {style: style});
 
-   // Add an instance of the card Element into the `card-element` <div>
-   card.mount('#card-element');
+   // // Add an instance of the card Element into the `card-element` <div>
+   // card.mount('#card-element');
 
-   // Handle real-time validation errors from the card Element.
-   card.addEventListener('change', function(event) {
-       var displayError = document.getElementById('card-errors');
-       if (event.error) {
-           displayError.textContent = event.error.message;
-       } else {
-           displayError.textContent = '';
-       }
-   });
+   // // Handle real-time validation errors from the card Element.
+   // card.addEventListener('change', function(event) {
+   //     var displayError = document.getElementById('card-errors');
+   //     if (event.error) {
+   //         displayError.textContent = event.error.message;
+   //     } else {
+   //         displayError.textContent = '';
+   //     }
+   // });
 
-   // Handle form submission
-   var form = document.getElementById('payment-form');
-   form.addEventListener('submit', function(event) {
-       event.preventDefault();
+   // // Handle form submission
+   // var form = document.getElementById('payment-form');
+   // form.addEventListener('submit', function(event) {
+   //     event.preventDefault();
 
-       stripe.createToken(card).then(function(result) {
-           if (result.error) {
-               // Inform the user if there was an error
-               var errorElement = document.getElementById('card-errors');
-               errorElement.textContent = result.error.message;
-           } else {
-               // Send the token to your server
-               stripeTokenHandler(result.token);
-           }
-       });
-   });
+   //     stripe.createToken(card).then(function(result) {
+   //         if (result.error) {
+   //             // Inform the user if there was an error
+   //             var errorElement = document.getElementById('card-errors');
+   //             errorElement.textContent = result.error.message;
+   //         } else {
+   //             // Send the token to your server
+   //             stripeTokenHandler(result.token);
+   //         }
+   //     });
+   // });
 
-   function stripeTokenHandler(result) {
+   // function stripeTokenHandler(result) {
 
 
-       // Insert the token ID into the form so it gets submitted to the server
-       var form = document.getElementById('payment-form');
-       var hiddenInput = document.createElement('input');
-       hiddenInput.setAttribute('type', 'hidden');
-       hiddenInput.setAttribute('name', 'stripe_token_id');
-       hiddenInput.setAttribute('value', result.id);
-       form.appendChild(hiddenInput);
+   //     // Insert the token ID into the form so it gets submitted to the server
+   //     var form = document.getElementById('payment-form');
+   //     var hiddenInput = document.createElement('input');
+   //     hiddenInput.setAttribute('type', 'hidden');
+   //     hiddenInput.setAttribute('name', 'stripe_token_id');
+   //     hiddenInput.setAttribute('value', result.id);
+   //     form.appendChild(hiddenInput);
 
-       //Card Id
-       var hiddenInput1 = document.createElement('input');
-       hiddenInput1.setAttribute('type', 'hidden');
-       hiddenInput1.setAttribute('name', 'card_id');
-       hiddenInput1.setAttribute('value', result.card.id);
-       form.appendChild(hiddenInput1);
+   //     //Card Id
+   //     var hiddenInput1 = document.createElement('input');
+   //     hiddenInput1.setAttribute('type', 'hidden');
+   //     hiddenInput1.setAttribute('name', 'card_id');
+   //     hiddenInput1.setAttribute('value', result.card.id);
+   //     form.appendChild(hiddenInput1);
 
-       //Card Zipcode
-       var hiddenInput2 = document.createElement('input');
-       hiddenInput2.setAttribute('type', 'hidden');
-       hiddenInput2.setAttribute('name', 'address_zip');
-       hiddenInput2.setAttribute('value', result.card.address_zip);
-       form.appendChild(hiddenInput2);
+   //     //Card Zipcode
+   //     var hiddenInput2 = document.createElement('input');
+   //     hiddenInput2.setAttribute('type', 'hidden');
+   //     hiddenInput2.setAttribute('name', 'address_zip');
+   //     hiddenInput2.setAttribute('value', result.card.address_zip);
+   //     form.appendChild(hiddenInput2);
+
+   //     //Card Brand
+   //     var hiddenInput3 = document.createElement('input');
+   //     hiddenInput3.setAttribute('type', 'hidden');
+   //     hiddenInput3.setAttribute('name', 'card_brand');
+   //     hiddenInput3.setAttribute('value', result.card.brand);
+   //     form.appendChild(hiddenInput3);
+
+   //     //Card country
+   //     var hiddenInput4 = document.createElement('input');
+   //     hiddenInput4.setAttribute('type', 'hidden');
+   //     hiddenInput4.setAttribute('name', 'country');
+   //     hiddenInput4.setAttribute('value', result.card.country);
+   //     form.appendChild(hiddenInput4);
+
+   //     //Card exp_month
+   //     var hiddenInput5 = document.createElement('input');
+   //     hiddenInput5.setAttribute('type', 'hidden');
+   //     hiddenInput5.setAttribute('name', 'exp_month');
+   //     hiddenInput5.setAttribute('value', result.card.exp_month);
+   //     form.appendChild(hiddenInput5);
+
+   //     //Card exp_year
+   //     var hiddenInput6 = document.createElement('input');
+   //     hiddenInput6.setAttribute('type', 'hidden');
+   //     hiddenInput6.setAttribute('name', 'exp_year');
+   //     hiddenInput6.setAttribute('value', result.card.exp_year);
+   //     form.appendChild(hiddenInput6);
+
+   //     //Card funding credit or debit
+   //     var hiddenInput7 = document.createElement('input');
+   //     hiddenInput7.setAttribute('type', 'hidden');
+   //     hiddenInput7.setAttribute('name', 'card_type');
+   //     hiddenInput7.setAttribute('value', result.card.funding);
+   //     form.appendChild(hiddenInput7);
+
+   //     //Card last4
+   //     var hiddenInput8 = document.createElement('input');
+   //     hiddenInput8.setAttribute('type', 'hidden');
+   //     hiddenInput8.setAttribute('name', 'card_number');
+   //     hiddenInput8.setAttribute('value', result.card.last4);
+   //     form.appendChild(hiddenInput8);
+
+   //     //Card client_ip
+   //     var hiddenInput9 = document.createElement('input');
+   //     hiddenInput9.setAttribute('type', 'hidden');
+   //     hiddenInput9.setAttribute('name', 'client_ip');
+   //     hiddenInput9.setAttribute('value', result.client_ip);
+   //     form.appendChild(hiddenInput9);
+
+
+
+
+   //     // Submit the form
+   //     form.submit();
+   // }
+
+
+
+//?????????????????????????????????????????????????????????????????????????
+    // credit card js
+    // <?php echo __('Submit Payment');?>
+    // Configure a Heartland / GP client
+
+    GlobalPayments.configure({
+        publicApiKey: '<?= $restaurantDetails['heartland_public_api_key']; ?>'
+    });
+
+    // Create an instance of card form
+    const cardForm = GlobalPayments.ui.form({
+        fields: {
+            "card-number": {
+                placeholder: "•••• •••• •••• ••••",
+                target: "#credit-card-card-number"
+            },
+            "card-expiration": {
+                placeholder: "MM / YYYY",
+                target: "#credit-card-card-expiration"
+            },
+            "card-cvv": {
+                placeholder: "•••",
+                target: "#credit-card-card-cvv"
+            },
+            "submit": {
+                target: "#credit-card-submit",
+                text: "Add Card"
+            }
+        },
+        styles: {
+            // Custom styling can be passed to options when creating a form.
+            // (Note that this demo uses a wider set of styles than the guide below.)
+            '*': {
+                color: '#32325d',
+                'line-height': '18px',
+                'font-family': '"Helvetica Neue", Helvetica, sans-serif',
+                'font-smoothing': 'antialiased',
+                'font-size': '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            '*.invalid': {
+                color: '#fa755a',
+                'icon-color': '#fa755a'
+            }
+        }
+    });
+
+    // Handle form submission
+    cardForm.on('token-success', function (result) {
+        // Insert the token ID into the form so it gets submitted to the server
+        var form = document.getElementById('payment-form');
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'heartland_token_id');
+        hiddenInput.setAttribute('value', result.paymentReference);
+        form.appendChild(hiddenInput);
 
        //Card Brand
        var hiddenInput3 = document.createElement('input');
        hiddenInput3.setAttribute('type', 'hidden');
        hiddenInput3.setAttribute('name', 'card_brand');
-       hiddenInput3.setAttribute('value', result.card.brand);
+       hiddenInput3.setAttribute('value', result.details.cardType);
        form.appendChild(hiddenInput3);
-
-       //Card country
-       var hiddenInput4 = document.createElement('input');
-       hiddenInput4.setAttribute('type', 'hidden');
-       hiddenInput4.setAttribute('name', 'country');
-       hiddenInput4.setAttribute('value', result.card.country);
-       form.appendChild(hiddenInput4);
 
        //Card exp_month
        var hiddenInput5 = document.createElement('input');
        hiddenInput5.setAttribute('type', 'hidden');
        hiddenInput5.setAttribute('name', 'exp_month');
-       hiddenInput5.setAttribute('value', result.card.exp_month);
+       hiddenInput5.setAttribute('value', result.details.expiryMonth);
        form.appendChild(hiddenInput5);
 
        //Card exp_year
        var hiddenInput6 = document.createElement('input');
        hiddenInput6.setAttribute('type', 'hidden');
        hiddenInput6.setAttribute('name', 'exp_year');
-       hiddenInput6.setAttribute('value', result.card.exp_year);
+       hiddenInput6.setAttribute('value', result.details.expiryYear);
        form.appendChild(hiddenInput6);
 
        //Card funding credit or debit
        var hiddenInput7 = document.createElement('input');
        hiddenInput7.setAttribute('type', 'hidden');
        hiddenInput7.setAttribute('name', 'card_type');
-       hiddenInput7.setAttribute('value', result.card.funding);
+       hiddenInput7.setAttribute('value', 'credit');
        form.appendChild(hiddenInput7);
 
        //Card last4
        var hiddenInput8 = document.createElement('input');
        hiddenInput8.setAttribute('type', 'hidden');
        hiddenInput8.setAttribute('name', 'card_number');
-       hiddenInput8.setAttribute('value', result.card.last4);
+       hiddenInput8.setAttribute('value', result.details.cardLast4);
        form.appendChild(hiddenInput8);
 
-       //Card client_ip
-       var hiddenInput9 = document.createElement('input');
-       hiddenInput9.setAttribute('type', 'hidden');
-       hiddenInput9.setAttribute('name', 'client_ip');
-       hiddenInput9.setAttribute('value', result.client_ip);
-       form.appendChild(hiddenInput9);
+
+        // Submit the form
+        form.submit();
+    });
+
+    cardForm.on('token-error', function (result) {
+        // Inform the user if there was an error
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.reasons.map(r => r.message).join(' ');
+    });
+
+
+
+//?????????????????????????????????????????????????????????????????????????
 
 
 
 
-       // Submit the form
-       form.submit();
-   }
 
    function checkMinimum() {
 
@@ -1713,12 +1833,14 @@
 
    }
 
-   function flash(el, c1, c2) {
-    var text = document.getElementById(el);
-    text.style.color = (text.style.color == c2) ? c1 : c2;
+  function flash(el, c1, c2) {
+    var text = document.getElementById(el);    
+    if (text) {
+        text.style.color = (text.style.color == c2) ? c1 : c2;
     }
-    setInterval(function() {
-        flash('blink_text', 'gray', 'red')
-    }, 1000);
+  }
+  setInterval(function() {
+      flash('blink_text', 'gray', 'red')
+  }, 1000);
 </script>
 
