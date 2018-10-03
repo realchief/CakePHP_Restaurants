@@ -797,6 +797,7 @@
            url    : jssitebaseurl+'checkouts/checkData',
            data   : {},
            success: function(data){
+               console.log(data);
                if($.trim(data) == 'both') {
                    $("#userinfoModal").modal('show');
                }else if($.trim(data) == 'phone') {

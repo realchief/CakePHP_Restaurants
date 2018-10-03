@@ -2481,7 +2481,7 @@ class CheckoutsController extends AppController
     //-----------------------------------------Check Customer's Profile-------------------------------------------------
 
     public function checkData() {
-        
+
         $userDetails = $this->Users->find('all', [
             'conditions' => [
                 'id' => $this->Auth->user('id')
@@ -2491,7 +2491,7 @@ class CheckoutsController extends AppController
                 'username'
             ]
         ])->hydrate(false)->first();
-
+        
         if($userDetails['phone_number'] == '' && $userDetails['username'] == '') {
             echo 'both';
             die();
@@ -2500,6 +2500,9 @@ class CheckoutsController extends AppController
             die();
         }else if($userDetails['username'] == '') {
             echo 'email';
+            die();
+        }else {
+            echo 'success';
             die();
         }
     }
