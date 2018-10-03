@@ -1295,6 +1295,35 @@
                                                 </div>
                                             <?php } ?>
                                         <span class="paymethodErr"></span>
+                                        
+                                        <div id="heartland_settings" class="col-sm-12">
+                                            <h4>Heartland Settings</h4>
+                                            <div class="form-group clearfix">
+                                                <label class="col-md-3 col-sm-4  control-label">Public API Key</label>
+                                                <div class="col-md-4 col-sm-6">
+                                                    <?= $this->Form->input('heartland_public_api_key',[
+                                                        'type' => 'text',
+                                                        'id'   => 'heartland_public_api_key',
+                                                        'class' => 'form-control',
+                                                        'value' => $restDetails['heartland_public_api_key'],
+                                                        'label' => false
+                                                    ]) ?>
+                                                </div>
+                                            </div>
+                                            <div class="form-group clearfix">
+                                                <label class="col-md-3 col-sm-4  control-label">Secret API Key</label>
+                                                <div class="col-md-4 col-sm-6">
+                                                    <?= $this->Form->input('heartland_secret_api_key',[
+                                                        'type' => 'text',
+                                                        'id'   => 'heartland_secret_api_key',
+                                                        'class' => 'form-control',
+                                                        'value' => $restDetails['heartland_secret_api_key'],
+                                                        'label' => false
+                                                    ]) ?>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
