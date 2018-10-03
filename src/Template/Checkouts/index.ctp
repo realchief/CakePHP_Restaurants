@@ -584,21 +584,33 @@
             </style>
 
              <form action="" method="post" id="payment-form">
-                 <input type="hidden" value="addCard" name="action">
-                 <div class="form-row">
-                     <label for="card-element">
-                         <?php echo __('Credit or debit card');?>
-                     </label>
-                     <div id="card-element">
-                         <!-- a Stripe Element will be inserted here. -->
-                     </div>
+                <input type="hidden" value="addCard" name="action">
+                <div class="form-row">
+                    <label for="billing-zip-code">
+                        <?php echo __('Billing Zip Code'); ?>
+                    </label>
+                    <div>
+                        <input type="text" name="address_zip" />
+                    </div>
+                    <label for="credit-card-card-number">
+                        <?php echo __('Credit or debit card');?>
+                    </label>
+                    <div id="credit-card-card-number"></div>
+                    <label for="credit-card-card-number">
+                        <?php echo __('Expiration Date');?>
+                    </label>
+                    <div id="credit-card-card-expiration"></div>
+                    <label for="credit-card-card-cvv">
+                        <?php echo __('Security Code');?>
+                    </label>
+                    <div id="credit-card-card-cvv"></div>
 
-                     <!-- Used to display form errors -->
-                     <div id="card-errors" role="alert"></div>
-                 </div>
-
-                 <button class="btn orng_btn m-t-10"><?php echo __('Submit Payment');?></button>
-             </form>
+                    <!-- Used to display form errors -->
+                    <div id="card-errors" role="alert"></div>
+                </div>
+                <div id="credit-card-submit"></div>
+            </form>
+            
          </div>
       </div>
    </div>
@@ -1019,7 +1031,7 @@
            }else if(paymentMethod == 'paypal' && totalOrderAmt > 0) {
 
            }else {
-               $("#checkoutForm").submit();return false;
+               $("#checkoutForm").submit(); return false;
            }
            //
        }
