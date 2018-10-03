@@ -1566,9 +1566,7 @@ class CheckoutsController extends AppController
 
             $cardFee = $this->siteSettings['card_fee'];
 
-            $orderPatch = $this->Orders->patchEntity($orderEntity,$orderUpdate);
-
-            //?????????????????????????????????????????????????????????           
+            $orderPatch = $this->Orders->patchEntity($orderEntity,$orderUpdate);                    
 
 
             if($this->request->getData('payment_method') == 'cod' || $this->request->getData('paidFull') == 'Yes') {
@@ -1709,10 +1707,13 @@ class CheckoutsController extends AppController
 
                             //?????????????Ctirical issue///////////// 
 
+                            // echo $customerDetails['username'];
+                            // echo $stripeDetails['stripe_token_id'];
+                            // die(); 
+
                             $customer = \Stripe\Customer::create(array(
                                 "email" => $customerDetails['username'],
-                                "source" => $stripeDetails['stripe_token_id']
-                                // "source" => $stripeDetails['stripe_token_id']
+                                "source" => $stripeDetails['stripe_token_id']                                
                             ));  
 
                             // die(); 
@@ -1895,9 +1896,7 @@ class CheckoutsController extends AppController
                 }
             }else {
                 return $this->redirect(BASE_URL);
-            }
-
-            //???????????????????????????????????????????????????????????????
+            }           
 
 
             if($_SERVER['HTTP_HOST'] != 'localhost') {
