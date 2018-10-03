@@ -1290,7 +1290,8 @@ class CheckoutsController extends AppController
         if($this->request->session()->read('sessionId') != '') {
             $sessionId =  $this->request->session()->read('sessionId');
 
-        }
+        }        
+
         if($sessionId != '') {
 
             //Cart Details
@@ -1310,7 +1311,7 @@ class CheckoutsController extends AppController
                 'conditions' => [
                     'id' => $this->request->session()->read('resid')
                 ]
-            ])->hydrate(false)->first();
+            ])->hydrate(false)->first();            
 
             //Voucher Section
             $offerMode = $this->request->session()->read('offer_mode');
@@ -1327,14 +1328,11 @@ class CheckoutsController extends AppController
             $redeemPercentage = $this->request->session()->read('rewardPercentage');
             $redeemAmount = $this->request->session()->read('rewardPoint');
 
-
-
-
             $addressDetails = $this->AddressBooks->find('all', [
                 'conditions' => [
                     'id' => $this->request->getData('checkout_address')
                 ]
-            ])->hydrate(false)->first();
+            ])->hydrate(false)->first();            
 
             $deliveryCharge = 0;
 
@@ -1427,8 +1425,6 @@ class CheckoutsController extends AppController
                 $address = '';
             }
 
-
-
             $subTotal = 0;
             $taxAmount = 0;
             if(!empty($cartsDetails)) {
@@ -1485,9 +1481,8 @@ class CheckoutsController extends AppController
                     $totalAmount = $totalAmount - $redeemAmount;
                 }
 
-
-            }
-
+                
+            }            
 
             $orderEntity = $this->Orders->newEntity();
 
@@ -1531,7 +1526,6 @@ class CheckoutsController extends AppController
 
             $orderUpdate['order_point'] = $this->request->session()->read('orderPoint');
 
-
             if($redeemAmount != '' && $redeemPercentage != '') {
                 $orderUpdate['reward_used'] = 'Y';
                 $orderUpdate['reward_offer'] = $redeemAmount;
@@ -1545,6 +1539,7 @@ class CheckoutsController extends AppController
 
             $this->request->session()->write('offer_percentage','');
             $this->request->session()->write('offer_amount','');
+
 
             //Reward
             $this->request->session()->write('rewardPercentage','');
@@ -1571,8 +1566,10 @@ class CheckoutsController extends AppController
 
             $cardFee = $this->siteSettings['card_fee'];
 
-
             $orderPatch = $this->Orders->patchEntity($orderEntity,$orderUpdate);
+
+            //?????????????????????????????????????????????????????????           
+
 
             if($this->request->getData('payment_method') == 'cod' || $this->request->getData('paidFull') == 'Yes') {
 
@@ -1650,8 +1647,10 @@ class CheckoutsController extends AppController
                 require_once(ROOT . DS . 'vendor' . DS . 'stripe' . DS . 'init.php');
                 \Stripe\Stripe::setApiKey('sk_test_BQokikJOvBiI2HlWgH4olfQ2');
 
+
                 $token  = $this->request->getData('res-sp-token');
-                $payableAmount = $totalAmount*100;
+                $payableAmount = $totalAmount*100;              
+                
 
                 if($this->request->getData('payment_wallet') == 'Yes') {
 
@@ -1701,14 +1700,25 @@ class CheckoutsController extends AppController
                         'conditions' => [
                             'id' => $this->request->getData('credit_card_choose')
                         ]
-                    ])->hydrate(false)->first();
-                    if(!empty($stripeDetails)) {
+                    ])->hydrate(false)->first();                    
+
+                    if(!empty($stripeDetails)) {                       
+                        
 
                         if($stripeDetails['stripe_customer_id'] == '') {
+
+                            //?????????????Ctirical issue///////////// 
+
                             $customer = \Stripe\Customer::create(array(
                                 "email" => $customerDetails['username'],
-                                "source" => $stripeDetails['stripe_token_id'],
-                            ));
+                                "source" => $stripeDetails['stripe_token_id']
+                                // "source" => $stripeDetails['stripe_token_id']
+                            ));  
+
+                            // die(); 
+
+                            //????????????????????????????????????????????                       
+
                             $stripeDetails['stripe_customer_id'] = $customer->id;
 
                             $cardEntity = $this->StripeCustomers->newEntity();
@@ -1718,7 +1728,7 @@ class CheckoutsController extends AppController
                             $cardPatch->id = $stripeDetails['id'];
                             $saveCard = $this->StripeCustomers->save($cardPatch);
                         }
-
+                                                
 
                         // YOUR CODE: Save the customer ID and other info in a database for later.
 
@@ -1732,8 +1742,8 @@ class CheckoutsController extends AppController
 
 
                     }
-                }
-
+                }            
+                
 
                 $orderSave = $this->Orders->save($orderPatch);
                 $payableAmount = $totalAmount;
@@ -1886,6 +1896,9 @@ class CheckoutsController extends AppController
             }else {
                 return $this->redirect(BASE_URL);
             }
+
+            //???????????????????????????????????????????????????????????????
+
 
             if($_SERVER['HTTP_HOST'] != 'localhost') {
 
