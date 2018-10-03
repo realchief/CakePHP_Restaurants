@@ -408,10 +408,18 @@ class RestaurantsController extends AppController
                 ? 'Close' : '';
             $restEntity->sunday_status = (!empty($this->request->getData('sunday_status'))) 
                 ? 'Close' : '';
+            
+
+            // Heartland API keys
+            $restEntity->heartland_public_api_key = (!empty($this->request->getData('heartland_public_api_key')))
+                ? $this->request->getData('heartland_public_api_key') : '';
+            $restEntity->heartland_secret_api_key = (!empty($this->request->getData('heartland_secret_api_key')))
+                ? $this->request->getData('heartland_secret_api_key') : '';
 
                 
             $restEntity->id = $this->request->getData('resId');           
             $restEntity->minimum_pickup_time = $this->request->getData('minimum_pickup_time');
+
 
             //Get Userid From Restaurant Table
             $userDetails = $this->Restaurants->find('all', [
