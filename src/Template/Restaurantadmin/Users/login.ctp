@@ -1,7 +1,6 @@
 <div class="login-box">
     <div class="login-logo">
-        <a href="">
-            <!-- <b><?= $siteSettings['site_name'] ?></b> -->
+        <a href="">           
             <img src="images/login-logo.png">
         </a>
     </div>
@@ -83,53 +82,53 @@
 </div>
 
 <style type="text/css">
-.login-box,
-.register-box {
-  width: 50%;
-  height: -webkit-fill-available;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  float: right;
-  margin: unset;
-  flex-direction: column;
-}
-.login-bg-color{background-color: #f05a28;}
-.login-box-body {
-    margin-top: 30px;
-    padding: 10px;
-    width: 40%;
-}
-.customized-input {
-    border: none;
-    border-bottom: 1px solid #ccc;
-    height: 50px;
-    color: #ccc;
-}
-#forget {
-    margin-top: -50px;
-    margin-right: 10px;
-    width: max-content;
-    float: right;
-}
+    .login-box,
+    .register-box {
+      width: 50%;
+      height: -webkit-fill-available;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      float: right;
+      margin: unset;
+      flex-direction: column;
+    }
+    .login-bg-color{background-color: #f05a28;}
+    .login-box-body {
+        margin-top: 30px;
+        padding: 10px;
+        width: 40%;
+    }
+    .customized-input {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        height: 50px;
+        color: #ccc;
+    }
+    #forget {
+        margin-top: -50px;
+        margin-right: 10px;
+        width: max-content;
+        float: right;
+    }
 
-.btn-customized {
-    height: 50px;
-    background-color: #f1f3f7;
-    color: #9faabb;
-}
+    .btn-customized {
+        height: 50px;
+        background-color: #f1f3f7;
+        color: #9faabb;
+    }
 
-.btn-customized-google {
-    height: 50px;
-    background-color: white;
-    color: lightblue;
-    border: 1px solid #ccc;
-}
+    .btn-customized-google {
+        height: 50px;
+        background-color: white;
+        color: lightblue;
+        border: 1px solid #ccc;
+    }
 
-.button-div {
-    margin-top: 20px;
-}
+    .button-div {
+        margin-top: 20px;
+    }
 </style>
 
 <script>
