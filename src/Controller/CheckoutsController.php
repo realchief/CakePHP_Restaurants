@@ -1708,15 +1708,12 @@ class CheckoutsController extends AppController
                             //?????????????Ctirical issue///////////// 
 
                             // echo $customerDetails['username'];
-                            // echo $stripeDetails['stripe_token_id'];
-                            // die(); 
+                            // echo $stripeDetails['stripe_token_id'];                          
 
                             $customer = \Stripe\Customer::create(array(
                                 "email" => $customerDetails['username'],
                                 "source" => $stripeDetails['stripe_token_id']                                
-                            ));  
-
-                            // die(); 
+                            ));                              
 
                             //????????????????????????????????????????????                       
 

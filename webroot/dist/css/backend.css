@@ -3451,16 +3451,21 @@ table.text-center th {
 }
 .login-box,
 .register-box {
-  width: 360px;
-  margin: 7% auto;
+  width: 50%;
+  height: -webkit-fill-available;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: right;
 }
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
   .login-box,
   .register-box {
     width: 50%;
     margin-top: 20px;
   }
-}
+}*/
 .login-box-body,
 .register-box-body {
   background: #fff;
@@ -6332,7 +6337,7 @@ label.promoimagewrap::after {
   padding: 0 0 7px;
   width: 100%;
 }
-.login-bg-color{background-color: #D2D6DE;}
+.login-bg-color{background-color: #f05a28;}
 .sucess-show {
     background: #00C292!important;
     border: 1px solid #00C292;

@@ -1,31 +1,42 @@
 <div class="login-box">
     <div class="login-logo">
-        <a href=""><b><?= $siteSettings['site_name'] ?></b></a>
+        <a href="">
+            <!-- <b><?= $siteSettings['site_name'] ?></b> -->
+            <img src="images/login-logo.png">
+        </a>
     </div>
     <div class="login-box-body">
         <div id="login">
-            <p class="login-box-msg">Login</p>
+           <!--  <p class="login-box-msg">Login</p> -->
             <form action="" method="post">
                 <div class="form-group has-feedback">
-                    <input type="text" id="username" class="form-control" placeholder="Email" name="username">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    <input type="text" id="username" class="form-control customized-input" placeholder="Email address" name="username">
+                    <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
                     <span class="userErr"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Password" id="password" name="password">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <input type="password" class="form-control customized-input" placeholder="Password" id="password" name="password">
+                    <!-- <span class="glyphicon glyphicon-lock form-control-feedback"></span> -->
                     <span class="passErr"></span>
                 </div>
-
-                <div class="form-group has-feedback clearfix">
-                    <button type="submit" onclick="return adminLogin()" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                </div>
-
                 <div id="forget" class="col-md-12 col-sm-12 col-xs-12 no-padding">
                     <div class="rememberpassword text-right text-left-xs">
                         <a href="javascript:void(0);" onclick="return forgotDiv('forgot');"class="linkRight" id="forgetPage"><?php echo __('Forget Password');?> ?</a>
                     </div>
                 </div>
+                <div class="form-group has-feedback">
+                    <input type="checkbox" name="rememberme" id="rememberme">
+                    <label for="rememberme">Remember me</label>
+                </div>
+
+                <div class="form-group has-feedback clearfix button-div">
+                    <button type="submit" onclick="return adminLogin()" class="btn btn-light btn-block btn-customized">Log In</button>
+                </div>
+                <div class="form-group has-feedback clearfix">
+                    <button class="btn btn-block btn-customized-google"><img src="images/google-icon.png" width="25px"> Log in with Google</button>
+                </div>
+
+                
             </form>
 
         </div>
@@ -70,6 +81,56 @@
 
     </div>
 </div>
+
+<style type="text/css">
+.login-box,
+.register-box {
+  width: 50%;
+  height: -webkit-fill-available;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: right;
+  margin: unset;
+  flex-direction: column;
+}
+.login-bg-color{background-color: #f05a28;}
+.login-box-body {
+    margin-top: 30px;
+    padding: 10px;
+    width: 40%;
+}
+.customized-input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    height: 50px;
+    color: #ccc;
+}
+#forget {
+    margin-top: -50px;
+    margin-right: 10px;
+    width: max-content;
+    float: right;
+}
+
+.btn-customized {
+    height: 50px;
+    background-color: #f1f3f7;
+    color: #9faabb;
+}
+
+.btn-customized-google {
+    height: 50px;
+    background-color: white;
+    color: lightblue;
+    border: 1px solid #ccc;
+}
+
+.button-div {
+    margin-top: 20px;
+}
+</style>
 
 <script>
     function adminLogin() {
