@@ -31,9 +31,9 @@
                 <div class="form-group has-feedback clearfix button-div">
                     <button type="submit" onclick="return adminLogin()" class="btn btn-light btn-block btn-customized">Log In</button>
                 </div>
-                <div class="form-group has-feedback clearfix">
-                    <button class="btn btn-block btn-customized-google"><img src="images/google-icon.png" width="25px"> Log in with Google</button>
-                </div>
+                <!-- <div class="form-group has-feedback clearfix">
+                    <button class="btn btn-block btn-customized-google"><img src="/images/google-icon.png" width="25px"> Log in with Google</button>
+                </div> -->
 
                 
             </form>
