@@ -33,9 +33,7 @@
             <li class="">
                 <a href="<?php echo REST_BASE_URL; ?>menus"><i class="fa fa-briefcase"></i> <span>Manage Menu</span></a>
             </li>
-            <li class="">
-                <a href="<?php echo REST_BASE_URL; ?>pizzamenus"><i class="fa fa-briefcase"></i> <span>Manage Pizza Menu</span></a>
-            </li>
+          
             <?php if($restaurantDetails['restaurant_dispatch'] == 'Yes') { ?>
                 <li class="">
                     <a href="<?= REST_BASE_URL ?>dispatch"><i class="fa fa-automobile"></i> <span>Dispatch</span></a>
