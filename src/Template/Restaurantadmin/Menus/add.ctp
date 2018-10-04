@@ -134,6 +134,34 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Popular</label>
+                                <div class="col-sm-4">
+                                    <label class="radio-inline no-padding-left">
+                                        <input type="radio" name="popular_dish" class="minimal" value="Yes" <?= ($menuDetails['popular_dish'] == 'Yes') ? 'checked' : '' ?> >
+                                        Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="popular_dish" class="minimal" value="No" <?= ($menuDetails['popular_dish'] == 'No') ? 'checked' : '' ?> >
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Spicy</label>
+                                <div class="col-sm-4">
+                                    <label class="radio-inline no-padding-left">
+                                        <input type="radio" name="spicy_dish" class="minimal" value="Yes" <?= ($menuDetails['spicy_dish'] == 'Yes') ? 'checked' : '' ?> >
+                                        Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="spicy_dish" class="minimal" value="No" <?= ($menuDetails['spicy_dish'] == 'No') ? 'checked' : '' ?>>
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Addons</label>
