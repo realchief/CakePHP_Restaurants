@@ -1,7 +1,7 @@
 <div class="login-box">
     <div class="login-logo">
         <a href="">           
-            <img src="images/login-logo.png">
+            <img src="/images/login-logo.png">
         </a>
     </div>
     <div class="login-box-body">
