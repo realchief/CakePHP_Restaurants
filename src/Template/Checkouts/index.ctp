@@ -221,6 +221,15 @@
                                          <input <?= ($ccod == 0) ? 'checked' : '' ?> type="radio" name="payment_method" id="ccpayment" value="stripe" onclick="return hidePayapl();">
                                          <label data-check="credit_card" for="ccpayment"><i class="fa fa-credit-card"></i> <span class="hidden-xs">Credit Card</span></label>
                                      </li>
+
+                                  <?php } else if ($val['payment_method']['payment_method_name'] == 'Heartland') {
+                                     $sstripe = 1;
+                                     ?>
+                                     <li>
+                                         <input <?= ($ccod == 0) ? 'checked' : '' ?> type="radio" name="payment_method" id="ccpayment" value="heartland" onclick="return hidePayapl();">
+                                         <label data-check="credit_card" for="ccpayment"><i class="fa fa-credit-card"></i> <span class="hidden-xs">Credit Card</span></label>
+                                     </li>
+
                                  <?php } else if ($val['payment_method']['payment_method_name'] == 'Paypal') {?>
                                      <li>
                                          <input <?= ($ccod == 0 && $sstripe == 0) ? 'checked' : '' ?> type="radio" name="payment_method" id="paypalPay" value="paypal" onclick="return showPaypal();">
@@ -288,6 +297,44 @@
                                                   }
                                               }else { ?>
                                                   <?php echo __('No Record Found');?>
+                                              <?php } ?>
+                                          </div>
+                                      </div>
+                                  </div>
+                              <?php } else if ($val['payment_method']['payment_method_name'] == 'Heartland') {
+                                  $heartland = true;
+                                  ?>
+                                  <div id="credit_card" class="common_content" style="<?= ($cod != 0) ? 'display:none': '' ?>">
+                                      <div class="creditcard_conent">
+                                          <div  id="payment_content" class="load_money_card">
+                                              <span class="heartlandErr"></span>
+                                              <?php if(count($userDetails['stripe_customers']) < 3) { ?>
+                                                  <div class="col-xs-12 m-t-10 m-b-10 no-padding m-t-xs-0">
+                                                      <span class="pull-right"><button onclick="return showAddCard();" class="btn btn-deafult add_card_btn"><?php echo __('Add Card');?></button></span>
+                                                  </div>
+                                              <?php } ?>
+
+                                              <?php if(!empty($userDetails['stripe_customers'])) {
+                                                  foreach ($userDetails['stripe_customers'] as $cKey => $cValue) { ?>
+
+                                                      <div class="col-xs-12 no-padding">
+                                                          <input type="radio" value="<?= $cValue['id'] ?>" id="ccard_select_<?= $cValue['id'] ?>" name="credit_card_choose">
+                                                          <label for="ccard_select_<?= $cValue['id'] ?>">
+                                                              <div class="credit_card">
+                                                                  <div class="credit_cardrow">
+                                                                      <div class="visa_img"><img src="images/master.png"></div>
+                                                                      <div class="credit_det">
+                                                                          <div class="card_number">XXXXXXXXXXXX<?= $cValue['card_number'] ?> </div>
+                                                                          <div class="card_validity"><?php echo __('Valid till');?> <?= $cValue['exp_month'] ?>/<?= $cValue['exp_year'] ?></div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                          </label>
+                                                      </div>
+                                                      <?php
+                                                  }
+                                              }else { ?>
+                                                  <?php echo __('No cards available');?>
                                               <?php } ?>
                                           </div>
                                       </div>
