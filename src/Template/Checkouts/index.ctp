@@ -36,7 +36,7 @@
                   </div>
                   <?php if($orderType != 'pickup') { ?>
                   <div class="add_new_address_div">
-                     <a href="javascript:void(0);" data-target="#add_address_modal" data-toggle="modal" class="addnewAdrr"><img src="images/plus.png"> <?php echo __('Add New Delivery Address');?></a>
+                     <a href="javascript:void(0);" data-target="#add_address_modal" data-toggle="modal" class="addnewAdrr"><img src="/images/plus.png"> <?php echo __('Add New Delivery Address');?></a>
                   </div>
                   <div class="checkoutWrapper clearfix">
                      <div class="row">
@@ -174,7 +174,7 @@
                                 <input type="checkbox" value="Yes" name="payment_wallet" id="use_wallet" onclick="return walletAmount()">
                           <?php } ?>
                           <label class="use_wallet_balance" for="use_wallet">
-                             <div class="use_wallet_txt"><img src="images/wallet.png"><?php echo __('My Wallet');?></div>
+                             <div class="use_wallet_txt"><img src="/images/wallet.png"><?php echo __('My Wallet');?></div>
                           </label>
                           <input type="hidden" id="walletBalance" value="<?= $userDetails['wallet_amount'] ?>">
                        </div>
@@ -256,7 +256,7 @@
                                   ?>
                                   <div id="cod" class="common_content">
                                       <div class="col-sm-5 col-md-5 col-xs-5 no-xs-padding-left pul-right">
-                                          <img src="images/cod2.png">
+                                          <img src="/images/cod2.png">
                                       </div>
                                       <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left no-xs-padding-right pul-left">
                                           <p class="cash_txt"><?php echo __('CASH');?></p>
@@ -284,7 +284,7 @@
                                                           <label for="ccard_select_<?= $cValue['id'] ?>">
                                                               <div class="credit_card">
                                                                   <div class="credit_cardrow">
-                                                                      <div class="visa_img"><img src="images/master.png"></div>
+                                                                      <div class="visa_img"><img src="/images/master.png"></div>
                                                                       <div class="credit_det">
                                                                           <div class="card_number">XXXX-XXXXXXXX-<?= $cValue['card_number'] ?> </div>
                                                                           <div class="card_validity"><?php echo __('Valid till');?> <?= $cValue['exp_month'] ?>/<?= $cValue['exp_year'] ?></div>
@@ -322,7 +322,7 @@
                                                           <label for="ccard_select_<?= $cValue['id'] ?>">
                                                               <div class="credit_card">
                                                                   <div class="credit_cardrow">
-                                                                      <div class="visa_img"><img src="images/master.png"></div>
+                                                                      <div class="visa_img"><img src="/images/master.png"></div>
                                                                       <div class="credit_det">
                                                                           <div class="card_number">XXXXXXXXXXXX<?= $cValue['card_number'] ?> </div>
                                                                           <div class="card_validity"><?php echo __('Valid till');?> <?= $cValue['exp_month'] ?>/<?= $cValue['exp_year'] ?></div>
@@ -342,7 +342,7 @@
                               <?php } else if ($val['payment_method']['payment_method_name'] == 'Paypal') {?>
                                   <div id="paypal" class="common_content" style=" <?= ($cod != 0 || $stripe != 0) ? 'display:none': '' ?>" >
                                       <div class="col-sm-5 col-md-5 col-xs-5 no-xs-padding-left pul-right">
-                                          <img src="images/paypal.png">
+                                          <img src="/images/paypal.png">
                                       </div>
                                       <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left no-xs-padding-right pul-left">
                                           <p class="cash_txt"><?php echo __('PayPal');?></p>
@@ -463,7 +463,7 @@
                 </div>
 
                  <div class="wallet-sec" style="display:none;">
-                    <span class="pull-left pul-right"><img src="images/wallet.png"><?php echo __('My Wallet');?></span>
+                    <span class="pull-left pul-right"><img src="/images/wallet.png"><?php echo __('My Wallet');?></span>
                     <span class="order-total-amount pull-right pul-left"><?= ($siteSettings['site_currency']) ?> <span class="walletAmt"></span>(-)</span>
                 </div>
                 
