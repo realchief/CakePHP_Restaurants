@@ -102,20 +102,52 @@ class CheckoutsController extends AppController
             'valueField' => 'timezone_name'            
         ])->hydrate(false)->toArray();
 
-        if($this->request->is('post')) {
 
-            $custEnty = $this->StripeCustomers->newEntity();
-            $custPatch = $this->StripeCustomers->patchEntity($custEnty,$this->request->getData());
-            $custPatch->customer_id = $this->Auth->user('id');
-            $custPatch->customer_name = $this->Auth->user('first_name');
-            $saveCust = $this->StripeCustomers->save($custPatch);
-            if($saveCust) {
-                $this->Flash->success('Card added successfull');
-                return $this->redirect(BASE_URL.'checkouts');
+        if ($this->request->is('post')) {
+            $config = new \GlobalPayments\Api\ServicesConfig();
+            $config->serviceUrl = 'https://cert.api2.heartlandportico.com';
+            $config->secretApiKey = $restaurantDetails['heartland_secret_api_key'];
+            \GlobalPayments\Api\ServicesContainer::configure($config);
+ 
+            try {
+                $card = new \GlobalPayments\Api\PaymentMethods\CreditCardData();
+                $card->token = $this->request->getData('heartland_token_id');
+ 
+                $address = new \GlobalPayments\Api\Entities\Address();
+                $address->postalCode = $this->request->getData('address_zip');
+ 
+                $response = $card->tokenize()
+                    ->withAddress($address)
+                    ->execute();
+ 
+                if ($response->responseCode === '00') {
+ 
+                    $custEnty = $this->StripeCustomers->newEntity();
+                    $custPatch = $this->StripeCustomers->patchEntity($custEnty, $this->request->getData());
+                    $custPatch->stripe_token_id = $response->token;
+                    $custPatch->stripe_customer_id = '';
+                    $custPatch->card_id = 'customer_id';
+                    $custPatch->country = 'US';
+                    $custPatch->client_ip = $_SERVER['REMOTE_ADDR'];
+                    $custPatch->customer_id = $this->Auth->user('id');
+                    $custPatch->customer_name = $this->Auth->user('first_name');
+                    $saveCust = $this->StripeCustomers->save($custPatch);
+ 
+                    if ($saveCust) {
+                        $this->Flash->success('Card added successfully');
+ 
+                        return $this->redirect(BASE_URL.'checkouts');
+                    }
+ 
+                }
+            } catch (\Exception $e) {
+                error_log('exception: ' . $e->getMessage());
+                // TODO: bubble up errors to user?
             }
-
+ 
+            $this->Flash->error('Error saving card');
+            return $this->redirect(BASE_URL . 'checkouts');
         }
-
 
         if($this->request->is(['post','put'])) {
             $restEntity = $this->Restaurants->newEntity();
@@ -148,7 +180,7 @@ class CheckoutsController extends AppController
             $allTimezonesList = [];
 
             $restaurantTimezone = explode(',', $restaurantDetails['restaurant_timezone']);
-            $timezoneList = '';
+            $timezoneList = [];
             if (!empty($restaurantTimezone)) {
                 foreach ($restaurantTimezone as $tkey => $tvalue) {
                     $timezones = $this->Timezones->find('all', [
@@ -166,7 +198,7 @@ class CheckoutsController extends AppController
                                 $sideTimezones[$timezones['timezone_name']]++;
                             }
 
-                            $allTimezonesList[$cvalue] = $timezones['timezone_name'];
+                            $allTimezonesList[$tvalue] = $timezones['timezone_name'];
                         } else {
                             if (empty($sideTimezones[$timezones['timezone_name']])) {
                                 $sideTimezones[$timezones['timezone_name']] = 1;
@@ -496,8 +528,8 @@ class CheckoutsController extends AppController
             ])->hydrate(false)->toArray();
 
             //pr($addressBooks);die();
-            $addressBookLists = '';
-            $outOfDelivery = '';
+            $addressBookLists = [];
+            $outOfDelivery = [];
             if(!empty($addressBooks)) {
                 foreach($addressBooks as $key => $value) {
 
@@ -515,9 +547,13 @@ class CheckoutsController extends AppController
                             $latitudeTo  = $restaurantDetails['sourcelatitude'];
                             $longitudeTo = $restaurantDetails['sourcelongitude'];
                             $unit='K';
-                            $distance = $this->Common->getDistanceValue($sourcelatitude,$sourcelongitude,$latitudeTo,$longitudeTo,
-                                $unit);
-
+                            $distance = $this->Common->getDistanceValue(
+                                $sourcelatitude,
+                                $sourcelongitude,
+                                $latitudeTo,
+                                $longitudeTo,
+                                $unit
+                            );
                             $distance = str_replace(',','',$distance);
                             list($deliveryCharge,$message) = $this->getDeliveryCharge($restaurantDetails['id'],$distance,$sourcelatitude,$sourcelongitude);
 
@@ -604,7 +640,7 @@ class CheckoutsController extends AppController
             ])->count();
 
             //Timing Section
-            $array_of_time = array ();
+            $array_of_time = [];
 
             $nowTime = date('h:i A');
             //$nowTime = '12.35 PM';
@@ -813,7 +849,7 @@ class CheckoutsController extends AppController
 
                 //pr($restaurantDetails);die;
                 //Timing Section
-                $array_of_time = array ();
+                $array_of_time = [];
 
                 $nowTime = date('h:i A');
                 //$nowTime = '12.35 PM';
@@ -1058,7 +1094,7 @@ class CheckoutsController extends AppController
                 $xyArray = $this->getXYAxis($value['mappath']);
 
                 if (!empty($xyArray) && is_array($xyArray)) {
-                    $objPolygon = new PolygonsController(array('x'=>$lat, 'y'=>$lng), $xyArray);
+                    $objPolygon = new PolygonsController(['x' => $lat, 'y' => $lng], $xyArray);
 
                     if ($objPolygon->check()) {
                         $deliveryCharge = $value['service_delivery_charge'];
@@ -1074,7 +1110,7 @@ class CheckoutsController extends AppController
             $message = 'failed';
         }
 
-        return array($deliveryCharge,$message);
+        return [$deliveryCharge, $message];
     }
 
     //Get XYAxis for location
@@ -1141,16 +1177,21 @@ class CheckoutsController extends AppController
 
                     if($sourcelatitude != '' && $sourcelongitude != '') {
 
-                        $final = array();
-                        $distance = array();
-                        $result = array();
+                        $final = [];
+                        $distance = [];
+                        $result = [];
 
                         $latitudeTo  = $restaurantDetails['sourcelatitude'];
                         $longitudeTo = $restaurantDetails['sourcelongitude'];
                         $unit='K';
 
-                        $distance = $this->Common->getDistanceValue($sourcelatitude,$sourcelongitude,$latitudeTo,$longitudeTo,
-                            $unit);
+                        $distance = $this->Common->getDistanceValue(
+                            $sourcelatitude,
+                            $sourcelongitude,
+                            $latitudeTo,
+                            $longitudeTo,
+                            $unit
+                        );
 
                         $distance = str_replace(',','',$distance);
 
@@ -1168,18 +1209,22 @@ class CheckoutsController extends AppController
                             $addressSave = $this->AddressBooks->save($addressPatch);
                             if($addressSave) {
                                 $this->Flash->success('Address Added Successful');
-                                echo '0';die();
+                                echo '0';
+                                die();
                             }
                         }else {
-                            echo 'error';die();
+                            echo 'error';
+                            die();
                         }
                     }
 
                 }else {
-                    echo '2';die();
+                    echo '2';
+                    die();
                 }
             }else {
-                echo '1';die();
+                echo '1';
+                die();
             }
         }else {
 
@@ -1268,14 +1313,17 @@ class CheckoutsController extends AppController
                     $addressSave = $this->AddressBooks->save($addressPatch);
                     if($addressSave) {
                         $this->Flash->success('Address Added Successful');
-                        echo '0';die();
+                        echo '0';
+                        die();
                     }
                 }else {
-                    echo 'error';die();
+                    echo 'error';
+                    die();
                 }
 
             }else {
-                echo '2';die();
+                echo '2';
+                die();
             }
 
         }
@@ -1460,7 +1508,7 @@ class CheckoutsController extends AppController
                 if($voucherAmount == 'free') {
                     $totalAmount = $totalAmount - $deliveryCharge;
                     $voucherAmount = $deliveryCharge;
-                }else {
+                }else if ($voucherAmount) {
                     $totalAmount = $totalAmount - $voucherAmount;
                 }
 
@@ -1659,18 +1707,18 @@ class CheckoutsController extends AppController
                 }
                 if($this->request->getData('credit_card_choose') == '') {
 
-                    // Create a Customer:
-                    $customer = \Stripe\Customer::create(array(
+                     // Create a Customer:
+                    $customer = \Stripe\Customer::create([
                         "email" => $customerDetails['username'],
                         "source" => $token,
-                    ));
-
+                    ]);
+ 
                     // Charge the Customer instead of the card:
-                    $charge = \Stripe\Charge::create(array(
+                    $charge = \Stripe\Charge::create([
                         "amount" => $payableAmount,
                         "currency" => "usd",
                         "customer" => $customer->id
-                    ));
+                    ]);
                     //echo "<pre>";print_r($charge);die();
                     //Save Stripe's Customer Details in Table
                     $cardEntity = $this->StripeCustomers->newEntity();
@@ -1707,13 +1755,16 @@ class CheckoutsController extends AppController
 
                             //?????????????Ctirical issue///////////// 
 
-                            // echo $customerDetails['username'];
-                            // echo $stripeDetails['stripe_token_id'];                          
+                            echo $customerDetails['username'];
+                            echo $stripeDetails['stripe_token_id'];     
+                            // die();                     
 
-                            $customer = \Stripe\Customer::create(array(
+                            $customer = \Stripe\Customer::create([
                                 "email" => $customerDetails['username'],
-                                "source" => $stripeDetails['stripe_token_id']                                
-                            ));                              
+                                "source" => $stripeDetails['stripe_token_id'],
+                            ]); 
+
+                            // die();                          
 
                             //????????????????????????????????????????????                       
 
@@ -1731,11 +1782,11 @@ class CheckoutsController extends AppController
                         // YOUR CODE: Save the customer ID and other info in a database for later.
 
                         // YOUR CODE (LATER): When it's time to charge the customer again, retrieve the customer ID.
-                        $charge = \Stripe\Charge::create(array(
+                        $charge = \Stripe\Charge::create([
                             "amount" => $payableAmount, // $15.00 this time
                             "currency" => "usd",
                             "customer" => $stripeDetails['stripe_customer_id']
-                        ));
+                        ]);
                         $orderUpdate['stripe_customerid'] = $stripeDetails['stripe_customer_id'];
 
 
@@ -1817,6 +1868,176 @@ class CheckoutsController extends AppController
                     }
 
                     $this->request->session()->write('sessionId','');
+                    session_regenerate_id();
+
+                    $orderId = base64_encode($orderSave->id);
+                    /*$this->Flash->set(__('Your Order Placed Successful'));
+                    return $this->redirect(BASE_URL.'users/thanks/'.$orderId);*/
+                }
+            }elseif ($this->request->getData('payment_method') == 'heartland') {
+                $config = new \GlobalPayments\Api\ServicesConfig();
+                $config->serviceUrl = 'https://cert.api2.heartlandportico.com';
+                $config->secretApiKey = $restaurantDetails['heartland_secret_api_key'];
+                \GlobalPayments\Api\ServicesContainer::configure($config);
+
+                $payableAmount = $totalAmount;
+
+                if ($this->request->getData('payment_wallet') == 'Yes') {
+                    $payableAmount = $totalAmount - $customerDetails['wallet_amount'];
+
+                    $payableAmount = $payableAmount;
+                }
+
+                if ($this->request->getData('credit_card_choose') == '') {
+                    $this->Flash->error('Please select a card');
+                    return $this->redirect(BASE_URL . 'checkouts');
+                }
+
+                $heartlandDetails = $this->StripeCustomers->find('all', [
+                    'conditions' => [
+                        'id' => $this->request->getData('credit_card_choose')
+                    ]
+                ])->hydrate(false)->first();
+                if (!empty($heartlandDetails)) {
+                    $orderUpdate['stripe_customerid'] = $heartlandDetails['stripe_token_id'];
+
+                    $card = new \GlobalPayments\Api\PaymentMethods\CreditCardData();
+                    $card->token = $heartlandDetails['stripe_token_id'];
+
+                    $address = new \GlobalPayments\Api\Entities\Address();
+                    $address->postalCode = $this->request->getData('address_zip');
+
+                    $charge = null;
+                    try {
+                        $charge = $card->charge($payableAmount)
+                            ->withCurrency('USD')
+                            ->withAddress($address)
+                            ->withAllowDuplicates(true)
+                            ->execute();
+                    } catch (\Exception $e) {
+                        error_log('payment exception: ' . $e->getMessage());
+                        $errorMessage = $e->getMessage();
+                    }
+                }
+
+                if (!isset($charge) || $charge == null) {
+                    $this->Flash->error($errorMessage ?: 'Error during payment');
+                    return $this->redirect(BASE_URL . 'checkouts');
+                }
+
+                // TODO: make sure data below is correct before order save?
+                $orderUpdate['order_number'] = 'temp';
+                $orderUpdate['driver_id'] = '0';
+                $orderUpdate['ref_number'] = $charge->referenceNumber;
+                $orderUpdate = $this->Orders->patchEntity($orderEntity, (array)$orderUpdate);
+                $orderUpdate['google_address'] = '';
+                $orderUpdate['landmark'] = '';
+                $orderUpdate['state_name'] = '';
+                $orderUpdate['city_name'] = '';
+                $orderUpdate['location_name'] = '';
+                $orderUpdate['delivery_time_slot'] = $this->request->getData('deliverytime');
+                $orderUpdate['delivery_date'] = $this->request->getData('delivery_date');
+                $orderUpdate['delivery_time'] = $this->request->getData('delivery_time');
+                $orderUpdate['delivered_time'] = '';
+                $orderUpdate['offer_percentage'] = '0';
+                $orderUpdate['offer_amount'] = '0';
+                $orderUpdate['voucher_percentage'] = '0';
+                $orderUpdate['voucher_amount'] = '0';
+                $orderUpdate['tip_percentage'] = '0';
+                $orderUpdate['tip_amount'] = '0';
+
+                $orderUpdate['cardfee_percentage']  = $cardFee;
+                $orderUpdate['cardfee_price']       = $totalAmount * ($cardFee / 100);
+
+                $orderUpdate['payment_wallet']  =  $this->request->getData('payment_wallet') ?: 'No';
+                $orderUpdate['card_id']  =  $this->request->getData('credit_card_choose');
+                $orderUpdate['transaction_id']  =  $charge->transactionId;
+                $orderUpdate['payment_status']  =  'P';
+                $orderUpdate['paid_full'] = 1;
+                $orderUpdate['wallet_amount'] = 0;
+                $orderUpdate['distance'] = 0;
+                $orderUpdate['driver_invoice_number'] = 'temp';
+                $orderUpdate['driver_deliver_date'] = $this->request->getData('delivery_date');
+                $orderUpdate['driver_deliver_time'] = $this->request->getData('delivery_time');
+                $orderUpdate['driver_charge'] = 0;
+                $orderUpdate['failed_reason'] = '';
+                $orderUpdate['order_point'] = 0;
+                $orderUpdate['reward_offer'] = 0;
+                $orderUpdate['reward_offer_percentage'] = 0;
+                $orderUpdate['payerID'] = '';
+                $orderUpdate['paymentToken'] = $orderUpdate['stripe_customerid'];
+                $orderUpdate['paymentID'] = $orderUpdate['transaction_id'];
+                $orderUpdate['order_proof'] = '';
+                $orderUpdate['payout_type'] = 0;
+                $orderUpdate['payout_amount'] = 0;
+                $orderUpdate['completed_time'] = 0;
+                $orderSave = $this->Orders->save($orderUpdate);
+                $payableAmount = $totalAmount;
+
+                if ($orderSave) {
+                    $ordergenid = $this->Common->generateId($orderSave->id);
+                    $finalorderid = "ORD00".$ordergenid;
+
+                    if ($this->request->getData('payment_wallet') == 'Yes') {
+                        $orderUpdate['split_payment'] = 'Yes';
+
+                        $walletAmount = $customerDetails['wallet_amount'] - $totalAmount;
+
+                        $payableAmount = $totalAmount - $customerDetails['wallet_amount'];
+
+                        if ($walletAmount < 0) {
+                            $orderUpdate['split_payment'] = 'Yes';
+                            $orderUpdate['wallet_amount'] = $customerDetails['wallet_amount'];
+                            $customerDetails['wallet_amount'] = 0;
+                        } else {
+                            $customerDetails['wallet_amount'] = $walletAmount;
+                            $orderUpdate['payment_status']  =  'P';
+                        }
+
+                        //Update Wallet Amount
+                        $custEntity = $this->Users->newEntity();
+                        $amount['wallet_amount'] = $customerDetails['wallet_amount'];
+                        $custPatch = $this->Users->patchEntity($custEntity, $amount);
+                        $custPatch->id = $this->Auth->user('id');
+                        $saveCust = $this->Users->save($custPatch);
+
+                        $history['amount'] = $totalAmount;
+
+                        //Add Wallet History
+                        $walletEntity = $this->WalletHistories->newEntity();
+                        $history['customer_id'] = $this->Auth->user('id');
+                        $history['purpose'] = "Amount Paid";
+                        $history['transaction_type'] = 'Debited';
+                        $history['transaction_details'] = $finalorderid;
+                        $walletPatch = $this->WalletHistories->patchEntity($walletEntity, $history);
+                        $saveWallet = $this->WalletHistories->save($walletPatch);
+                    }
+
+                    $payAmt = number_format($payableAmount, 2) * 100;
+
+                    $orderUpdate['cardfee_percentage']  = $cardFee;
+                    $orderUpdate['cardfee_price']       = $totalAmount * ($cardFee / 100);
+
+                    $orderUpdate['order_number']  =  $finalorderid;
+                    $orderUpdate['payment_wallet']  =  $this->request->getData('payment_wallet') ?: 'No';
+                    $orderUpdate['card_id']  =  $this->request->getData('credit_card_choose');
+                    $orderUpdate['transaction_id']  =  $charge->transactionId;
+                    $orderUpdate['payment_status']  =  'P';
+
+                    $orderUpdate['id']                =  $orderSave->id;
+                    $leadsupdt = $this->Orders->patchEntity($orderEntity, (array)$orderUpdate);
+                    $leadssave = $this->Orders->save($leadsupdt);
+
+                    //Update orderiD to Cart Table
+                    foreach ($cartsDetails as $key => $value) {
+                        $cartEntity = $this->Carts->newEntity();
+                        $cartUpdate['order_id'] = $orderSave->id;
+                        $cartPatch = $this->Carts->patchEntity($cartEntity, $cartUpdate);
+                        $cartPatch->id = $value['id'];
+                        $cartSave = $this->Carts->save($cartPatch);
+                    }
+
+                    $this->request->session()->write('sessionId', '');
                     session_regenerate_id();
 
                     $orderId = base64_encode($orderSave->id);
