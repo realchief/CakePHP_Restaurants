@@ -1271,7 +1271,8 @@
 
                                         <?php
                                         foreach ($paymentList as $kPay => $vPay) {
-                                            ?>                                            
+                                            ?>
+                                            
                                             <label class="col-sm-2 control-label">
                                                 <span class="help">*</span>
                                             </label>

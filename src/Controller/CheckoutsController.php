@@ -1879,8 +1879,6 @@ class CheckoutsController extends AppController
                 \GlobalPayments\Api\ServicesContainer::configure($config);
 
                 $payableAmount = $totalAmount;
-                echo $payableAmount;
-                die();
 
                 if ($this->request->getData('payment_wallet') == 'Yes') {
                     $payableAmount = $totalAmount - $customerDetails['wallet_amount'];
