@@ -1268,32 +1268,32 @@
                                                         <input type="radio" id="payment_<?php /*echo $vPay['payment_method']['id'];*/?>" name="payment_id[<?php /*echo $vPay['payment_method']['id'];*/?>]" class="minimal" value="N" <?/*= ($vPay['payment_status'] == 'N') ? 'checked' : '' */?>> No
                                                     </label>
                                                 </div>-->
-                                            <?php
-                                            foreach ($paymentList as $kPay => $vPay) {
-                                                ?>
-                                                <label class="col-sm-2 control-label">
-                                                    <?php echo $vPay['payment_method_name']; ?>
-                                                    <span class="help">*</span>
+
+                                        <?php
+                                        foreach ($paymentList as $kPay => $vPay) {
+                                            ?>                                            
+                                            <label class="col-sm-2 control-label">
+                                                <span class="help">*</span>
+                                            </label>
+                                            <div class="col-sm-4">                                            
+                                                <label class="radio-inline no-padding-left">
+                                                    <input type="radio"
+                                                           id="payment_<?php echo $vPay['id']; ?>"
+                                                           name="payment_id[<?php echo $vPay['id']; ?>]"
+                                                           class="minimal"
+                                                           value="Y" checked>
+                                                    Yes
                                                 </label>
-                                                <div class="col-sm-4">
-                                                    <label class="radio-inline no-padding-left">
-                                                        <input type="radio"
-                                                               id="payment_<?php echo $vPay['id']; ?>"
-                                                               name="payment_id[<?php echo $vPay['id']; ?>]"
-                                                               class="minimal"
-                                                               value="Y" checked>
-                                                        Yes
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <input type="radio"
-                                                               id="payment_<?php echo $vPay['id']; ?>"
-                                                               name="payment_id[<?php echo $vPay['id']; ?>]"
-                                                               class="minimal"
-                                                               value="N">
-                                                        No
-                                                    </label>
-                                                </div>
-                                            <?php } ?>
+                                                <label class="radio-inline">
+                                                    <input type="radio"
+                                                           id="payment_<?php echo $vPay['id']; ?>"
+                                                           name="payment_id[<?php echo $vPay['id']; ?>]"
+                                                           class="minimal"
+                                                           value="N">
+                                                    No
+                                                </label>
+                                            </div>
+                                        <?php } ?>
                                         <span class="paymethodErr"></span>
                                         
                                         <div id="heartland_settings" class="col-sm-12">

@@ -1755,16 +1755,14 @@ class CheckoutsController extends AppController
 
                             //?????????????Ctirical issue///////////// 
 
-                            echo $customerDetails['username'];
-                            echo $stripeDetails['stripe_token_id'];     
-                            // die();                     
+                            // echo $customerDetails['username'];
+                            // echo $stripeDetails['stripe_token_id'];   
 
                             $customer = \Stripe\Customer::create([
                                 "email" => $customerDetails['username'],
                                 "source" => $stripeDetails['stripe_token_id'],
-                            ]); 
+                            ]);
 
-                            // die();                          
 
                             //????????????????????????????????????????????                       
 
@@ -1881,6 +1879,8 @@ class CheckoutsController extends AppController
                 \GlobalPayments\Api\ServicesContainer::configure($config);
 
                 $payableAmount = $totalAmount;
+                echo $payableAmount;
+                die();
 
                 if ($this->request->getData('payment_wallet') == 'Yes') {
                     $payableAmount = $totalAmount - $customerDetails['wallet_amount'];
