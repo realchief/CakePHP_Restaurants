@@ -197,7 +197,7 @@
                      <ul>
                          <?php if (!empty($paymentDetails)) {
                              $ccod = 0;
-                             $sstripe = 0;
+                             $hheartland = 0;
                              $ppaypal = 0;
                              foreach ($paymentDetails as $key => $val ) {
 
@@ -209,30 +209,18 @@
                                          <label data-check="cod" for="cash"><i class="fa fa-money"></i>
                                              <span class="hidden-xs"><?php echo __('COD');?></span></label>
                                      </li>
-                                     <!-- <li>
-                                        <input type="radio" name="payment_method" id="mywallet" value="Wallet">
-                                        <label data-check="e-walllet" for="mywallet"><i class="fa fa-google-wallet"></i>
-                                        Wallet</label>
-                                     </li> -->
-                                 <?php } else if ($val['payment_method']['payment_method_name'] == 'Stripe') {
-                                     $sstripe = 1;
-                                     ?>
-                                     <li>
-                                         <input <?= ($ccod == 0) ? 'checked' : '' ?> type="radio" name="payment_method" id="ccpayment" value="stripe" onclick="return hidePayapl();">
-                                         <label data-check="credit_card" for="ccpayment"><i class="fa fa-credit-card"></i> <span class="hidden-xs">Credit Card</span></label>
-                                     </li>
 
                                   <?php } else if ($val['payment_method']['payment_method_name'] == 'Heartland') {
-                                     $sstripe = 1;
+                                     $hheartland = 1;
                                      ?>
                                      <li>
                                          <input <?= ($ccod == 0) ? 'checked' : '' ?> type="radio" name="payment_method" id="ccpayment" value="heartland" onclick="return hidePayapl();">
-                                         <label data-check="credit_card" for="ccpayment"><i class="fa fa-credit-card"></i> <span class="hidden-xs">Credit Card</span></label>
+                                         <label data-check="credit_card" for="ccpayment"><i class="fa fa-credit-card"></i> <span class="hidden-xs">Heartland</span></label>
                                      </li>
 
                                  <?php } else if ($val['payment_method']['payment_method_name'] == 'Paypal') {?>
                                      <li>
-                                         <input <?= ($ccod == 0 && $sstripe == 0) ? 'checked' : '' ?> type="radio" name="payment_method" id="paypalPay" value="paypal" onclick="return showPaypal();">
+                                         <input <?= ($ccod == 0 && $hheartland == 0) ? 'checked' : '' ?> type="radio" name="payment_method" id="paypalPay" value="paypal" onclick="return showPaypal();">
                                          <label data-check="paypal" for="paypalPay"><i class="fa fa-paypal"></i>
                                              <span class="hidden-xs"><?php echo __('PayPal');?></span></label>
                                      </li>
@@ -270,11 +258,11 @@
                                       <div class="creditcard_conent">
                                           <div  id="payment_content" class="load_money_card">
                                               <span class="stripeErr"></span>
-                                              <?php if(count($userDetails['stripe_customers']) < 3) { ?>
+                                              <!-- <?php if(count($userDetails['stripe_customers']) < 3) { ?>
                                                   <div class="col-xs-12 m-t-10 m-b-10 no-padding m-t-xs-0">
                                                       <span class="pull-right"><button onclick="return showAddCard();" class="btn btn-deafult add_card_btn"><?php echo __('Add Card');?></button></span>
                                                   </div>
-                                              <?php } ?>
+                                              <?php } ?> -->
 
                                               <?php if(!empty($userDetails['stripe_customers'])) {
                                                   foreach ($userDetails['stripe_customers'] as $cKey => $cValue) { ?>

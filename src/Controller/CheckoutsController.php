@@ -1384,6 +1384,7 @@ class CheckoutsController extends AppController
 
             $deliveryCharge = 0;
 
+
             if($this->request->getData('order_type') == 'delivery') {
 
                 if(SEARCHBY == 'Google') {
@@ -1614,8 +1615,7 @@ class CheckoutsController extends AppController
 
             $cardFee = $this->siteSettings['card_fee'];
 
-            $orderPatch = $this->Orders->patchEntity($orderEntity,$orderUpdate);                    
-
+            $orderPatch = $this->Orders->patchEntity($orderEntity,$orderUpdate);  
 
             if($this->request->getData('payment_method') == 'cod' || $this->request->getData('paidFull') == 'Yes') {
 
@@ -1751,20 +1751,12 @@ class CheckoutsController extends AppController
                     if(!empty($stripeDetails)) {                       
                         
 
-                        if($stripeDetails['stripe_customer_id'] == '') {
-
-                            //?????????????Ctirical issue///////////// 
-
-                            // echo $customerDetails['username'];
-                            // echo $stripeDetails['stripe_token_id'];   
+                        if($stripeDetails['stripe_customer_id'] == '') {                     
 
                             $customer = \Stripe\Customer::create([
                                 "email" => $customerDetails['username'],
                                 "source" => $stripeDetails['stripe_token_id'],
-                            ]);
-
-
-                            //????????????????????????????????????????????                       
+                            ]);                                  
 
                             $stripeDetails['stripe_customer_id'] = $customer->id;
 
@@ -1873,9 +1865,12 @@ class CheckoutsController extends AppController
                     return $this->redirect(BASE_URL.'users/thanks/'.$orderId);*/
                 }
             }elseif ($this->request->getData('payment_method') == 'heartland') {
-                $config = new \GlobalPayments\Api\ServicesConfig();
+                
+                die();
+                $config = new \GlobalPayments\Api\ServicesConfig();              
                 $config->serviceUrl = 'https://cert.api2.heartlandportico.com';
-                $config->secretApiKey = $restaurantDetails['heartland_secret_api_key'];
+                $config->secretApiKey = $restaurantDetails['heartland_secret_api_key'];                
+                
                 \GlobalPayments\Api\ServicesContainer::configure($config);
 
                 $payableAmount = $totalAmount;
