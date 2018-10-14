@@ -10,7 +10,7 @@
                   <div class="myaccount-mail"><?= $customerDetails['username'] ?></div>
             </div>
              <div class="col-sm-6 no-padding-right pul-left no-rtlpadding-left">
-                 <span class="pull-right reward_head_btn pul-left"><button class="btn btn-deafult add_new_add_btn"><?php echo __('Earned Points :');?> <?= $customerTotalPoints['total_points'] ?></button></span>
+                 <!-- <span class="pull-right reward_head_btn pul-left"><button class="btn btn-deafult add_new_add_btn"><?php echo __('Earned Points :');?> <?= $customerTotalPoints['total_points'] ?></button></span> -->
              </div>
          </div>
 
@@ -286,13 +286,13 @@
                </div>
             <!-- Payments -->
                <div id="payment_content" class="payment_content common_content" style="display:none;">
-                   <div class="orderhistory_title m-b-20"><?php echo __('Saved Card Details');?>
+                   <!-- <div class="orderhistory_title m-b-20"><?php echo __('Saved Card Details');?>
                        <?php if(count($customerDetails['stripe_customers']) < 3) { ?>
                            <span class="pull-right">
                                <button class="btn btn-deafult add_card_btn" onclick="return showAddCard()"><?php echo __('Add Card');?></button>
                            </span>
                        <?php } ?>
-                  </div>
+                  </div> -->
                   <div id="showAllCard">
                      <?php if(!empty($customerDetails['stripe_customers'])) {
                         foreach ($customerDetails['stripe_customers'] as $cKey => $cValue) { ?>
