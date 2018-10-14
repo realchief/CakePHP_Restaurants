@@ -11,6 +11,8 @@ use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Utility\Hash;
 use Cake\Mailer\Email;
+use GlobalPayments\Api\ServicesConfig;
+use GlobalPayments\Api\ServicesContainer;
 
 
 class CheckoutsController extends AppController
@@ -24,7 +26,8 @@ class CheckoutsController extends AppController
      * e.g. `$this->loadComponent('Security');`
      *
      * @return void
-     */
+     */    
+
     public function initialize()
     {
         parent::initialize();
@@ -104,7 +107,9 @@ class CheckoutsController extends AppController
 
 
         if ($this->request->is('post')) {
-            $config = new \GlobalPayments\Api\ServicesConfig();
+            $config = new ServicesConfig();
+            echo $config;
+            die();
             $config->serviceUrl = 'https://cert.api2.heartlandportico.com';
             $config->secretApiKey = $restaurantDetails['heartland_secret_api_key'];
             \GlobalPayments\Api\ServicesContainer::configure($config);
@@ -1864,10 +1869,14 @@ class CheckoutsController extends AppController
                     /*$this->Flash->set(__('Your Order Placed Successful'));
                     return $this->redirect(BASE_URL.'users/thanks/'.$orderId);*/
                 }
-            }elseif ($this->request->getData('payment_method') == 'heartland') {
-                
+            }elseif ($this->request->getData('payment_method') == 'heartland') {               
+                   
+
+                $config = new ServicesConfig();  
+                echo $config;
                 die();
-                $config = new \GlobalPayments\Api\ServicesConfig();              
+                
+
                 $config->serviceUrl = 'https://cert.api2.heartlandportico.com';
                 $config->secretApiKey = $restaurantDetails['heartland_secret_api_key'];                
                 

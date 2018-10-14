@@ -30,6 +30,7 @@ return array(
     //'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Migrations\\' => array($vendorDir . '/cakephp/migrations/src'),
     'JsonSchema\\' => array($vendorDir . '/justinrainbow/json-schema/src/JsonSchema'),
+    'GlobalPayments\\Api\\' => array($vendorDir . '/globalpayments/php-sdk/src'),
     'RestApi\\' => array($vendorDir . '/multidots/cakephp-rest-api/src'),
     //'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     //'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),

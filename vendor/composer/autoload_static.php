@@ -203,6 +203,10 @@ class ComposerStaticInitb8443911cc5de05d1d676acfb89fcfbf
         array (
             0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
         ),
+        'GlobalPayments\\Api\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/globalpayments/php-sdk/src',
+        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
