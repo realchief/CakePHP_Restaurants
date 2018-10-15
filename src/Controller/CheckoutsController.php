@@ -11,9 +11,6 @@ use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Utility\Hash;
 use Cake\Mailer\Email;
-use GlobalPayments\Api\ServicesConfig;
-use GlobalPayments\Api\ServicesContainer;
-
 
 class CheckoutsController extends AppController
 {
@@ -26,8 +23,7 @@ class CheckoutsController extends AppController
      * e.g. `$this->loadComponent('Security');`
      *
      * @return void
-     */    
-
+     */
     public function initialize()
     {
         parent::initialize();
@@ -107,9 +103,7 @@ class CheckoutsController extends AppController
 
 
         if ($this->request->is('post')) {
-            $config = new ServicesConfig();
-            echo $config;
-            die();
+            $config = new \GlobalPayments\Api\ServicesConfig();
             $config->serviceUrl = 'https://cert.api2.heartlandportico.com';
             $config->secretApiKey = $restaurantDetails['heartland_secret_api_key'];
             \GlobalPayments\Api\ServicesContainer::configure($config);
@@ -1869,24 +1863,33 @@ class CheckoutsController extends AppController
                     /*$this->Flash->set(__('Your Order Placed Successful'));
                     return $this->redirect(BASE_URL.'users/thanks/'.$orderId);*/
                 }
-            }elseif ($this->request->getData('payment_method') == 'heartland') {               
-                   
+            }elseif ($this->request->getData('payment_method') == 'heartland') {                
+                 
+                require_once(ROOT . DS . 'vendor' . DS . 'globalpayments' . DS . 'php-sdk'. DS. 'src'. DS .'ServicesConfig.php');                          
 
-                $config = new ServicesConfig();  
-                echo $config;
-                die();
-                
-
+                $config = new \GlobalPayments\Api\ServicesConfig();              
                 $config->serviceUrl = 'https://cert.api2.heartlandportico.com';
-                $config->secretApiKey = $restaurantDetails['heartland_secret_api_key'];                
-                
-                \GlobalPayments\Api\ServicesContainer::configure($config);
+                $config->secretApiKey = $restaurantDetails['heartland_secret_api_key']; 
 
+                require_once(ROOT . DS . 'vendor' . DS . 'globalpayments' . DS . 'php-sdk'. DS. 'src'. DS .'ServicesContainer.php');                  
+
+                // require_once(ROOT . DS . 'vendor' . DS . 'globalpayments' . DS . 'php-sdk'. DS. 'src'. DS. 'Gateways'. DS .'IPaymentGateway.php');   
+                // require_once(ROOT . DS . 'vendor' . DS . 'globalpayments' . DS . 'php-sdk'. DS. 'src'. DS. 'Gateways'. DS .'IRecurringService.php');                      
+                // require_once(ROOT . DS . 'vendor' . DS . 'globalpayments' . DS . 'php-sdk'. DS. 'src'. DS. 'Gateways'. DS .'PayPlanConnector.php');    
+                // require_once(ROOT . DS . 'vendor' . DS . 'globalpayments' . DS . 'php-sdk'. DS. 'src'. DS. 'Gateways'. DS .'PorticoConnector.php');      
+                // require_once(ROOT . DS . 'vendor' . DS . 'globalpayments' . DS . 'php-sdk'. DS. 'src'. DS. 'Gateways'. DS .'RealexConnector.php');   
+
+                echo("!!!!!!");  
+                echo $config->secretApiKey;  
+                echo $config->serviceUrl;   
+  
+
+                \GlobalPayments\Api\ServicesContainer();  
+                die();
                 $payableAmount = $totalAmount;
 
                 if ($this->request->getData('payment_wallet') == 'Yes') {
                     $payableAmount = $totalAmount - $customerDetails['wallet_amount'];
-
                     $payableAmount = $payableAmount;
                 }
 

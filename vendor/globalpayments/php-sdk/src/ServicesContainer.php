@@ -24,7 +24,7 @@ class ServicesContainer
      *
      * @return
      */
-    public function __construct(IPaymentGateway $gateway, IRecurringService $recurring = null)
+    public function __construct(IPaymentGateway $gateway = null, IRecurringService $recurring = null)
     {
         $this->gateway = $gateway;
         $this->recurring = $recurring;
@@ -68,7 +68,7 @@ class ServicesContainer
             $gateway->hostedPaymentConfig = $config->hostedPaymentConfig;
             static::$instance = new static($gateway, $gateway);
         } else {
-            $gateway = new PorticoConnector();
+	    $gateway = new PorticoConnector();
             $gateway->siteId = $config->siteId;
             $gateway->licenseId = $config->licenseId;
             $gateway->deviceId = $config->deviceId;
@@ -79,7 +79,6 @@ class ServicesContainer
             $gateway->versionNumber = $config->versionNumber;
             $gateway->timeout = $config->timeout;
             $gateway->serviceUrl = $config->serviceUrl . '/Hps.Exchange.PosGateway/PosGatewayService.asmx';
-
             $payplanEndPoint = (strpos(strtolower($config->secretApiKey), '_cert_') > 0) ?
                                 '/Portico.PayPlan.v2/':
                                 '/PayPlan.v2/';
@@ -95,7 +94,8 @@ class ServicesContainer
             $recurring->versionNumber = $config->versionNumber;
             $recurring->timeout = $config->timeout;
             $recurring->serviceUrl = $config->serviceUrl . $payplanEndPoint;
-
+		var_dump(111);
+		exit();
             static::$instance = new static($gateway, $recurring);
         }
     }
